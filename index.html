@@ -3,126 +3,113 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AYNIX — The Future Starts Here</title>
+<title>AYNIX — Beyond The Future</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 <style>
-body {
-    margin: 0;
-    font-family: 'Roboto', sans-serif;
-    color: #fff;
-    background: #000;
+* {margin:0; padding:0; box-sizing:border-box;}
+body {font-family:'Roboto',sans-serif; background:#000; color:#fff; overflow-x:hidden;}
+
+/* Navbar */
+nav {
+  position:fixed; top:0; left:0; width:100%; background:rgba(0,0,0,0.8);
+  display:flex; justify-content:space-between; align-items:center;
+  padding:20px 40px; z-index:100;
+  border-bottom:1px solid #111;
 }
-section {
-    padding: 80px 20px;
-    text-align: center;
+nav h1 {
+  font-family:'Orbitron',sans-serif; color:#00ffff; font-size:1.5rem;
+  text-shadow:0 0 10px #00ffff;
 }
+nav a {
+  margin:0 15px; color:#fff; text-decoration:none; font-weight:600;
+  transition:0.3s;
+}
+nav a:hover {color:#00ffff; text-shadow:0 0 10px #00ffff;}
+
+/* Hero */
 .hero {
-    background: linear-gradient(135deg, #00ffff, #0047ff);
-    color: #000;
-    padding: 120px 20px;
-    box-shadow: 0 4px 20px #00ffff88;
+  height:100vh; display:flex; flex-direction:column; justify-content:center; align-items:center;
+  text-align:center; background:radial-gradient(circle at center,#001 10%,#000 90%);
 }
 .hero h1 {
-    font-size: 3rem;
-    font-family: 'Orbitron', sans-serif;
-    margin-bottom: 10px;
+  font-size:4.5rem; font-family:'Orbitron',sans-serif; color:#00ffff;
+  text-shadow:0 0 20px #00ffff,0 0 50px #0047ff; animation:glow 2s ease-in-out infinite alternate;
 }
 .hero p {
-    font-size: 1.2rem;
+  font-size:1.6rem; margin-top:20px; color:#aaa; max-width:700px;
 }
+@keyframes glow {from{text-shadow:0 0 10px #00ffff;} to{text-shadow:0 0 40px #0047ff,0 0 80px #00ffff;}}
+
+/* Section */
+section {padding:120px 20px; text-align:center;}
 .section-title {
-    font-size: 2rem;
-    margin-bottom: 40px;
-    font-family: 'Orbitron', sans-serif;
-    color: #00ffff;
+  font-size:2.8rem; margin-bottom:40px; font-family:'Orbitron',sans-serif;
+  color:#00ffff; text-shadow:0 0 20px #00ffff;
 }
+
+/* Projects Grid */
 .projects {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:40px; max-width:1000px; margin:auto;
 }
 .project {
-    background: #111;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 0 15px #00ffff55;
-    transition: transform 0.3s, box-shadow 0.3s;
+  background:#111; border:2px solid #00ffff33; border-radius:15px;
+  padding:40px 25px; transition:0.3s; box-shadow:0 0 20px #00ffff33;
 }
-.project:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 0 25px #00ffffaa;
-}
-.project h3 {
-    color: #00ffff;
-}
-.project .status {
-    font-size: 0.9rem;
-    color: #0f0;
-}
-footer {
-    padding: 20px;
-    text-align: center;
-    background: #111;
-    color: #666;
-    font-size: 0.9rem;
-}
+.project:hover {transform:translateY(-15px) scale(1.05); box-shadow:0 0 40px #00ffffaa;}
+.project h3 {color:#00ffff; font-size:1.6rem; margin-bottom:15px;}
+.project a {display:inline-block; margin-top:15px; color:#fff; border:1px solid #00ffff; padding:10px 20px; border-radius:30px; transition:0.3s;}
+.project a:hover {background:#00ffff; color:#000;}
+
+/* Footer */
+footer {padding:40px; background:#111; color:#666; text-align:center; font-size:0.9rem; border-top:1px solid #222;}
 </style>
 </head>
 <body>
 
+<nav>
+  <h1>AYNIX</h1>
+  <div>
+    <a href="index.html">Home</a>
+    <a href="smartwatch.html">Smartwatches</a>
+    <a href="laptops.html">Laptops</a>
+    <a href="mobiles.html">Mobiles</a>
+    <a href="future.html">Future Tech</a>
+  </div>
+</nav>
+
 <section class="hero">
-    <h1>AYNIX</h1>
-    <p>The Future Starts Here — A Proud <strong>Pakistani Brand</strong></p>
+  <h1>AYNIX</h1>
+  <p>⚡ Born in Pakistan. Built for the World. — The Future Starts Here ⚡</p>
 </section>
 
 <section>
-    <h2 class="section-title">Our Vision</h2>
-    <p>We are redefining technology for the Pakistani and global market, making innovation accessible and premium at the same time. AYNIX is not just a brand — it’s a movement towards the future, proudly crafted in Pakistan .</p>
-</section>
-
-<section>
-    <h2 class="section-title">Our Projects & Progress</h2>
-    <div class="projects">
-
-        <div class="project">
-            <h3>Rechargeable Fan</h3>
-            <p class="status">✅ Status: In Development</p>
-            <p>Our aim is to provide eco-friendly, portable fans that save energy, designed to beat power outages common in Pakistan while staying stylish and durable.</p>
-        </div>
-
-        <div class="project">
-            <h3>Smartwatches</h3>
-            <p class="status">🔄 Status: Working</p>
-            <p>To keep Pakistanis connected & healthy, our smartwatches will feature local language support, fitness tracking, and seamless mobile integration — affordable yet premium.</p>
-        </div>
-
-        <div class="project">
-            <h3>AYNIX Laptop Series</h3>
-            <p class="status">🚀 Status: Coming Soon</p>
-            <p>Power-packed laptops designed for creators, gamers, and professionals — giving Pakistan a homegrown alternative to global giants without compromising quality.</p>
-        </div>
-
-        <div class="project">
-            <h3>AYNIX Mobile Series</h3>
-            <p class="status">🚀 Status: Coming Soon</p>
-            <p>Next-gen smartphones engineered for speed, design, and affordability, tailored to the unique needs of the Pakistani market while appealing worldwide.</p>
-        </div>
-
+  <h2 class="section-title">Our Projects</h2>
+  <div class="projects">
+    <div class="project">
+      <h3>Smartwatches</h3>
+      <p>Health, connectivity, and design — redefined for the future.</p>
+      <a href="smartwatch.html">Explore →</a>
     </div>
-</section>
-
-<section>
-    <h2 class="section-title">Brand Aims</h2>
-    <p>Our brand aims to lead Pakistan into a new era of technology leadership by producing world-class electronics and solutions locally, empowering people, creating jobs, and showing that Pakistan can innovate at the global stage.</p>
-</section>
-
-<section>
-    <h2 class="section-title">Contact Us</h2>
-    <p>📧 Email: <strong>aynixofficail@gmail.com</strong></p>
+    <div class="project">
+      <h3>Laptop Series</h3>
+      <p>Power & elegance, designed for creators, gamers, and visionaries.</p>
+      <a href="laptops.html">Explore →</a>
+    </div>
+    <div class="project">
+      <h3>Mobile Series</h3>
+      <p>Next-gen smartphones for speed, design, and global impact.</p>
+      <a href="mobiles.html">Explore →</a>
+    </div>
+    <div class="project">
+      <h3>Future Tech</h3>
+      <p>AI, Robotics, EVs — building the technologies of tomorrow.</p>
+      <a href="future.html">Explore →</a>
+    </div>
+  </div>
 </section>
 
 <footer>
-    <p>© 2025 AYNIX — CEO Ali Yahya | Co-CEO Muhammad ahmed abbas | A Proud Pakistani Innovation</p>
+  <p>© 2025 AYNIX — CEO Ali Yahya | Co-CEO Muhammad Ahmed Abbas</p>
 </footer>
 
 </body>
