@@ -244,6 +244,24 @@ document.addEventListener('mousemove', e => {
   cursor.style.transform = `translate(${e.clientX - 10}px, ${e.clientY - 10}px)`;
 });
 </script>
+  <script>
+window.addEventListener("load", () => {
+  const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  const oscillator = audioCtx.createOscillator();
+  const gainNode = audioCtx.createGain();
+
+  oscillator.type = "sine"; // smooth tone, can be "square" or "triangle"
+  oscillator.frequency.setValueAtTime(600, audioCtx.currentTime); // tone pitch
+  gainNode.gain.setValueAtTime(0.05, audioCtx.currentTime); // soft volume
+
+  oscillator.connect(gainNode);
+  gainNode.connect(audioCtx.destination);
+
+  oscillator.start();
+  oscillator.stop(audioCtx.currentTime + 0.4); // lasts 0.4 sec
+});
+</script>
+
 
 </body>
 </html>
