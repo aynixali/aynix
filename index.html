@@ -3,180 +3,135 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>AYNIX — Boot</title>
+<title>AYNIX</title>
 <link rel="icon" type="image/png" href="ay.png.png">
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --cyan:#00ffff;
-    --bg-1:#000;
-    --panel:#0b0b0b;
+    --accent: #66f0ff;      /* cool cyan, subtle */
+    --accent-2: #4daeff;
+    --bg-1: #010204;
+    --panel: rgba(255,255,255,0.02);
+    --muted: #9aa;
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html,body{height:100%}
   body{
     font-family:"Roboto",sans-serif;
-    background:var(--bg-1);
-    color:#fff;
+    background:linear-gradient(180deg,#000 0%, #03060a 60%);
+    color:#eaf6ff;
     overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
   }
 
-  /* --- Full-canvas layers --- */
+  /* canvas layers (backgrounds) */
   canvas.layer{
-    position:fixed;
-    top:0;left:0;
-    width:100%;height:100%;
-    z-index:-2;
-    pointer-events:none;
+    position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;
   }
-  /* grid sits above particle but behind content */
-  canvas.layer.grid{z-index:-1}
-  canvas.layer.particles{z-index:-2}
+  canvas.grid{z-index:-2;opacity:0.85}
+  canvas.particles{z-index:-3;opacity:0.9}
 
-  /* --- Glowing cursor --- */
-  .custom-cursor{
-    position:fixed;
-    width:20px;height:20px;
-    border:2px solid var(--cyan);
-    border-radius:50%;
-    pointer-events:none;
-    transform:translate(-50%,-50%);
-    z-index:9999;
-    mix-blend-mode:screen;
-  }
-
-  /* --- Boot splash --- */
+  /* Boot splash */
   .boot {
-    position:fixed; inset:0; display:flex;
-    align-items:center; justify-content:center;
-    background:linear-gradient(180deg,#000, #01020a 70%);
-    z-index:1000;
-    transition:opacity .8s ease, visibility .8s;
+    position:fixed;inset:0;display:flex;align-items:center;justify-content:center;
+    background:linear-gradient(180deg, rgba(1,2,4,0.98), rgba(1,2,4,0.98));
+    z-index:999;transition:opacity .8s ease,visibility .8s;
   }
-  .boot.hidden{opacity:0; visibility:hidden; pointer-events:none}
-  .boot-card {
-    width:min(860px,92%); padding:30px; border-radius:16px;
-    background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-    border:1px solid rgba(0,255,255,0.06);
-    box-shadow: 0 10px 40px rgba(0,0,0,0.7), 0 0 40px rgba(0,255,255,0.03) inset;
-    display:flex; gap:30px; align-items:center;
+  .boot.hidden{opacity:0;visibility:hidden;pointer-events:none}
+  .boot-card{
+    width:min(880px,94%);padding:30px;border-radius:14px;
+    background:linear-gradient(180deg, rgba(255,255,255,0.015), rgba(255,255,255,0.01));
+    border:1px solid rgba(102,240,255,0.06);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.6), 0 0 40px rgba(77,174,255,0.02) inset;
+    display:flex;gap:28px;align-items:center;
   }
-  .boot-left{flex:1; min-width:240px}
-  .logo {
-    font-family:'Orbitron',sans-serif;
-    font-size:48px;color:var(--cyan);letter-spacing:6px;
-    text-shadow:0 0 12px var(--cyan), 0 0 40px rgba(0,71,255,0.4);
-    display:flex;align-items:center;gap:12px;
+  .boot-left{flex:1;min-width:260px}
+  .logo{
+    font-family:'Orbitron',sans-serif;font-size:44px;color:var(--accent);
+    letter-spacing:6px;text-shadow:0 0 12px rgba(102,240,255,0.16);
+    display:flex;align-items:center;gap:14px;
   }
-  .logo .dot{width:10px;height:10px;background:var(--cyan);border-radius:50%;box-shadow:0 0 10px var(--cyan)}
-  .boot-sub{color:#9aa; margin-top:8px}
-  .boot-right{width:360px; max-width:45%;}
-  .progress-wrap{margin-top:14px;background:rgba(255,255,255,0.02);border-radius:999px;padding:6px;border:1px solid rgba(0,255,255,0.04)}
-  .progress-bar{
-    height:12px;border-radius:999px;background:linear-gradient(90deg,var(--cyan),#4db5ff);
-    width:0%; transition:width 0.2s linear;
-    box-shadow: 0 6px 20px rgba(0,255,255,0.06);
+  .logo .mark{
+    width:12px;height:12px;border-radius:50%;
+    background:linear-gradient(180deg,var(--accent),var(--accent-2));
+    box-shadow:0 0 14px rgba(102,240,255,0.18);
   }
-  .boot-meta{display:flex;gap:10px;align-items:center;margin-top:12px;color:#7fa}
-  .boot-status{font-family:monospace;color:#9ff;font-size:0.95rem}
+  .boot-sub{color:var(--muted);margin-top:8px;font-size:0.95rem}
+  .status{font-family:monospace;color:#bfe; margin-top:10px}
 
-  /* small CTA fallback */
-  .boot-actions{margin-top:16px; display:flex; gap:10px; justify-content:space-between; align-items:center;}
-  .btn {
-    padding:8px 14px;border-radius:999px;border:1px solid rgba(0,255,255,0.12);
-    background:transparent;color:#fff;font-weight:600;cursor:pointer;
-    transition:all .18s ease;
-  }
-  .btn:hover{transform:translateY(-3px); box-shadow:0 6px 18px rgba(0,255,255,0.05)}
-  .btn.primary{background:var(--cyan); color:#000; border-color:transparent}
+  .boot-right{width:360px;max-width:45%}
+  .progress-wrap{margin-top:14px;background:rgba(255,255,255,0.01);border-radius:999px;padding:6px;border:1px solid rgba(255,255,255,0.02)}
+  .progress-bar{height:10px;border-radius:999px;background:linear-gradient(90deg,var(--accent),var(--accent-2));width:0%;transition:width .18s linear}
 
-  /* --- Main site content --- */
-  nav {
-    position:fixed; top:0; left:0; width:100%;
-    background:rgba(0,0,0,0.6); display:flex; justify-content:space-between; align-items:center;
-    padding:18px 36px; z-index:200; border-bottom:1px solid rgba(255,255,255,0.02);
-    backdrop-filter: blur(6px);
+  /* Top nav (glass) */
+  nav{
+    position:fixed;top:18px;left:18px;right:18px;display:flex;justify-content:space-between;align-items:center;
+    padding:12px 18px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    border:1px solid rgba(255,255,255,0.02);backdrop-filter: blur(6px);z-index:50;
   }
-  nav h1{font-family:'Orbitron',sans-serif;color:var(--cyan); font-size:1.4rem; text-shadow:0 0 8px var(--cyan)}
-  nav a{color:#fff; margin:0 10px; text-decoration:none; font-weight:600}
-  nav a:hover{color:var(--cyan)}
-  .hero{
-    height:100vh; display:flex; align-items:center; justify-content:center; flex-direction:column; text-align:center;
-    padding-top:60px; position:relative;
-  }
-  .hero h1{font-family:'Orbitron',sans-serif;font-size:4.5rem;color:var(--cyan); text-shadow:0 0 18px var(--cyan),0 0 50px #0047ff; margin-bottom:8px}
-  .hero p{color:#bfc; font-size:1.25rem; max-width:760px}
-  section {padding:110px 20px; text-align:center}
-  .section-title{font-family:'Orbitron',sans-serif;font-size:2.4rem;color:var(--cyan);margin-bottom:26px}
+  nav h1{font-family:'Orbitron',sans-serif;color:var(--accent);font-size:1.2rem;letter-spacing:2px}
+  nav .links a{color:#eaf6ff;margin:0 10px;text-decoration:none;font-weight:600;opacity:0.92}
+  nav .links a:hover{color:var(--accent)}
 
-  .projects{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:28px;max-width:1000px;margin:0 auto}
-  .project{background:#0d0d0d;border-radius:14px;padding:28px;border:1px solid rgba(0,255,255,0.04);box-shadow:0 10px 30px rgba(0,0,0,0.6)}
-  .project h3{color:var(--cyan);font-family:'Orbitron',sans-serif;margin-bottom:10px}
-  .project p{color:#9aa}
+  /* hero */
+  .hero{height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding-top:40px;z-index:10;position:relative}
+  .hero h1{font-family:'Orbitron',sans-serif;font-size:4rem;color:var(--accent);margin-bottom:6px;letter-spacing:4px;opacity:0}
+  .hero p{color:var(--muted);font-size:1.1rem;opacity:0;max-width:760px}
 
-  footer{padding:36px;text-align:center;color:#777;border-top:1px solid rgba(255,255,255,0.02);background:linear-gradient(180deg,transparent, rgba(0,0,0,0.4))}
-  /* Fade-in helper */
-  .fade-in-up{opacity:0;transform:translateY(36px);transition:all .9s cubic-bezier(.2,.9,.2,1)}
-  .fade-in-up.visible{opacity:1;transform:none}
-  @media (max-width:560px){
-    .logo{font-size:28px}
-    .logo .dot{display:none}
-    .boot-card{flex-direction:column;gap:18px}
-    .boot-right{width:100%;max-width:none}
-  }
+  section{padding:110px 20px;text-align:center}
+  .section-title{font-family:'Orbitron',sans-serif;font-size:2.2rem;color:var(--accent);margin-bottom:22px}
+
+  .projects{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:22px;max-width:1000px;margin:0 auto}
+  .project{background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.007));border-radius:12px;padding:20px;border:1px solid rgba(255,255,255,0.02);box-shadow:0 8px 30px rgba(0,0,0,0.5)}
+  .project h3{color:var(--accent);font-family:'Orbitron',sans-serif;margin-bottom:8px}
+  .project p{color:var(--muted);margin-bottom:12px}
+  .project a{display:inline-block;padding:8px 14px;border-radius:999px;border:1px solid rgba(102,240,255,0.08);text-decoration:none;color:#eaffff;font-weight:600}
+
+  footer{padding:36px;text-align:center;color:#8fa;border-top:1px solid rgba(255,255,255,0.02)}
+
+  /* subtle reveal */
+  .fade{opacity:0;transform:translateY(18px);transition:all .9s cubic-bezier(.2,.9,.2,1)}
+  .fade.visible{opacity:1;transform:none}
+  @media(max-width:560px){ .logo{font-size:30px} .hero h1{font-size:2.8rem} }
 </style>
 </head>
 <body>
 
-  <!-- Audio placeholders - put files boot.mp3 and beep.mp3 in same folder -->
-  <audio id="bootAudio" src="boot.mp3" preload="auto"></audio>
-  <audio id="beepAudio" src="beep.mp3" preload="auto"></audio>
+  <!-- audio files (place your mp3s in the same folder) -->
+  <audio id="bootSound" src="boot.mp3" preload="auto"></audio>
+  <audio id="humSound" src="hum.mp3" preload="auto" loop></audio>
+  <audio id="uiBeep" src="ui-beep.mp3" preload="auto"></audio>
 
-  <!-- Canvas layers -->
-  <canvas id="gridCanvas" class="layer grid"></canvas>
-  <canvas id="particleCanvas" class="layer particles"></canvas>
+  <!-- background canvases -->
+  <canvas id="grid" class="layer grid"></canvas>
+  <canvas id="particles" class="layer particles"></canvas>
 
-  <!-- Glowing cursor -->
-  <div id="cursor" class="custom-cursor" aria-hidden="true"></div>
-
-  <!-- Boot splash -->
-  <div id="boot" class="boot" role="dialog" aria-modal="true" aria-label="AYNIX System Boot">
-    <div class="boot-card">
+  <!-- boot splash (10s), auto-fades -->
+  <div id="boot" class="boot" role="dialog" aria-label="AYNIX boot">
+    <div class="boot-card" aria-hidden="false">
       <div class="boot-left">
-        <div class="logo">
-          <div class="dot" id="logoDot"></div>
-          <div id="logoText">AYNIX</div>
-        </div>
-        <div class="boot-sub">System Core — AI interface v2.5</div>
-        <div class="boot-meta">
-          <div class="boot-status" id="bootLine">Initializing hardware checks...</div>
-        </div>
+        <div class="logo"><div class="mark" id="mark"></div><div id="logoTxt">AYNIX</div></div>
+        <div class="boot-sub">Core System — Interface v3.0</div>
+        <div class="status" id="statusLine">Preparing secure environment…</div>
       </div>
 
       <div class="boot-right">
-        <div style="display:flex;align-items:center;justify-content:space-between">
-          <div style="font-family:monospace;color:#aee">System Boot</div>
-          <div id="timeLeft" style="font-family:monospace;color:#9ff">10s</div>
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <div style="font-family:monospace;color:#bff">System Boot</div>
+          <div id="count" style="font-family:monospace;color:#bff">10s</div>
         </div>
         <div class="progress-wrap" aria-hidden="true">
           <div id="progress" class="progress-bar"></div>
-        </div>
-
-        <div class="boot-actions">
-          <div style="font-size:0.9rem;color:#9bb">Sound: <span id="soundState">Auto</span></div>
-          <div style="display:flex;gap:8px">
-            <button id="forceSound" class="btn">Activate AYNIX</button>
-            <button id="skipBoot" class="btn">Skip</button>
-          </div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Nav & Content -->
-  <nav class="fade-in-up">
+  <!-- top nav -->
+  <nav>
     <h1>AYNIX</h1>
-    <div>
+    <div class="links">
       <a href="index.html">Home</a>
       <a href="smartwatch.html">Smartwatches</a>
       <a href="laptops.html">Laptops</a>
@@ -185,322 +140,232 @@
     </div>
   </nav>
 
+  <!-- content -->
   <main>
-    <section class="hero fade-in-up">
-      <h1 id="mainTitle">AYNIX</h1>
-      <p>"Aynix: Built different"</p>
+    <section class="hero">
+      <h1 id="title">AYNIX</h1>
+      <p id="subtitle">"Aynix: Built different"</p>
     </section>
 
-    <section class="fade-in-up">
+    <section id="projects" class="fade">
       <h2 class="section-title">Our Projects</h2>
       <div class="projects">
         <div class="project">
           <h3>Smartwatches</h3>
           <p>Health, connectivity, and design redefined for the future.</p>
-          <a class="btn" href="smartwatch.html">Explore</a>
+          <a href="smartwatch.html">Explore</a>
         </div>
         <div class="project">
           <h3>Laptop Series</h3>
           <p>Power & elegance, designed for creators, gamers, and visionaries.</p>
-          <a class="btn" href="laptops.html">Explore</a>
+          <a href="laptops.html">Explore</a>
         </div>
         <div class="project">
           <h3>Mobile Series</h3>
           <p>Next-gen smartphones for speed, design, and global impact.</p>
-          <a class="btn" href="mobiles.html">Explore</a>
+          <a href="mobiles.html">Explore</a>
         </div>
         <div class="project">
           <h3>Future Tech</h3>
           <p>AI, Robotics, EVs — building the technologies of tomorrow.</p>
-          <a class="btn" href="future.html">Explore</a>
+          <a href="future.html">Explore</a>
         </div>
       </div>
     </section>
   </main>
 
-  <footer class="fade-in-up">
+  <footer class="fade">
     <p>©2025 AYNIX | CEO - Ali Yahya</p>
   </footer>
 
 <script>
-/* =========================
-   Config
-   ========================= */
-const BOOT_DURATION = 10000; // 10 seconds
+/* ---------- config ---------- */
+const BOOT_MS = 10000;
 const bootEl = document.getElementById('boot');
-const progressEl = document.getElementById('progress');
-const bootLine = document.getElementById('bootLine');
-const timeLeftEl = document.getElementById('timeLeft');
-const bootAudio = document.getElementById('bootAudio');
-const beepAudio = document.getElementById('beepAudio');
-const forceSoundBtn = document.getElementById('forceSound');
-const skipBootBtn = document.getElementById('skipBoot');
-const soundState = document.getElementById('soundState');
-let bootStart = null;
-let bootInterval = null;
-let bootEnded = false;
+const progress = document.getElementById('progress');
+const countEl = document.getElementById('count');
+const status = document.getElementById('statusLine');
+const bootSound = document.getElementById('bootSound');
+const humSound = document.getElementById('humSound');
+const uiBeep = document.getElementById('uiBeep');
 
-/* Try autoplay the boot audio. Browsers may block autoplay without user gesture.
-   We'll try and if blocked, user can click "Activate AYNIX". */
-async function tryPlayBoot(){
-  try{
-    if(bootAudio && bootAudio.src){
-      await bootAudio.play();
-      soundState.textContent = 'Playing';
-    } else {
-      soundState.textContent = 'No file';
-    }
-  } catch(e){
-    soundState.textContent = 'Blocked';
-    // leave for user to activate
+/* status messages (evenly spaced) */
+const statuses = [
+  'Power rails stable',
+  'Secure enclave online',
+  'Neural cores calibrated',
+  'Holographic shaders loaded',
+  'Particle matrix synced',
+  'Runtime instantiated',
+  'Services starting',
+  'Finalizing'
+];
+
+/* attempt to play audio (may be blocked) */
+async function attemptAudio(){
+  try {
+    if(bootSound && bootSound.src) await bootSound.play();
+    if(humSound && humSound.src) { await humSound.play(); humSound.volume = 0.22; }
+  } catch(e) {
+    // autoplay blocked — visuals still play
+    // do nothing; hum will stay silent until user gesture
   }
 }
 
-/* Fallback to play beep */
-async function tryPlayBeep(){
-  try{
-    if(beepAudio && beepAudio.src){
-      await beepAudio.play();
-    }
-  } catch(e){}
+/* boot progression */
+function runBoot(){
+  const start = performance.now();
+  let statusIdx = 0;
+  const tick = () => {
+    const elapsed = performance.now() - start;
+    const pct = Math.min(100, (elapsed / BOOT_MS) * 100);
+    progress.style.width = pct + '%';
+    const left = Math.max(0, Math.ceil((BOOT_MS - elapsed) / 1000));
+    countEl.textContent = left + 's';
+    // update status periodically
+    const seg = BOOT_MS / statuses.length;
+    if(elapsed > (statusIdx+1)*seg && statusIdx < statuses.length - 1) statusIdx++;
+    status.textContent = statuses[statusIdx];
+    if(elapsed < BOOT_MS) requestAnimationFrame(tick);
+    else finishBoot();
+  };
+  requestAnimationFrame(tick);
+  attemptAudio();
 }
 
-/* Handle force activation (user click) */
-forceSoundBtn.addEventListener('click', async () => {
-  try{
-    await bootAudio.play();
-    await beepAudio.play();
-    soundState.textContent = 'Activated';
-  } catch(e){
-    soundState.textContent = 'Failed';
-  }
-});
+/* finish boot (auto reveal) */
+function finishBoot(){
+  // small UI beep on finish
+  try { uiBeep.play().catch(()=>{}); } catch(e){}
 
-/* Skip boot */
-skipBootBtn.addEventListener('click', () => {
-  endBoot(true);
-});
-
-/* Boot animation sequence (progress + status updates) */
-function startBoot(){
-  bootStart = performance.now();
-  const statuses = [
-    "Power rails stable",
-    "Initializing neural net cores",
-    "Calibrating sensors",
-    "Loading holographic shaders",
-    "Syncing particle matrix",
-    "Spawning AI runtime",
-    "Finalizing handshake",
-    "Completing boot"
-  ];
-  let idx = 0;
-  bootInterval = setInterval(() => {
-    const elapsed = performance.now() - bootStart;
-    const pct = Math.min(100, (elapsed / BOOT_DURATION) * 100);
-    progressEl.style.width = pct + '%';
-    timeLeftEl.textContent = Math.max(0, Math.ceil((BOOT_DURATION - elapsed)/1000)) + 's';
-    // update status every ~1.25s
-    if(elapsed > (idx+1) * (BOOT_DURATION / statuses.length)){
-      bootLine.textContent = statuses[idx];
-      idx = Math.min(statuses.length-1, idx+1);
-    }
-    if(elapsed >= BOOT_DURATION){
-      endBoot(false);
-    }
-  }, 120);
-
-  // small logo flicker
-  const logoDot = document.getElementById('logoDot');
-  let flicker = 0;
-  const flick = setInterval(()=> {
-    logoDot.style.opacity = (Math.random()>0.6)?1:0.25;
-    flicker++;
-    if(flicker>20) { clearInterval(flick); logoDot.style.opacity=1; }
-  }, 120);
-
-  // attempt to play boot audio
-  tryPlayBoot();
-}
-
-/* End boot and reveal site */
-async function endBoot(force){
-  if(bootEnded) return;
-  bootEnded = true;
-  clearInterval(bootInterval);
-  progressEl.style.width = '100%';
-  timeLeftEl.textContent = '0s';
-  bootLine.textContent = 'Boot complete — starting services';
-  await tryPlayBeep();
-
-  // fade out splash
+  // fade the splash
   bootEl.classList.add('hidden');
 
-  // reveal content animations
-  setTimeout(()=> {
-    document.querySelectorAll('.fade-in-up').forEach((el,i)=>{
-      setTimeout(()=> el.classList.add('visible'), 120 + i*120);
-    });
-  }, 350);
+  // reveal page content with subtle stagger
+  const reveal = document.querySelectorAll('.fade, .hero h1, .hero p, footer');
+  reveal.forEach((el, i) => {
+    setTimeout(()=> el.classList.add('visible'), 300 + i*140);
+  });
 
-  // small hero title scan-in
-  const mainTitle = document.getElementById('mainTitle');
-  mainTitle.style.opacity = 0;
-  mainTitle.style.letterSpacing = '20px';
+  // subtle title scan animation
+  const title = document.getElementById('title');
+  title.style.opacity = 0;
+  title.style.letterSpacing = '20px';
   setTimeout(()=> {
-    mainTitle.style.transition = 'all 1s cubic-bezier(.2,.9,.2,1)';
-    mainTitle.style.opacity = 1;
-    mainTitle.style.letterSpacing = '6px';
-  }, 540);
+    title.style.transition = 'all .9s cubic-bezier(.2,.9,.2,1)';
+    title.style.opacity = 1;
+    title.style.letterSpacing = '6px';
+  }, 500);
 }
 
-/* Initialize boot on page load */
+/* start on load */
 window.addEventListener('load', () => {
-  // begin boot (but allow autoplay attempts)
-  startBoot();
-
-  // some browsers block autoplay - show Activate button visible (already present)
-  tryPlayBoot();
+  runBoot();
 });
 
-/* ==============
-   Canvas Particle Layer
-   ============== */
+/* ---------- particle canvas (elegant) ---------- */
 (function(){
-  const canvas = document.getElementById('particleCanvas');
-  const ctx = canvas.getContext('2d');
-  let particles = [];
-  function resize(){ canvas.width = innerWidth; canvas.height = innerHeight; }
+  const c = document.getElementById('particles');
+  const ctx = c.getContext('2d');
+  let ps = [];
+  function resize(){ c.width = innerWidth; c.height = innerHeight; }
   window.addEventListener('resize', resize); resize();
 
-  class P {
+  class Part {
     constructor(){
-      this.x = Math.random()*canvas.width;
-      this.y = Math.random()*canvas.height;
-      this.r = Math.random()*2.2 + 0.6;
-      this.vx = (Math.random()-0.5) * 0.6;
-      this.vy = (Math.random()-0.5) * 0.6;
-      this.alpha = 0.5 + Math.random()*0.5;
+      this.x = Math.random()*c.width;
+      this.y = Math.random()*c.height;
+      this.r = Math.random()*1.8 + 0.6;
+      this.vx = (Math.random()-0.5)*0.4;
+      this.vy = (Math.random()-0.5)*0.4;
+      this.alpha = 0.25 + Math.random()*0.5;
     }
     update(){
-      this.x += this.vx;
-      this.y += this.vy;
-      if(this.x<0 || this.x>canvas.width) this.vx *= -1;
-      if(this.y<0 || this.y>canvas.height) this.vy *= -1;
+      this.x += this.vx; this.y += this.vy;
+      if(this.x<0||this.x>c.width) this.vx *= -1;
+      if(this.y<0||this.y>c.height) this.vy *= -1;
     }
     draw(){
       ctx.beginPath();
-      ctx.fillStyle = "rgba(0,255,255,"+this.alpha+")";
-      ctx.arc(this.x, this.y, this.r, 0, Math.PI*2);
-      ctx.fill();
+      ctx.fillStyle = 'rgba(102,240,255,'+this.alpha+')';
+      ctx.arc(this.x,this.y,this.r,0,Math.PI*2); ctx.fill();
     }
   }
 
-  function init(n=88){
-    particles = [];
-    for(let i=0;i<n;i++) particles.push(new P());
-  }
+  function init(n=60){ ps = []; for(let i=0;i<n;i++) ps.push(new Part()); }
   function connect(){
-    for(let i=0;i<particles.length;i++){
-      for(let j=i+1;j<particles.length;j++){
-        let a = particles[i], b = particles[j];
-        let dx = a.x - b.x, dy = a.y - b.y;
-        let d = Math.sqrt(dx*dx + dy*dy);
-        if(d < 120){
-          ctx.strokeStyle = 'rgba(0,255,255,'+ (0.08*(1 - d/120)) +')';
-          ctx.lineWidth = 1;
-          ctx.beginPath();
-          ctx.moveTo(a.x,a.y);
-          ctx.lineTo(b.x,b.y);
-          ctx.stroke();
+    for(let i=0;i<ps.length;i++){
+      for(let j=i+1;j<ps.length;j++){
+        const a=ps[i], b=ps[j];
+        const dx=a.x-b.x, dy=a.y-b.y, d=Math.sqrt(dx*dx+dy*dy);
+        if(d < 110){
+          ctx.strokeStyle = 'rgba(77,174,255,' + (0.06*(1 - d/110)) + ')';
+          ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y); ctx.stroke();
         }
       }
     }
   }
 
-  function anim(){
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-    for(let p of particles){ p.update(); p.draw(); }
+  function loop(){
+    ctx.clearRect(0,0,c.width,c.height);
+    ps.forEach(p=>{ p.update(); p.draw(); });
     connect();
-    requestAnimationFrame(anim);
+    requestAnimationFrame(loop);
   }
-
-  init();
-  anim();
+  init(); loop();
 })();
 
-/* ==============
-   Holographic Grid (rotating)
-   ============== */
+/* ---------- holographic grid (subtle rotate) ---------- */
 (function(){
-  const c = document.getElementById('gridCanvas');
-  const ctx = c.getContext('2d');
-  function resize(){ c.width = innerWidth; c.height = innerHeight; }
+  const g = document.getElementById('grid');
+  const ctx = g.getContext('2d');
+  function resize(){ g.width = innerWidth; g.height = innerHeight; }
   window.addEventListener('resize', resize); resize();
 
   let angle = 0;
-  function drawGrid(){
-    ctx.clearRect(0,0,c.width,c.height);
-    const cx = c.width/2, cy = c.height/2;
-    // rotating radial rings
-    for(let r=60;r<Math.max(c.width,c.height); r+=40){
+  function draw(){
+    ctx.clearRect(0,0,g.width,g.height);
+    const cx = g.width/2, cy = g.height/2;
+    const maxR = Math.min(g.width,g.height) * 0.55;
+    // faint rings
+    for(let r=80; r<maxR; r+=48){
       ctx.beginPath();
       ctx.lineWidth = 1;
-      const g = ctx.createLinearGradient(cx,cy,cx+r,cy+r);
-      g.addColorStop(0,'rgba(0,255,255,0.03)');
-      g.addColorStop(1,'rgba(77,181,255,0.02)');
-      ctx.strokeStyle = g;
-      ctx.arc(cx,cy,r,0,Math.PI*2);
+      ctx.strokeStyle = 'rgba(77,174,255,0.02)';
+      ctx.arc(cx,cy,r + Math.sin(angle*2 + r/150)*4,0,Math.PI*2);
       ctx.stroke();
     }
-    // rotating spokes
-    const spokes = 18;
+    // faint radial lines
+    const spokes = 12;
     for(let i=0;i<spokes;i++){
       const a = i*(Math.PI*2/spokes) + angle;
       ctx.beginPath();
-      ctx.moveTo(cx + Math.cos(a)*20, cy + Math.sin(a)*20);
-      ctx.lineTo(cx + Math.cos(a)*(Math.min(c.width,c.height)/2 + 80), cy + Math.sin(a)*(Math.min(c.width,c.height)/2 + 80));
+      ctx.moveTo(cx + Math.cos(a)*12, cy + Math.sin(a)*12);
+      ctx.lineTo(cx + Math.cos(a)*(maxR+60), cy + Math.sin(a)*(maxR+60));
+      ctx.strokeStyle = 'rgba(102,240,255,0.01)';
       ctx.lineWidth = 1;
-      ctx.strokeStyle = 'rgba(0,255,255,0.03)';
       ctx.stroke();
     }
+    // center subtle glow
+    const gd = ctx.createRadialGradient(cx,cy,10,cx,cy,200);
+    gd.addColorStop(0,'rgba(102,240,255,0.035)');
+    gd.addColorStop(1,'rgba(102,240,255,0.000)');
+    ctx.fillStyle = gd;
+    ctx.beginPath(); ctx.arc(cx,cy,160,0,Math.PI*2); ctx.fill();
 
-    // glowing center
-    const grd = ctx.createRadialGradient(cx,cy,10,cx,cy,250);
-    grd.addColorStop(0, 'rgba(0,255,255,0.06)');
-    grd.addColorStop(1, 'rgba(0,255,255,0.001)');
-    ctx.fillStyle = grd;
-    ctx.beginPath();
-    ctx.arc(cx,cy,250,0,Math.PI*2);
-    ctx.fill();
-
-    angle += 0.0025;
-    requestAnimationFrame(drawGrid);
+    angle += 0.0022;
+    requestAnimationFrame(draw);
   }
-  drawGrid();
+  draw();
 })();
 
-/* ==============
-   Cursor
-   ============== */
-(function(){
-  const cur = document.getElementById('cursor');
-  document.addEventListener('mousemove', e => {
-    cur.style.left = e.clientX + 'px';
-    cur.style.top = e.clientY + 'px';
-  });
-  // slight scale on click
-  document.addEventListener('mousedown', ()=> { cur.style.transform = 'translate(-50%,-50%) scale(0.85)'; });
-  document.addEventListener('mouseup', ()=> { cur.style.transform = 'translate(-50%,-50%) scale(1)'; });
-})();
-
-/* Small accessibility: pressing Enter will activate sound if blocked */
-document.addEventListener('keydown', (e)=>{
-  if(e.key === 'Enter'){
-    bootAudio.play().catch(()=>{});
-    beepAudio.play().catch(()=>{});
+/* optional: small keyboard gesture to un-mute (if browser blocked) */
+document.addEventListener('keydown', (e) => {
+  if(e.key === 'm' || e.key === 'M'){
+    try { humSound.muted = !humSound.muted; } catch(e){}
   }
 });
 </script>
 </body>
 </html>
+
