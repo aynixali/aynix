@@ -1,97 +1,194 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>AYNIX</title>
 <link rel="icon" type="image/png" href="ay.png.png">
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 <style>
-* {margin:0; padding:0; box-sizing:border-box;}
-body {font-family:'Roboto',sans-serif; background:#000; color:#fff; overflow-x:hidden;}
+  /* Reset + base */
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html,body { height: 100%; }
+  body {
+    font-family: 'Roboto', sans-serif;
+    background: #000;
+    color: #fff;
+    overflow-x: hidden;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+  }
 
-/* Navbar */
-nav {
-  position:fixed; top:0; left:0; width:100%; background:rgba(0,0,0,0.8);
-  display:flex; justify-content:space-between; align-items:center;
-  padding:20px 40px; z-index:100;
-  border-bottom:1px solid #111;
-}
-nav h1 {
-  font-family:'Orbitron',sans-serif; color:#00ffff; font-size:1.5rem;
-  text-shadow:0 0 10px #00ffff;
-}
-nav a {
-  margin:0 15px; color:#fff; text-decoration:none; font-weight:600;
-  transition:0.3s;
-}
-nav a:hover {color:#00ffff; text-shadow:0 0 10px #00ffff;}
+  /* canvas behind everything */
+  #particle-bg {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background: radial-gradient(circle at center, #001 10%, #000 90%);
+  }
 
-/* Hero */
-.hero {
-  height:100vh; display:flex; flex-direction:column; justify-content:center; align-items:center;
-  text-align:center; background:radial-gradient(circle at center,#001 10%,#000 90%);
-}
-.hero h1 {
-  font-size:4.5rem; font-family:'Orbitron',sans-serif; color:#00ffff;
-  text-shadow:0 0 20px #00ffff,0 0 50px #0047ff; animation:glow 2s ease-in-out infinite alternate;
-}
-.hero p {
-  font-size:1.6rem; margin-top:20px; color:#aaa; max-width:700px;
-}
-@keyframes glow {from{text-shadow:0 0 10px #00ffff;} to{text-shadow:0 0 40px #0047ff,0 0 80px #00ffff;}}
+  /* nav */
+  nav {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    padding: 18px 36px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(0,0,0,0.7);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(0,255,255,0.06);
+    z-index: 50;
+  }
+  nav .brand {
+    font-family: 'Orbitron', sans-serif;
+    color: #00ffff;
+    font-size: 1.15rem;
+    letter-spacing: 0.4px;
+    text-shadow: 0 0 10px #00ffff;
+  }
+  nav .links a {
+    color: #fff;
+    text-decoration: none;
+    margin-left: 18px;
+    font-weight: 600;
+    transition: color .22s ease, text-shadow .22s ease;
+  }
+  nav .links a:hover {
+    color: #00ffff;
+    text-shadow: 0 0 10px #00ffff;
+  }
 
-/* Section */
-section {padding:120px 20px; text-align:center;}
-.section-title {
-  font-size:2.8rem; margin-bottom:40px; font-family:'Orbitron',sans-serif;
-  color:#00ffff; text-shadow:0 0 20px #00ffff;
-}
+  /* hero */
+  .hero {
+    height: 100vh;
+    display: grid;
+    place-items: center;
+    text-align: center;
+    padding: 0 24px;
+  }
+  .hero .title {
+    font-family: 'Orbitron', sans-serif;
+    color: #00ffff;
+    font-size: 4.2rem;
+    line-height: 1;
+    margin-bottom: 14px;
+    opacity: 0;
+    transform: scale(0.98) translateY(12px);
+    transition: opacity .9s ease, transform .9s cubic-bezier(.2,.9,.2,1);
+    text-shadow: 0 0 18px rgba(0,255,255,0.08), 0 0 40px rgba(0,71,255,0.06);
+  }
+  .hero .tag {
+    color: #cfcfcf;
+    max-width: 780px;
+    font-size: 1.15rem;
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity .9s ease .18s, transform .9s cubic-bezier(.2,.9,.2,1) .18s;
+  }
+  .hero.show .title { opacity: 1; transform: scale(1) translateY(0); }
+  .hero.show .tag { opacity: 1; transform: translateY(0); }
 
-/* Projects Grid */
-.projects {
-  display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:40px; max-width:1000px; margin:auto;
-}
-.project {
-  background:#111; border:2px solid #00ffff33; border-radius:15px;
-  padding:40px 25px; transition:0.3s; box-shadow:0 0 20px #00ffff33;
-}
-.project:hover {transform:translateY(-15px) scale(1.05); box-shadow:0 0 40px #00ffffaa;}
-.project h3 {color:#00ffff; font-size:1.6rem; margin-bottom:15px;}
-.project a {display:inline-block; margin-top:15px; color:#fff; border:1px solid #00ffff; padding:10px 20px; border-radius:30px; transition:0.3s;}
-.project a:hover {background:#00ffff; color:#000;}
+  /* container sections */
+  main { padding-bottom: 80px; }
+  .section {
+    min-height: 82vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 84px 20px;
+    text-align: center;
+  }
+  .section .heading {
+    font-family: 'Orbitron', sans-serif;
+    color: #00ffff;
+    font-size: 2.2rem;
+    margin-bottom: 22px;
+    opacity: 0;
+    transform: translateY(20px) scale(.995);
+    transition: opacity .85s ease, transform .85s cubic-bezier(.2,.9,.2,1);
+  }
+  .section .body {
+    max-width: 920px;
+    color: #bfbfbf;
+    line-height: 1.8;
+    font-size: 1.05rem;
+    opacity: 0;
+    transform: translateY(20px) scale(.995);
+    transition: opacity .85s ease .12s, transform .85s cubic-bezier(.2,.9,.2,1) .12s;
+  }
 
-/* Footer */
-footer {padding:40px; background:#111; color:#666; text-align:center; font-size:0.9rem; border-top:1px solid #222;}
+  /* visible state for scroll */
+  .visible {
+    opacity: 1 !important;
+    transform: translateY(0) scale(1) !important;
+    text-shadow: 0 0 20px rgba(0,255,255,0.06);
+  }
 
-/* Animation Effects */
-.fade-in-up {
-  opacity: 0;
-  transform: translateY(40px);
-  transition: all 1s ease;
-}
-.fade-in-up.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
+  /* projects grid */
+  .projects {
+    max-width: 1020px;
+    margin-top: 28px;
+    display: grid;
+    gap: 28px;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  }
+  .card {
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(0,255,255,0.06);
+    border-radius: 14px;
+    padding: 28px;
+    text-align: left;
+    transition: transform .35s ease, box-shadow .35s ease;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.45);
+  }
+  .card h4 { color: #00ffff; font-family: 'Orbitron', sans-serif; margin-bottom: 10px; }
+  .card p { color: #cfcfcf; line-height: 1.6; font-size: .95rem; }
+  .card:hover { transform: translateY(-10px) scale(1.02); box-shadow: 0 14px 40px rgba(0,255,255,0.04); }
 
-/* Particle Canvas */
-#particle-bg {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  z-index: -1;
-  background: radial-gradient(circle at center, #001 10%, #000 90%);
-}
+  /* footer */
+  footer {
+    padding: 34px 18px;
+    background: rgba(0,0,0,0.85);
+    color: #9a9a9a;
+    text-align: center;
+    font-size: 0.92rem;
+    border-top: 1px solid rgba(255,255,255,0.02);
+  }
+
+  /* custom cursor */
+  .ghost-cursor {
+    position: fixed;
+    width: 18px;
+    height: 18px;
+    border: 2px solid rgba(0,255,255,0.95);
+    border-radius: 50%;
+    pointer-events: none;
+    transform: translate(-9px, -9px);
+    z-index: 9999;
+    transition: transform .08s linear, width .12s ease, height .12s ease;
+    mix-blend-mode: screen;
+  }
+
+  /* responsive */
+  @media (max-width: 720px) {
+    .hero .title { font-size: 2.6rem; }
+    .section { padding: 60px 18px; min-height: auto; }
+  }
 </style>
 </head>
 <body>
 
+<!-- particle canvas -->
 <canvas id="particle-bg"></canvas>
 
-<nav class="fade-in-up">
-  <h1>AYNIX</h1>
-  <div>
+<!-- nav -->
+<nav>
+  <div class="brand">AYNIX</div>
+  <div class="links">
     <a href="index.html">Home</a>
     <a href="smartwatch.html">Smartwatches</a>
     <a href="laptops.html">Laptops</a>
@@ -100,176 +197,234 @@ footer {padding:40px; background:#111; color:#666; text-align:center; font-size:
   </div>
 </nav>
 
-<section class="hero fade-in-up">
-  <h1>AYNIX</h1>
-  <p>The future of innovation — envisioned with purpose, built with precision.</p>
-</section>
-
-<section class="fade-in-up" style="max-width:900px; margin:auto; line-height:1.7; color:#bbb;">
-  <h2 class="section-title">Our Vision</h2>
-  <p>
-    AYNIX is not defined by speed, but by direction.  
-    Every idea begins with a single purpose — to build technology that serves with integrity and intelligence.  
-    <br><br>
-    From wearables to artificial intelligence, from design to sustainability — our journey is about crafting solutions that connect people and possibilities.  
-    <br><br>
-    We believe the future isn’t something to chase — it’s something to shape, carefully and meaningfully, one innovation at a time.
-  </p>
-</section>
-
-<section class="fade-in-up">
-  <h2 class="section-title">Our Projects</h2>
-  <div class="projects">
-    <div class="project">
-      <h3>Smartwatches</h3>
-      <p>Technology that understands time — and respects it.</p>
-      <a href="smartwatch.html">Explore</a>
-    </div>
-    <div class="project">
-      <h3>Laptop Series</h3>
-      <p>Where precision meets design — built for creators and visionaries.</p>
-      <a href="laptops.html">Explore</a>
-    </div>
-    <div class="project">
-      <h3>Mobile Series</h3>
-      <p>Innovation with intention — crafted for human experience.</p>
-      <a href="mobiles.html">Explore</a>
-    </div>
-    <div class="project">
-      <h3>Future Tech</h3>
-      <p>AI, Robotics, EVs — shaping the intelligent world ahead.</p>
-      <a href="future.html">Explore</a>
-    </div>
+<!-- hero -->
+<section class="hero" id="hero">
+  <div>
+    <div class="title">AYNIX</div>
+    <div class="tag">Built different</div>
   </div>
 </section>
 
-<footer class="fade-in-up">
-  <p>© 2025 AYNIX | All Rights Reserved | CEO Ali Yahya</p>
+<main>
+  <!-- short intro -->
+  <section class="section" id="vision">
+    <div class="heading">Our vision</div>
+    <div class="body">
+      AYNIX focuses on considered progress and practical value. We design technology that serves with integrity and clarity.
+      <br><br>
+      From wearables to intelligent systems, our work aims to connect people and possibilities in a careful and meaningful way.
+    </div>
+  </section>
+
+  <!-- projects -->
+  <section class="section" id="projects">
+    <div class="heading">Projects</div>
+    <div class="projects">
+      <div class="card">
+        <h4>Smartwatches</h4>
+        <p>Thoughtful wearable technology that respects time and daily life.</p>
+      </div>
+      <div class="card">
+        <h4>Laptop Series</h4>
+        <p>Design and precision for creators and professionals who value clarity.</p>
+      </div>
+      <div class="card">
+        <h4>Mobile Series</h4>
+        <p>Devices that prioritize useful experiences over raw numbers.</p>
+      </div>
+      <div class="card">
+        <h4>Future Tech</h4>
+        <p>Work in AI, robotics, and electric mobility focused on practical benefit and care.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- short feature sections: AI Robotics EV Mobile Watch (clean + formal) -->
+  <section class="section" id="ai">
+    <div class="heading">Artificial intelligence</div>
+    <div class="body">
+      At AYNIX we treat AI as a practical tool. Our aim is to build systems that support people and communities, adding clarity and useful assistance where it matters most.
+    </div>
+  </section>
+
+  <section class="section" id="robotics">
+    <div class="heading">Robotics</div>
+    <div class="body">
+      Robotics at AYNIX is about extending human capability. We are exploring systems that assist industry, healthcare, and daily life in a safe and dependable way.
+    </div>
+  </section>
+
+  <section class="section" id="ev">
+    <div class="heading">Electric mobility</div>
+    <div class="body">
+      Our electric mobility work focuses on practical sustainability and thoughtful design. The goal is to make movement cleaner, more efficient, and easier to live with.
+    </div>
+  </section>
+
+  <section class="section" id="mobile">
+    <div class="heading">Mobile series</div>
+    <div class="body">
+      AYNIX mobile devices prioritize meaningful experiences. We design for clarity and usefulness rather than chasing performance numbers.
+    </div>
+  </section>
+
+  <section class="section" id="watch">
+    <div class="heading">Smartwatch series</div>
+    <div class="body">
+      The smartwatch program focuses on reliable, long term value. We are developing ideas that blend usefulness with respectful design.
+    </div>
+  </section>
+</main>
+
+<footer>
+  © 2025 AYNIX | All rights reserved | CEO Ali Yahya
 </footer>
 
-<!-- Particle Animation Script -->
+<!-- ghost cursor -->
+<div class="ghost-cursor" id="ghostCursor"></div>
+
+<!-- scripts -->
 <script>
+/* -------------------- Particles -------------------- */
 const canvas = document.getElementById('particle-bg');
 const ctx = canvas.getContext('2d');
-let particlesArray;
+let particles = [];
+function resize() {
+  canvas.width = innerWidth;
+  canvas.height = innerHeight;
+}
+window.addEventListener('resize', resize);
+resize();
 
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-
-window.addEventListener('resize', () => {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-  init();
-});
-
-class Particle {
-  constructor(x, y, size, speedX, speedY) {
-    this.x = x;
-    this.y = y;
-    this.size = size;
-    this.speedX = speedX;
-    this.speedY = speedY;
+class P {
+  constructor() {
+    this.reset();
   }
-  update() {
-    this.x += this.speedX;
-    this.y += this.speedY;
-    if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
-    if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+  reset() {
+    this.x = Math.random() * canvas.width;
+    this.y = Math.random() * canvas.height;
+    this.r = Math.random() * 1.8 + 0.6;
+    this.vx = (Math.random() - 0.5) * 0.6;
+    this.vy = (Math.random() - 0.5) * 0.6;
+    this.alpha = 0.25 + Math.random() * 0.4;
+  }
+  move() {
+    this.x += this.vx; this.y += this.vy;
+    if (this.x < -10 || this.x > canvas.width + 10) this.reset();
+    if (this.y < -10 || this.y > canvas.height + 10) this.reset();
   }
   draw() {
+    ctx.globalAlpha = this.alpha;
     ctx.fillStyle = '#00ffff';
     ctx.beginPath();
-    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-    ctx.closePath();
+    ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
     ctx.fill();
+    ctx.globalAlpha = 1;
   }
 }
-
-function init() {
-  particlesArray = [];
-  for (let i = 0; i < 80; i++) {
-    let size = Math.random() * 2 + 1;
-    let x = Math.random() * canvas.width;
-    let y = Math.random() * canvas.height;
-    let speedX = (Math.random() - 0.5) * 0.8;
-    let speedY = (Math.random() - 0.5) * 0.8;
-    particlesArray.push(new Particle(x, y, size, speedX, speedY));
-  }
+function initParticles() {
+  particles = [];
+  const count = Math.min(120, Math.floor((canvas.width * canvas.height) / 90000));
+  for (let i = 0; i < count; i++) particles.push(new P());
 }
+initParticles();
 
-function connect() {
-  for (let a = 0; a < particlesArray.length; a++) {
-    for (let b = a; b < particlesArray.length; b++) {
-      let dx = particlesArray[a].x - particlesArray[b].x;
-      let dy = particlesArray[a].y - particlesArray[b].y;
-      let distance = Math.sqrt(dx * dx + dy * dy);
-      if (distance < 100) {
-        ctx.strokeStyle = 'rgba(0,255,255,0.1)';
+function connectLines() {
+  for (let i = 0; i < particles.length; i++) {
+    for (let j = i + 1; j < particles.length; j++) {
+      const a = particles[i], b = particles[j];
+      const dx = a.x - b.x, dy = a.y - b.y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      if (dist < 110) {
+        ctx.strokeStyle = 'rgba(0,255,255,0.06)';
         ctx.lineWidth = 1;
         ctx.beginPath();
-        ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
-        ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
+        ctx.moveTo(a.x, a.y);
+        ctx.lineTo(b.x, b.y);
         ctx.stroke();
       }
     }
   }
 }
-
-function animate() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  for (let i = 0; i < particlesArray.length; i++) {
-    particlesArray[i].update();
-    particlesArray[i].draw();
-  }
-  connect();
-  requestAnimationFrame(animate);
+function loop() {
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  for (let p of particles) { p.move(); p.draw(); }
+  connectLines();
+  requestAnimationFrame(loop);
 }
+loop();
 
-init();
-animate();
-</script>
-
-<!-- Fade-In Observer Script -->
-<script>
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) entry.target.classList.add('visible');
-  });
-});
-document.querySelectorAll('.fade-in-up').forEach((el) => observer.observe(el));
-</script>
-
-<!-- Glowing Cursor Script -->
-<script>
-const cursor = document.createElement('div');
-cursor.style.position = 'fixed';
-cursor.style.width = '20px';
-cursor.style.height = '20px';
-cursor.style.border = '2px solid #00ffff';
-cursor.style.borderRadius = '50%';
-cursor.style.pointerEvents = 'none';
-cursor.style.transition = 'transform 0.1s ease';
-cursor.style.zIndex = '9999';
-document.body.appendChild(cursor);
-
+/* -------------------- Ghost cursor -------------------- */
+const ghost = document.getElementById('ghostCursor');
 document.addEventListener('mousemove', e => {
-  cursor.style.transform = `translate(${e.clientX - 10}px, ${e.clientY - 10}px)`;
+  ghost.style.transform = `translate(${e.clientX - 9}px, ${e.clientY - 9}px)`;
 });
-</script>
 
-<!-- Tech Sound -->
-<script>
-window.addEventListener("load", () => {
-  const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-  const oscillator = audioCtx.createOscillator();
-  const gainNode = audioCtx.createGain();
-  oscillator.type = "sine";
-  oscillator.frequency.setValueAtTime(600, audioCtx.currentTime);
-  gainNode.gain.setValueAtTime(0.05, audioCtx.currentTime);
-  oscillator.connect(gainNode);
-  gainNode.connect(audioCtx.destination);
-  oscillator.start();
-  oscillator.stop(audioCtx.currentTime + 0.4);
+/* -------------------- hero intro animation + start sound -------------------- */
+const hero = document.getElementById('hero');
+window.addEventListener('load', () => {
+  // small delay for cinematic effect
+  setTimeout(() => hero.classList.add('show'), 240);
+
+  // subtle startup tone using WebAudio, no file required
+  try {
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    const o1 = audioCtx.createOscillator();
+    const o2 = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+
+    o1.type = 'sine';
+    o1.frequency.setValueAtTime(520, audioCtx.currentTime);
+    o2.type = 'triangle';
+    o2.frequency.setValueAtTime(820, audioCtx.currentTime);
+
+    gain.gain.setValueAtTime(0.0, audioCtx.currentTime);
+    gain.gain.linearRampToValueAtTime(0.04, audioCtx.currentTime + 0.02);
+    gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.6);
+
+    o1.connect(gain);
+    o2.connect(gain);
+    gain.connect(audioCtx.destination);
+
+    o1.start();
+    o2.start();
+    o1.stop(audioCtx.currentTime + 0.6);
+    o2.stop(audioCtx.currentTime + 0.54);
+  } catch (e) {
+    // autoplay may be blocked on some browsers, ignore silently
+    console.log('audio start blocked or not supported', e);
+  }
+});
+
+/* -------------------- scroll reveal observer -------------------- */
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(en => {
+    if (en.isIntersecting) {
+      en.target.querySelectorAll('.heading, .body, .card, .title, .tag').forEach(el => {
+        el.classList.add('visible');
+      });
+      // once visible, unobserve
+      obs.unobserve(en.target);
+    }
+  });
+}, { threshold: 0.22 });
+
+document.querySelectorAll('.section').forEach(s => obs.observe(s));
+
+/* observe hero separately so it gets visible class for title and tag */
+setTimeout(() => {
+  document.querySelectorAll('.title, .tag').forEach(el => el.classList.add('visible'));
+}, 420);
+
+/* -------------------- smooth background shift while scroll (subtle) -------------------- */
+window.addEventListener('scroll', () => {
+  const max = document.body.scrollHeight - window.innerHeight;
+  const pos = Math.max(0, Math.min(1, window.scrollY / (max || 1)));
+  // subtle shift to give depth
+  const r = Math.floor(0 + pos * 16);
+  const g = Math.floor(16 + pos * 60);
+  const b = Math.floor(24 + pos * 120);
+  canvas.style.background = `radial-gradient(circle at center, rgb(${r},${g},${b}) 6%, #000 90%)`;
 });
 </script>
 
