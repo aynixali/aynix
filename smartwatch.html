@@ -3,23 +3,125 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AYNIX Smartwatches</title>
-  <link rel="icon" type="image/png" href="aynix.png">
+<title>AYNIX Smartwatches  Vision</title>
+<link rel="icon" type="image/png" href="ay.png.png">
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 <style>
-body {margin:0; font-family:'Roboto',sans-serif; background:#000; color:#fff;}
-nav {background:#000; padding:20px 40px; border-bottom:1px solid #111;}
-nav a {margin:0 15px; color:#fff; text-decoration:none; font-weight:600;}
-nav a:hover {color:#00ffff; text-shadow:0 0 10px #00ffff;}
-.hero {height:80vh; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center;}
-.hero h1 {font-size:3.5rem; font-family:'Orbitron',sans-serif; color:#00ffff; text-shadow:0 0 30px #00ffff;}
-.hero p {max-width:700px; font-size:1.4rem; color:#aaa;}
-section {padding:80px 20px; text-align:center;}
-h2 {font-size:2rem; color:#00ffff; margin-bottom:20px;}
-footer {padding:30px; background:#111; color:#666; text-align:center; font-size:0.9rem;}
+/* ===== Base Styles ===== */
+* {margin:0; padding:0; box-sizing:border-box;}
+body {
+  font-family:'Roboto', sans-serif;
+  background: radial-gradient(circle at 20% 20%, #00111a, #000);
+  color:#fff;
+  overflow-x:hidden;
+  animation: bgShift 15s infinite alternate ease-in-out;
+}
+@keyframes bgShift {
+  0% {background: radial-gradient(circle at 20% 20%, #00111a, #000);}
+  100% {background: radial-gradient(circle at 80% 80%, #000, #002a3d);}
+}
+
+/* ===== Navbar ===== */
+nav {
+  background:rgba(0,0,0,0.7);
+  padding:20px 40px;
+  border-bottom:1px solid #0ff2ff33;
+  position:fixed;
+  width:100%;
+  top:0;
+  z-index:100;
+  backdrop-filter:blur(10px);
+}
+nav a {
+  margin:0 15px;
+  color:#fff;
+  text-decoration:none;
+  font-weight:600;
+  transition:0.3s;
+}
+nav a:hover {
+  color:#00ffff;
+  text-shadow:0 0 10px #00ffff;
+}
+
+/* ===== Hero Section ===== */
+.hero {
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  padding:0 20px;
+}
+.hero h1 {
+  font-size:3.8rem;
+  font-family:'Orbitron', sans-serif;
+  color:#00ffff;
+  text-shadow:0 0 30px #00ffff;
+  opacity:0;
+  animation: fadeIn 2s forwards, glowPulse 4s infinite ease-in-out;
+}
+.hero p {
+  max-width:700px;
+  font-size:1.3rem;
+  color:#ccc;
+  margin-top:20px;
+  opacity:0;
+  animation: fadeIn 2s 1.2s forwards;
+}
+
+@keyframes fadeIn {
+  to {opacity:1; transform:translateY(0);}
+}
+@keyframes glowPulse {
+  0%,100% {text-shadow:0 0 15px #00ffff;}
+  50% {text-shadow:0 0 35px #00ffff;}
+}
+
+/* ===== Vision Section ===== */
+section {
+  padding:120px 20px;
+  text-align:center;
+}
+section h2 {
+  font-size:2.2rem;
+  color:#00ffff;
+  margin-bottom:20px;
+  opacity:0;
+  animation: fadeIn 1.5s forwards;
+}
+section p {
+  max-width:800px;
+  margin:0 auto;
+  font-size:1.1rem;
+  color:#aaa;
+  line-height:1.8;
+  opacity:0;
+  animation: fadeIn 2s 0.5s forwards;
+}
+
+/* ===== Signature / Footer ===== */
+.signature {
+  font-size:1.4rem;
+  color:#00ffff;
+  text-shadow:0 0 15px #00ffff;
+  margin-top:40px;
+  animation: glowPulse 4s infinite ease-in-out;
+}
+
+footer {
+  padding:30px;
+  background:#000;
+  color:#666;
+  text-align:center;
+  font-size:0.9rem;
+  border-top:1px solid #0ff2ff33;
+}
 </style>
 </head>
 <body>
+
 <nav>
   <a href="index.html">Home</a>
   <a href="smartwatch.html">Smartwatches</a>
@@ -29,38 +131,27 @@ footer {padding:30px; background:#111; color:#666; text-align:center; font-size:
 </nav>
 
 <div class="hero">
-  <h1>AYNIX Smartwatches</h1>
-  <p>The wrist revolution. Designed for world . Built for the world.</p>
+  <h1>AYNIX Smartwatch</h1>
+  <p>The future of time — envisioned, not rushed.</p>
 </div>
-<section>
-<h2>Smartwatches Future Vision </h2>
-<p>AYNIX Smartwatches (Future Vision):
-
-Health, connectivity, and design  redefined for the future.
-AYNIX Smartwatches are designed to be more than devices; they are intelligent companions that seamlessly integrate into modern life.
-
-Advanced Health Monitoring: Real-time tracking of heart rate, oxygen levels, sleep patterns, and activity, supported by AI-driven insights that help users stay ahead of their wellness goals.
-
-Seamless Ecosystem: Every smartwatch connects effortlessly with AYNIX laptops, smartphones, and future technologies, creating a unified digital experience.
-
-Futuristic Design: Crafted with premium materials, customizable watch faces, and a refined finish that reflects innovation and elegance.
-
-Intelligent Assistance: Voice-enabled controls and smart notifications ensure that users remain connected and productive, without distraction.
-
-AYNIX Smartwatches embody the balance of functionality and sophistication, setting a new standard for wearable technology in the modern era.</p>
-</section>
-<section>
-  <h2>Vision</h2>
-  <p>Our smartwatches are more than accessories — they are digital companions. With AI health monitoring, 7-day battery life, and seamless mobile integration, they redefine wearable technology.</p>
-</section>
 
 <section>
-  <h2>Features</h2>
-  <p>✔ Local language support <br> ✔ Advanced fitness + health tracking <br> ✔ Water & dust resistance <br> ✔ AI voice assistant <br> ✔ Premium design with futuristic finishes</p>
+  <h2>Our Vision</h2>
+  <p>
+    The AYNIX Smartwatch represents our vision for intelligent, refined, and sustainable technology.  
+    We are shaping a product that merges innovation with meaning a companion designed to move with life itself.  
+    <br><br>
+    This is not a launch. It’s a statement of intent  a declaration of what we believe technology should become:  
+    respectful, reliable, and revolutionary.  
+    <br><br>
+    With time, precision, and dedication, AYNIX will evolve into a name recognized for integrity and futuristic design.
+  </p>
+  <div class="signature">AYNIX  Crafted for the Next Generation.</div>
 </section>
 
 <footer>
-  <p>© 2025 AYNIX Smartwatches</p>
+  <p>© 2025 AYNIX Smartwatches. All Rights Reserved.</p>
 </footer>
+
 </body>
 </html>
