@@ -102,7 +102,19 @@ footer {padding:40px; background:#111; color:#666; text-align:center; font-size:
 
 <section class="hero fade-in-up">
   <h1>AYNIX</h1>
-  <p>"Aynix: Built different"</p>
+  <p>The future of innovation — envisioned with purpose, built with precision.</p>
+</section>
+
+<section class="fade-in-up" style="max-width:900px; margin:auto; line-height:1.7; color:#bbb;">
+  <h2 class="section-title">Our Vision</h2>
+  <p>
+    AYNIX is not defined by speed, but by direction.  
+    Every idea begins with a single purpose — to build technology that serves with integrity and intelligence.  
+    <br><br>
+    From wearables to artificial intelligence, from design to sustainability — our journey is about crafting solutions that connect people and possibilities.  
+    <br><br>
+    We believe the future isn’t something to chase — it’s something to shape, carefully and meaningfully, one innovation at a time.
+  </p>
 </section>
 
 <section class="fade-in-up">
@@ -110,29 +122,29 @@ footer {padding:40px; background:#111; color:#666; text-align:center; font-size:
   <div class="projects">
     <div class="project">
       <h3>Smartwatches</h3>
-      <p>Health, connectivity, and design redefined for the future.</p>
+      <p>Technology that understands time — and respects it.</p>
       <a href="smartwatch.html">Explore</a>
     </div>
     <div class="project">
       <h3>Laptop Series</h3>
-      <p>Power & elegance, designed for creators, gamers, and visionaries.</p>
+      <p>Where precision meets design — built for creators and visionaries.</p>
       <a href="laptops.html">Explore</a>
     </div>
     <div class="project">
       <h3>Mobile Series</h3>
-      <p>Next-gen smartphones for speed, design, and global impact.</p>
+      <p>Innovation with intention — crafted for human experience.</p>
       <a href="mobiles.html">Explore</a>
     </div>
     <div class="project">
       <h3>Future Tech</h3>
-      <p>AI, Robotics, EVs  building the technologies of tomorrow.</p>
+      <p>AI, Robotics, EVs — shaping the intelligent world ahead.</p>
       <a href="future.html">Explore</a>
     </div>
   </div>
 </section>
 
 <footer class="fade-in-up">
-  <p>© 2025 AYNIX  All Rights Reserved.CEO-ALI YAHYA</p>
+  <p>© 2025 AYNIX | All Rights Reserved | CEO Ali Yahya</p>
 </footer>
 
 <!-- Particle Animation Script -->
@@ -244,25 +256,24 @@ document.addEventListener('mousemove', e => {
   cursor.style.transform = `translate(${e.clientX - 10}px, ${e.clientY - 10}px)`;
 });
 </script>
-  <script>
+
+<!-- Tech Sound -->
+<script>
 window.addEventListener("load", () => {
   const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
   const oscillator = audioCtx.createOscillator();
   const gainNode = audioCtx.createGain();
-
-  oscillator.type = "sine"; // smooth tone, can be "square" or "triangle"
-  oscillator.frequency.setValueAtTime(600, audioCtx.currentTime); // tone pitch
-  gainNode.gain.setValueAtTime(0.05, audioCtx.currentTime); // soft volume
-
+  oscillator.type = "sine";
+  oscillator.frequency.setValueAtTime(600, audioCtx.currentTime);
+  gainNode.gain.setValueAtTime(0.05, audioCtx.currentTime);
   oscillator.connect(gainNode);
   gainNode.connect(audioCtx.destination);
-
   oscillator.start();
-  oscillator.stop(audioCtx.currentTime + 0.4); // lasts 0.4 sec
+  oscillator.stop(audioCtx.currentTime + 0.4);
 });
 </script>
 
-
 </body>
 </html>
+
 
