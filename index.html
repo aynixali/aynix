@@ -1,371 +1,250 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AYNIX</title>
 <link rel="icon" type="image/png" href="ay.png.png">
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --accent: #66f0ff;      /* cool cyan, subtle */
-    --accent-2: #4daeff;
-    --bg-1: #010204;
-    --panel: rgba(255,255,255,0.02);
-    --muted: #9aa;
-  }
-  *{box-sizing:border-box;margin:0;padding:0}
-  html,body{height:100%}
-  body{
-    font-family:"Roboto",sans-serif;
-    background:linear-gradient(180deg,#000 0%, #03060a 60%);
-    color:#eaf6ff;
-    overflow-x:hidden;
-    -webkit-font-smoothing:antialiased;
-    -moz-osx-font-smoothing:grayscale;
-  }
+* {margin:0; padding:0; box-sizing:border-box;}
+body {font-family:'Roboto',sans-serif; background:#000; color:#fff; overflow-x:hidden;}
 
-  /* canvas layers (backgrounds) */
-  canvas.layer{
-    position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;
-  }
-  canvas.grid{z-index:-2;opacity:0.85}
-  canvas.particles{z-index:-3;opacity:0.9}
+/* Navbar */
+nav {
+  position:fixed; top:0; left:0; width:100%; background:rgba(0,0,0,0.8);
+  display:flex; justify-content:space-between; align-items:center;
+  padding:20px 40px; z-index:100;
+  border-bottom:1px solid #111;
+}
+nav h1 {
+  font-family:'Orbitron',sans-serif; color:#00ffff; font-size:1.5rem;
+  text-shadow:0 0 10px #00ffff;
+}
+nav a {
+  margin:0 15px; color:#fff; text-decoration:none; font-weight:600;
+  transition:0.3s;
+}
+nav a:hover {color:#00ffff; text-shadow:0 0 10px #00ffff;}
 
-  /* Boot splash */
-  .boot {
-    position:fixed;inset:0;display:flex;align-items:center;justify-content:center;
-    background:linear-gradient(180deg, rgba(1,2,4,0.98), rgba(1,2,4,0.98));
-    z-index:999;transition:opacity .8s ease,visibility .8s;
-  }
-  .boot.hidden{opacity:0;visibility:hidden;pointer-events:none}
-  .boot-card{
-    width:min(880px,94%);padding:30px;border-radius:14px;
-    background:linear-gradient(180deg, rgba(255,255,255,0.015), rgba(255,255,255,0.01));
-    border:1px solid rgba(102,240,255,0.06);
-    box-shadow: 0 20px 60px rgba(0,0,0,0.6), 0 0 40px rgba(77,174,255,0.02) inset;
-    display:flex;gap:28px;align-items:center;
-  }
-  .boot-left{flex:1;min-width:260px}
-  .logo{
-    font-family:'Orbitron',sans-serif;font-size:44px;color:var(--accent);
-    letter-spacing:6px;text-shadow:0 0 12px rgba(102,240,255,0.16);
-    display:flex;align-items:center;gap:14px;
-  }
-  .logo .mark{
-    width:12px;height:12px;border-radius:50%;
-    background:linear-gradient(180deg,var(--accent),var(--accent-2));
-    box-shadow:0 0 14px rgba(102,240,255,0.18);
-  }
-  .boot-sub{color:var(--muted);margin-top:8px;font-size:0.95rem}
-  .status{font-family:monospace;color:#bfe; margin-top:10px}
+/* Hero */
+.hero {
+  height:100vh; display:flex; flex-direction:column; justify-content:center; align-items:center;
+  text-align:center; background:radial-gradient(circle at center,#001 10%,#000 90%);
+}
+.hero h1 {
+  font-size:4.5rem; font-family:'Orbitron',sans-serif; color:#00ffff;
+  text-shadow:0 0 20px #00ffff,0 0 50px #0047ff; animation:glow 2s ease-in-out infinite alternate;
+}
+.hero p {
+  font-size:1.6rem; margin-top:20px; color:#aaa; max-width:700px;
+}
+@keyframes glow {from{text-shadow:0 0 10px #00ffff;} to{text-shadow:0 0 40px #0047ff,0 0 80px #00ffff;}}
 
-  .boot-right{width:360px;max-width:45%}
-  .progress-wrap{margin-top:14px;background:rgba(255,255,255,0.01);border-radius:999px;padding:6px;border:1px solid rgba(255,255,255,0.02)}
-  .progress-bar{height:10px;border-radius:999px;background:linear-gradient(90deg,var(--accent),var(--accent-2));width:0%;transition:width .18s linear}
+/* Section */
+section {padding:120px 20px; text-align:center;}
+.section-title {
+  font-size:2.8rem; margin-bottom:40px; font-family:'Orbitron',sans-serif;
+  color:#00ffff; text-shadow:0 0 20px #00ffff;
+}
 
-  /* Top nav (glass) */
-  nav{
-    position:fixed;top:18px;left:18px;right:18px;display:flex;justify-content:space-between;align-items:center;
-    padding:12px 18px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-    border:1px solid rgba(255,255,255,0.02);backdrop-filter: blur(6px);z-index:50;
-  }
-  nav h1{font-family:'Orbitron',sans-serif;color:var(--accent);font-size:1.2rem;letter-spacing:2px}
-  nav .links a{color:#eaf6ff;margin:0 10px;text-decoration:none;font-weight:600;opacity:0.92}
-  nav .links a:hover{color:var(--accent)}
+/* Projects Grid */
+.projects {
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:40px; max-width:1000px; margin:auto;
+}
+.project {
+  background:#111; border:2px solid #00ffff33; border-radius:15px;
+  padding:40px 25px; transition:0.3s; box-shadow:0 0 20px #00ffff33;
+}
+.project:hover {transform:translateY(-15px) scale(1.05); box-shadow:0 0 40px #00ffffaa;}
+.project h3 {color:#00ffff; font-size:1.6rem; margin-bottom:15px;}
+.project a {display:inline-block; margin-top:15px; color:#fff; border:1px solid #00ffff; padding:10px 20px; border-radius:30px; transition:0.3s;}
+.project a:hover {background:#00ffff; color:#000;}
 
-  /* hero */
-  .hero{height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding-top:40px;z-index:10;position:relative}
-  .hero h1{font-family:'Orbitron',sans-serif;font-size:4rem;color:var(--accent);margin-bottom:6px;letter-spacing:4px;opacity:0}
-  .hero p{color:var(--muted);font-size:1.1rem;opacity:0;max-width:760px}
+/* Footer */
+footer {padding:40px; background:#111; color:#666; text-align:center; font-size:0.9rem; border-top:1px solid #222;}
 
-  section{padding:110px 20px;text-align:center}
-  .section-title{font-family:'Orbitron',sans-serif;font-size:2.2rem;color:var(--accent);margin-bottom:22px}
+/* Animation Effects */
+.fade-in-up {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 1s ease;
+}
+.fade-in-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
 
-  .projects{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:22px;max-width:1000px;margin:0 auto}
-  .project{background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.007));border-radius:12px;padding:20px;border:1px solid rgba(255,255,255,0.02);box-shadow:0 8px 30px rgba(0,0,0,0.5)}
-  .project h3{color:var(--accent);font-family:'Orbitron',sans-serif;margin-bottom:8px}
-  .project p{color:var(--muted);margin-bottom:12px}
-  .project a{display:inline-block;padding:8px 14px;border-radius:999px;border:1px solid rgba(102,240,255,0.08);text-decoration:none;color:#eaffff;font-weight:600}
-
-  footer{padding:36px;text-align:center;color:#8fa;border-top:1px solid rgba(255,255,255,0.02)}
-
-  /* subtle reveal */
-  .fade{opacity:0;transform:translateY(18px);transition:all .9s cubic-bezier(.2,.9,.2,1)}
-  .fade.visible{opacity:1;transform:none}
-  @media(max-width:560px){ .logo{font-size:30px} .hero h1{font-size:2.8rem} }
+/* Particle Canvas */
+#particle-bg {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: -1;
+  background: radial-gradient(circle at center, #001 10%, #000 90%);
+}
 </style>
 </head>
 <body>
 
-  <!-- audio files (place your mp3s in the same folder) -->
-  <audio id="bootSound" src="boot.mp3" preload="auto"></audio>
-  <audio id="humSound" src="hum.mp3" preload="auto" loop></audio>
-  <audio id="uiBeep" src="ui-beep.mp3" preload="auto"></audio>
+<canvas id="particle-bg"></canvas>
 
-  <!-- background canvases -->
-  <canvas id="grid" class="layer grid"></canvas>
-  <canvas id="particles" class="layer particles"></canvas>
+<nav class="fade-in-up">
+  <h1>AYNIX</h1>
+  <div>
+    <a href="index.html">Home</a>
+    <a href="smartwatch.html">Smartwatches</a>
+    <a href="laptops.html">Laptops</a>
+    <a href="mobiles.html">Mobiles</a>
+    <a href="future.html">Future Tech</a>
+  </div>
+</nav>
 
-  <!-- boot splash (10s), auto-fades -->
-  <div id="boot" class="boot" role="dialog" aria-label="AYNIX boot">
-    <div class="boot-card" aria-hidden="false">
-      <div class="boot-left">
-        <div class="logo"><div class="mark" id="mark"></div><div id="logoTxt">AYNIX</div></div>
-        <div class="boot-sub">Core System — Interface v3.0</div>
-        <div class="status" id="statusLine">Preparing secure environment…</div>
-      </div>
+<section class="hero fade-in-up">
+  <h1>AYNIX</h1>
+  <p>"Aynix: Built different"</p>
+</section>
 
-      <div class="boot-right">
-        <div style="display:flex;justify-content:space-between;align-items:center">
-          <div style="font-family:monospace;color:#bff">System Boot</div>
-          <div id="count" style="font-family:monospace;color:#bff">10s</div>
-        </div>
-        <div class="progress-wrap" aria-hidden="true">
-          <div id="progress" class="progress-bar"></div>
-        </div>
-      </div>
+<section class="fade-in-up">
+  <h2 class="section-title">Our Projects</h2>
+  <div class="projects">
+    <div class="project">
+      <h3>Smartwatches</h3>
+      <p>Health, connectivity, and design redefined for the future.</p>
+      <a href="smartwatch.html">Explore</a>
+    </div>
+    <div class="project">
+      <h3>Laptop Series</h3>
+      <p>Power & elegance, designed for creators, gamers, and visionaries.</p>
+      <a href="laptops.html">Explore</a>
+    </div>
+    <div class="project">
+      <h3>Mobile Series</h3>
+      <p>Next-gen smartphones for speed, design, and global impact.</p>
+      <a href="mobiles.html">Explore</a>
+    </div>
+    <div class="project">
+      <h3>Future Tech</h3>
+      <p>AI, Robotics, EVs — building the technologies of tomorrow.</p>
+      <a href="future.html">Explore</a>
     </div>
   </div>
+</section>
 
-  <!-- top nav -->
-  <nav>
-    <h1>AYNIX</h1>
-    <div class="links">
-      <a href="index.html">Home</a>
-      <a href="smartwatch.html">Smartwatches</a>
-      <a href="laptops.html">Laptops</a>
-      <a href="mobiles.html">Mobiles</a>
-      <a href="future.html">Future Tech</a>
-    </div>
-  </nav>
+<footer class="fade-in-up">
+  <p>©2025 AYNIX | CEO - Ali Yahya</p>
+</footer>
 
-  <!-- content -->
-  <main>
-    <section class="hero">
-      <h1 id="title">AYNIX</h1>
-      <p id="subtitle">"Aynix: Built different"</p>
-    </section>
-
-    <section id="projects" class="fade">
-      <h2 class="section-title">Our Projects</h2>
-      <div class="projects">
-        <div class="project">
-          <h3>Smartwatches</h3>
-          <p>Health, connectivity, and design redefined for the future.</p>
-          <a href="smartwatch.html">Explore</a>
-        </div>
-        <div class="project">
-          <h3>Laptop Series</h3>
-          <p>Power & elegance, designed for creators, gamers, and visionaries.</p>
-          <a href="laptops.html">Explore</a>
-        </div>
-        <div class="project">
-          <h3>Mobile Series</h3>
-          <p>Next-gen smartphones for speed, design, and global impact.</p>
-          <a href="mobiles.html">Explore</a>
-        </div>
-        <div class="project">
-          <h3>Future Tech</h3>
-          <p>AI, Robotics, EVs — building the technologies of tomorrow.</p>
-          <a href="future.html">Explore</a>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer class="fade">
-    <p>©2025 AYNIX | CEO - Ali Yahya</p>
-  </footer>
-
+<!-- Particle Animation Script -->
 <script>
-/* ---------- config ---------- */
-const BOOT_MS = 10000;
-const bootEl = document.getElementById('boot');
-const progress = document.getElementById('progress');
-const countEl = document.getElementById('count');
-const status = document.getElementById('statusLine');
-const bootSound = document.getElementById('bootSound');
-const humSound = document.getElementById('humSound');
-const uiBeep = document.getElementById('uiBeep');
+const canvas = document.getElementById('particle-bg');
+const ctx = canvas.getContext('2d');
+let particlesArray;
 
-/* status messages (evenly spaced) */
-const statuses = [
-  'Power rails stable',
-  'Secure enclave online',
-  'Neural cores calibrated',
-  'Holographic shaders loaded',
-  'Particle matrix synced',
-  'Runtime instantiated',
-  'Services starting',
-  'Finalizing'
-];
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
 
-/* attempt to play audio (may be blocked) */
-async function attemptAudio(){
-  try {
-    if(bootSound && bootSound.src) await bootSound.play();
-    if(humSound && humSound.src) { await humSound.play(); humSound.volume = 0.22; }
-  } catch(e) {
-    // autoplay blocked — visuals still play
-    // do nothing; hum will stay silent until user gesture
-  }
-}
-
-/* boot progression */
-function runBoot(){
-  const start = performance.now();
-  let statusIdx = 0;
-  const tick = () => {
-    const elapsed = performance.now() - start;
-    const pct = Math.min(100, (elapsed / BOOT_MS) * 100);
-    progress.style.width = pct + '%';
-    const left = Math.max(0, Math.ceil((BOOT_MS - elapsed) / 1000));
-    countEl.textContent = left + 's';
-    // update status periodically
-    const seg = BOOT_MS / statuses.length;
-    if(elapsed > (statusIdx+1)*seg && statusIdx < statuses.length - 1) statusIdx++;
-    status.textContent = statuses[statusIdx];
-    if(elapsed < BOOT_MS) requestAnimationFrame(tick);
-    else finishBoot();
-  };
-  requestAnimationFrame(tick);
-  attemptAudio();
-}
-
-/* finish boot (auto reveal) */
-function finishBoot(){
-  // small UI beep on finish
-  try { uiBeep.play().catch(()=>{}); } catch(e){}
-
-  // fade the splash
-  bootEl.classList.add('hidden');
-
-  // reveal page content with subtle stagger
-  const reveal = document.querySelectorAll('.fade, .hero h1, .hero p, footer');
-  reveal.forEach((el, i) => {
-    setTimeout(()=> el.classList.add('visible'), 300 + i*140);
-  });
-
-  // subtle title scan animation
-  const title = document.getElementById('title');
-  title.style.opacity = 0;
-  title.style.letterSpacing = '20px';
-  setTimeout(()=> {
-    title.style.transition = 'all .9s cubic-bezier(.2,.9,.2,1)';
-    title.style.opacity = 1;
-    title.style.letterSpacing = '6px';
-  }, 500);
-}
-
-/* start on load */
-window.addEventListener('load', () => {
-  runBoot();
+window.addEventListener('resize', () => {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  init();
 });
 
-/* ---------- particle canvas (elegant) ---------- */
-(function(){
-  const c = document.getElementById('particles');
-  const ctx = c.getContext('2d');
-  let ps = [];
-  function resize(){ c.width = innerWidth; c.height = innerHeight; }
-  window.addEventListener('resize', resize); resize();
-
-  class Part {
-    constructor(){
-      this.x = Math.random()*c.width;
-      this.y = Math.random()*c.height;
-      this.r = Math.random()*1.8 + 0.6;
-      this.vx = (Math.random()-0.5)*0.4;
-      this.vy = (Math.random()-0.5)*0.4;
-      this.alpha = 0.25 + Math.random()*0.5;
-    }
-    update(){
-      this.x += this.vx; this.y += this.vy;
-      if(this.x<0||this.x>c.width) this.vx *= -1;
-      if(this.y<0||this.y>c.height) this.vy *= -1;
-    }
-    draw(){
-      ctx.beginPath();
-      ctx.fillStyle = 'rgba(102,240,255,'+this.alpha+')';
-      ctx.arc(this.x,this.y,this.r,0,Math.PI*2); ctx.fill();
-    }
+class Particle {
+  constructor(x, y, size, speedX, speedY) {
+    this.x = x;
+    this.y = y;
+    this.size = size;
+    this.speedX = speedX;
+    this.speedY = speedY;
   }
+  update() {
+    this.x += this.speedX;
+    this.y += this.speedY;
+    if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+    if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+  }
+  draw() {
+    ctx.fillStyle = '#00ffff';
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+    ctx.closePath();
+    ctx.fill();
+  }
+}
 
-  function init(n=60){ ps = []; for(let i=0;i<n;i++) ps.push(new Part()); }
-  function connect(){
-    for(let i=0;i<ps.length;i++){
-      for(let j=i+1;j<ps.length;j++){
-        const a=ps[i], b=ps[j];
-        const dx=a.x-b.x, dy=a.y-b.y, d=Math.sqrt(dx*dx+dy*dy);
-        if(d < 110){
-          ctx.strokeStyle = 'rgba(77,174,255,' + (0.06*(1 - d/110)) + ')';
-          ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y); ctx.stroke();
-        }
+function init() {
+  particlesArray = [];
+  for (let i = 0; i < 80; i++) {
+    let size = Math.random() * 2 + 1;
+    let x = Math.random() * canvas.width;
+    let y = Math.random() * canvas.height;
+    let speedX = (Math.random() - 0.5) * 0.8;
+    let speedY = (Math.random() - 0.5) * 0.8;
+    particlesArray.push(new Particle(x, y, size, speedX, speedY));
+  }
+}
+
+function connect() {
+  for (let a = 0; a < particlesArray.length; a++) {
+    for (let b = a; b < particlesArray.length; b++) {
+      let dx = particlesArray[a].x - particlesArray[b].x;
+      let dy = particlesArray[a].y - particlesArray[b].y;
+      let distance = Math.sqrt(dx * dx + dy * dy);
+      if (distance < 100) {
+        ctx.strokeStyle = 'rgba(0,255,255,0.1)';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
+        ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
+        ctx.stroke();
       }
     }
   }
+}
 
-  function loop(){
-    ctx.clearRect(0,0,c.width,c.height);
-    ps.forEach(p=>{ p.update(); p.draw(); });
-    connect();
-    requestAnimationFrame(loop);
+function animate() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  for (let i = 0; i < particlesArray.length; i++) {
+    particlesArray[i].update();
+    particlesArray[i].draw();
   }
-  init(); loop();
-})();
+  connect();
+  requestAnimationFrame(animate);
+}
 
-/* ---------- holographic grid (subtle rotate) ---------- */
-(function(){
-  const g = document.getElementById('grid');
-  const ctx = g.getContext('2d');
-  function resize(){ g.width = innerWidth; g.height = innerHeight; }
-  window.addEventListener('resize', resize); resize();
+init();
+animate();
+</script>
 
-  let angle = 0;
-  function draw(){
-    ctx.clearRect(0,0,g.width,g.height);
-    const cx = g.width/2, cy = g.height/2;
-    const maxR = Math.min(g.width,g.height) * 0.55;
-    // faint rings
-    for(let r=80; r<maxR; r+=48){
-      ctx.beginPath();
-      ctx.lineWidth = 1;
-      ctx.strokeStyle = 'rgba(77,174,255,0.02)';
-      ctx.arc(cx,cy,r + Math.sin(angle*2 + r/150)*4,0,Math.PI*2);
-      ctx.stroke();
-    }
-    // faint radial lines
-    const spokes = 12;
-    for(let i=0;i<spokes;i++){
-      const a = i*(Math.PI*2/spokes) + angle;
-      ctx.beginPath();
-      ctx.moveTo(cx + Math.cos(a)*12, cy + Math.sin(a)*12);
-      ctx.lineTo(cx + Math.cos(a)*(maxR+60), cy + Math.sin(a)*(maxR+60));
-      ctx.strokeStyle = 'rgba(102,240,255,0.01)';
-      ctx.lineWidth = 1;
-      ctx.stroke();
-    }
-    // center subtle glow
-    const gd = ctx.createRadialGradient(cx,cy,10,cx,cy,200);
-    gd.addColorStop(0,'rgba(102,240,255,0.035)');
-    gd.addColorStop(1,'rgba(102,240,255,0.000)');
-    ctx.fillStyle = gd;
-    ctx.beginPath(); ctx.arc(cx,cy,160,0,Math.PI*2); ctx.fill();
+<!-- Fade-In Observer Script -->
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) entry.target.classList.add('visible');
+  });
+});
+document.querySelectorAll('.fade-in-up').forEach((el) => observer.observe(el));
+</script>
 
-    angle += 0.0022;
-    requestAnimationFrame(draw);
-  }
-  draw();
-})();
+<!-- Glowing Cursor Script -->
+<script>
+const cursor = document.createElement('div');
+cursor.style.position = 'fixed';
+cursor.style.width = '20px';
+cursor.style.height = '20px';
+cursor.style.border = '2px solid #00ffff';
+cursor.style.borderRadius = '50%';
+cursor.style.pointerEvents = 'none';
+cursor.style.transition = 'transform 0.1s ease';
+cursor.style.zIndex = '9999';
+document.body.appendChild(cursor);
 
-/* optional: small keyboard gesture to un-mute (if browser blocked) */
-document.addEventListener('keydown', (e) => {
-  if(e.key === 'm' || e.key === 'M'){
-    try { humSound.muted = !humSound.muted; } catch(e){}
-  }
+document.addEventListener('mousemove', e => {
+  cursor.style.transform = `translate(${e.clientX - 10}px, ${e.clientY - 10}px)`;
 });
 </script>
+
 </body>
 </html>
 
