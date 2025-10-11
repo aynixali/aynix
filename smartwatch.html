@@ -3,49 +3,42 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AYNIX Smartwatches  Vision</title>
+<title>AYNIX Smartwatches — Vision</title>
 <link rel="icon" type="image/png" href="ay.png.png">
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 <style>
-/* ===== Base Styles ===== */
-* {margin:0; padding:0; box-sizing:border-box;}
-body {
-  font-family:'Roboto', sans-serif;
-  background: radial-gradient(circle at 20% 20%, #00111a, #000);
+/* ===== Base ===== */
+*{margin:0;padding:0;box-sizing:border-box;scroll-behavior:smooth;}
+body{
+  font-family:'Roboto',sans-serif;
+  background:linear-gradient(135deg,#000010,#001b29);
   color:#fff;
   overflow-x:hidden;
-  animation: bgShift 15s infinite alternate ease-in-out;
-}
-@keyframes bgShift {
-  0% {background: radial-gradient(circle at 20% 20%, #00111a, #000);}
-  100% {background: radial-gradient(circle at 80% 80%, #000, #002a3d);}
+  transition:background 2s ease;
 }
 
-/* ===== Navbar ===== */
-nav {
-  background:rgba(0,0,0,0.7);
-  padding:20px 40px;
-  border-bottom:1px solid #0ff2ff33;
+/* ===== Nav ===== */
+nav{
   position:fixed;
+  top:0;left:0;
   width:100%;
-  top:0;
-  z-index:100;
+  padding:20px 40px;
+  background:rgba(0,0,0,0.4);
+  border-bottom:1px solid #00ffff22;
   backdrop-filter:blur(10px);
+  z-index:100;
 }
-nav a {
+nav a{
   margin:0 15px;
   color:#fff;
   text-decoration:none;
   font-weight:600;
   transition:0.3s;
 }
-nav a:hover {
-  color:#00ffff;
-  text-shadow:0 0 10px #00ffff;
-}
+nav a:hover{color:#00ffff;text-shadow:0 0 10px #00ffff;}
 
-/* ===== Hero Section ===== */
-.hero {
+/* ===== Hero ===== */
+.hero{
   height:100vh;
   display:flex;
   flex-direction:column;
@@ -54,69 +47,78 @@ nav a:hover {
   text-align:center;
   padding:0 20px;
 }
-.hero h1 {
-  font-size:3.8rem;
-  font-family:'Orbitron', sans-serif;
+.hero h1{
+  font-family:'Orbitron',sans-serif;
+  font-size:4rem;
   color:#00ffff;
-  text-shadow:0 0 30px #00ffff;
   opacity:0;
-  animation: fadeIn 2s forwards, glowPulse 4s infinite ease-in-out;
+  transform:translateY(40px);
+  transition:1.2s ease;
+  text-shadow:0 0 25px #00ffff33;
 }
-.hero p {
-  max-width:700px;
-  font-size:1.3rem;
+.hero p{
   color:#ccc;
+  font-size:1.3rem;
   margin-top:20px;
   opacity:0;
-  animation: fadeIn 2s 1.2s forwards;
+  transform:translateY(40px);
+  transition:1.2s ease 0.3s;
+  max-width:700px;
 }
 
-@keyframes fadeIn {
-  to {opacity:1; transform:translateY(0);}
-}
-@keyframes glowPulse {
-  0%,100% {text-shadow:0 0 15px #00ffff;}
-  50% {text-shadow:0 0 35px #00ffff;}
-}
-
-/* ===== Vision Section ===== */
-section {
-  padding:120px 20px;
+/* ===== Sections ===== */
+section{
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
   text-align:center;
+  padding:80px 20px;
+  transition:background 1s ease;
 }
-section h2 {
-  font-size:2.2rem;
+section h2{
+  font-size:2.3rem;
   color:#00ffff;
+  font-family:'Orbitron',sans-serif;
   margin-bottom:20px;
   opacity:0;
-  animation: fadeIn 1.5s forwards;
+  transform:translateY(40px);
+  transition:1s ease;
 }
-section p {
+section p{
   max-width:800px;
-  margin:0 auto;
-  font-size:1.1rem;
   color:#aaa;
+  font-size:1.15rem;
   line-height:1.8;
   opacity:0;
-  animation: fadeIn 2s 0.5s forwards;
+  transform:translateY(40px);
+  transition:1s ease 0.3s;
 }
-
-/* ===== Signature / Footer ===== */
-.signature {
-  font-size:1.4rem;
-  color:#00ffff;
-  text-shadow:0 0 15px #00ffff;
+.signature{
+  font-size:1.3rem;
   margin-top:40px;
-  animation: glowPulse 4s infinite ease-in-out;
+  color:#00ffff;
+  opacity:0;
+  transition:1.5s ease 0.6s;
+  text-shadow:0 0 15px #00ffff33;
 }
 
-footer {
-  padding:30px;
+/* ===== Footer ===== */
+footer{
   background:#000;
-  color:#666;
   text-align:center;
+  padding:25px;
+  color:#555;
   font-size:0.9rem;
-  border-top:1px solid #0ff2ff33;
+  border-top:1px solid #00ffff22;
+}
+
+/* ===== Scroll Animation Active States ===== */
+.fade-in{
+  opacity:1!important;
+  transform:translateY(0)!important;
+  text-shadow:0 0 25px #00ffff55;
 }
 </style>
 </head>
@@ -132,26 +134,61 @@ footer {
 
 <div class="hero">
   <h1>AYNIX Smartwatch</h1>
-  <p>The future of time — envisioned, not rushed.</p>
+  <p>The future of time  envisioned, not rushed.</p>
 </div>
 
-<section>
+<section id="vision">
   <h2>Our Vision</h2>
   <p>
-    The AYNIX Smartwatch represents our vision for intelligent, refined, and sustainable technology.  
-    We are shaping a product that merges innovation with meaning a companion designed to move with life itself.  
+    The AYNIX Smartwatch reflects our belief that technology should serve with precision and purpose.  
+    We are shaping a product that goes beyond functionality — an intelligent, timeless companion built with integrity and innovation.  
     <br><br>
-    This is not a launch. It’s a statement of intent  a declaration of what we believe technology should become:  
-    respectful, reliable, and revolutionary.  
-    <br><br>
-    With time, precision, and dedication, AYNIX will evolve into a name recognized for integrity and futuristic design.
+    This journey is not about speed, but about creation with meaning.  
+    With time, patience, and perfection, we are crafting something that will stand for decades.
   </p>
   <div class="signature">AYNIX  Crafted for the Next Generation.</div>
+</section>
+
+<section id="future">
+  <h2>The Future Path</h2>
+  <p>
+    Our vision extends far beyond a smartwatch.  
+    AYNIX aims to build a connected ecosystem where every device  from phones to wearables  communicates seamlessly.  
+    <br><br>
+    In the years ahead, we will move steadily toward that goal, ensuring each step reflects innovation, respect, and sustainability.
+  </p>
 </section>
 
 <footer>
   <p>© 2025 AYNIX Smartwatches. All Rights Reserved.</p>
 </footer>
 
+<script>
+// ===== Scroll Animations =====
+const observer = new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      entry.target.classList.add('fade-in');
+    }
+  });
+},{threshold:0.2});
+
+document.querySelectorAll('h1, h2, p, .signature').forEach(el=>{
+  observer.observe(el);
+});
+
+// ===== Background shift on scroll =====
+window.addEventListener('scroll',()=>{
+  let scrollTop = window.scrollY;
+  let maxScroll = document.body.scrollHeight - window.innerHeight;
+  let ratio = scrollTop / maxScroll;
+  let r = Math.floor(0 + ratio*20);
+  let g = Math.floor(17 + ratio*80);
+  let b = Math.floor(26 + ratio*150);
+  document.body.style.background = `linear-gradient(135deg, rgb(${r},${g},${b}), #000010)`;
+});
+</script>
+
 </body>
 </html>
+
