@@ -7,19 +7,18 @@
 <link rel="icon" type="image/png" href="ay.png.png">
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 <style>
-  /* Reset + base */
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  html,body { height: 100%; }
+  html, body { height: 100%; }
   body {
     font-family: 'Roboto', sans-serif;
     background: #000;
     color: #fff;
     overflow-x: hidden;
-    -webkit-font-smoothing:antialiased;
-    -moz-osx-font-smoothing:grayscale;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
-  /* canvas behind everything */
+  /* Particle Canvas */
   #particle-bg {
     position: fixed;
     inset: 0;
@@ -27,7 +26,7 @@
     background: radial-gradient(circle at center, #001 10%, #000 90%);
   }
 
-  /* nav */
+  /* Nav */
   nav {
     position: fixed;
     left: 0;
@@ -61,7 +60,7 @@
     text-shadow: 0 0 10px #00ffff;
   }
 
-  /* hero */
+  /* Hero */
   .hero {
     height: 100vh;
     display: grid;
@@ -91,7 +90,7 @@
   .hero.show .title { opacity: 1; transform: scale(1) translateY(0); }
   .hero.show .tag { opacity: 1; transform: translateY(0); }
 
-  /* container sections */
+  /* Sections */
   main { padding-bottom: 80px; }
   .section {
     min-height: 82vh;
@@ -120,15 +119,13 @@
     transform: translateY(20px) scale(.995);
     transition: opacity .85s ease .12s, transform .85s cubic-bezier(.2,.9,.2,1) .12s;
   }
-
-  /* visible state for scroll */
   .visible {
     opacity: 1 !important;
     transform: translateY(0) scale(1) !important;
     text-shadow: 0 0 20px rgba(0,255,255,0.06);
   }
 
-  /* projects grid */
+  /* Projects Grid */
   .projects {
     max-width: 1020px;
     margin-top: 28px;
@@ -137,19 +134,27 @@
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   }
   .card {
+    display: block;
     background: rgba(255,255,255,0.02);
     border: 1px solid rgba(0,255,255,0.06);
     border-radius: 14px;
     padding: 28px;
     text-align: left;
-    transition: transform .35s ease, box-shadow .35s ease;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.45);
+    transition: transform .35s ease, box-shadow .35s ease, border-color .35s ease;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
   }
   .card h4 { color: #00ffff; font-family: 'Orbitron', sans-serif; margin-bottom: 10px; }
   .card p { color: #cfcfcf; line-height: 1.6; font-size: .95rem; }
-  .card:hover { transform: translateY(-10px) scale(1.02); box-shadow: 0 14px 40px rgba(0,255,255,0.04); }
+  .card:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 14px 40px rgba(0,255,255,0.1);
+    border-color: rgba(0,255,255,0.3);
+  }
+  .card:hover h4 { text-shadow: 0 0 10px #00ffff; }
 
-  /* footer */
+  /* Footer */
   footer {
     padding: 34px 18px;
     background: rgba(0,0,0,0.85);
@@ -159,7 +164,7 @@
     border-top: 1px solid rgba(255,255,255,0.02);
   }
 
-  /* custom cursor */
+  /* Ghost Cursor */
   .ghost-cursor {
     position: fixed;
     width: 18px;
@@ -173,7 +178,7 @@
     mix-blend-mode: screen;
   }
 
-  /* responsive */
+  /* Responsive */
   @media (max-width: 720px) {
     .hero .title { font-size: 2.6rem; }
     .section { padding: 60px 18px; min-height: auto; }
@@ -182,10 +187,8 @@
 </head>
 <body>
 
-<!-- particle canvas -->
 <canvas id="particle-bg"></canvas>
 
-<!-- nav -->
 <nav>
   <div class="brand">AYNIX</div>
   <div class="links">
@@ -197,7 +200,6 @@
   </div>
 </nav>
 
-<!-- hero -->
 <section class="hero" id="hero">
   <div>
     <div class="title">AYNIX</div>
@@ -206,7 +208,6 @@
 </section>
 
 <main>
-  <!-- short intro -->
   <section class="section" id="vision">
     <div class="heading">Our vision</div>
     <div class="body">
@@ -216,184 +217,103 @@
     </div>
   </section>
 
-  <!-- projects -->
   <section class="section" id="projects">
     <div class="heading">Projects</div>
     <div class="projects">
-      <div class="card">
+      <a href="smartwatch.html" class="card">
         <h4>Smartwatches</h4>
         <p>Thoughtful wearable technology that respects time and daily life.</p>
-      </div>
-      <div class="card">
+      </a>
+      <a href="laptops.html" class="card">
         <h4>Laptop Series</h4>
         <p>Design and precision for creators and professionals who value clarity.</p>
-      </div>
-      <div class="card">
+      </a>
+      <a href="mobiles.html" class="card">
         <h4>Mobile Series</h4>
         <p>Devices that prioritize useful experiences over raw numbers.</p>
-      </div>
-      <div class="card">
+      </a>
+      <a href="future.html" class="card">
         <h4>Future Tech</h4>
         <p>Work in AI, robotics, and electric mobility focused on practical benefit and care.</p>
-      </div>
+      </a>
     </div>
   </section>
+</main>
 
+<footer>
+  © 2025 AYNIX All rights reserved CEO Ali Yahya
+</footer>
 
-<!-- scripts -->
+<div class="ghost-cursor" id="ghostCursor"></div>
+
 <script>
-/* -------------------- Particles -------------------- */
+/* Particles */
 const canvas = document.getElementById('particle-bg');
 const ctx = canvas.getContext('2d');
 let particles = [];
-function resize() {
-  canvas.width = innerWidth;
-  canvas.height = innerHeight;
-}
+function resize() { canvas.width = innerWidth; canvas.height = innerHeight; }
 window.addEventListener('resize', resize);
 resize();
 
 class P {
-  constructor() {
-    this.reset();
-  }
-  reset() {
-    this.x = Math.random() * canvas.width;
-    this.y = Math.random() * canvas.height;
-    this.r = Math.random() * 1.8 + 0.6;
-    this.vx = (Math.random() - 0.5) * 0.6;
-    this.vy = (Math.random() - 0.5) * 0.6;
-    this.alpha = 0.25 + Math.random() * 0.4;
-  }
-  move() {
-    this.x += this.vx; this.y += this.vy;
-    if (this.x < -10 || this.x > canvas.width + 10) this.reset();
-    if (this.y < -10 || this.y > canvas.height + 10) this.reset();
-  }
-  draw() {
-    ctx.globalAlpha = this.alpha;
-    ctx.fillStyle = '#00ffff';
-    ctx.beginPath();
-    ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.globalAlpha = 1;
-  }
+  constructor() { this.reset(); }
+  reset() { this.x = Math.random()*canvas.width; this.y = Math.random()*canvas.height; this.r=Math.random()*1.8+0.6; this.vx=(Math.random()-0.5)*0.6; this.vy=(Math.random()-0.5)*0.6; this.alpha=0.25+Math.random()*0.4; }
+  move(){ this.x+=this.vx; this.y+=this.vy; if(this.x<-10||this.x>canvas.width+10)this.reset(); if(this.y<-10||this.y>canvas.height+10)this.reset(); }
+  draw(){ ctx.globalAlpha=this.alpha; ctx.fillStyle="#00ffff"; ctx.beginPath(); ctx.arc(this.x,this.y,this.r,0,Math.PI*2); ctx.fill(); ctx.globalAlpha=1; }
 }
-function initParticles() {
-  particles = [];
-  const count = Math.min(120, Math.floor((canvas.width * canvas.height) / 90000));
-  for (let i = 0; i < count; i++) particles.push(new P());
-}
+function initParticles(){ particles=[]; const count=Math.min(120,Math.floor((canvas.width*canvas.height)/90000)); for(let i=0;i<count;i++)particles.push(new P()); }
 initParticles();
-
-function connectLines() {
-  for (let i = 0; i < particles.length; i++) {
-    for (let j = i + 1; j < particles.length; j++) {
-      const a = particles[i], b = particles[j];
-      const dx = a.x - b.x, dy = a.y - b.y;
-      const dist = Math.sqrt(dx * dx + dy * dy);
-      if (dist < 110) {
-        ctx.strokeStyle = 'rgba(0,255,255,0.06)';
-        ctx.lineWidth = 1;
-        ctx.beginPath();
-        ctx.moveTo(a.x, a.y);
-        ctx.lineTo(b.x, b.y);
-        ctx.stroke();
-      }
-    }
-  }
-}
-function loop() {
-  ctx.clearRect(0,0,canvas.width,canvas.height);
-  for (let p of particles) { p.move(); p.draw(); }
-  connectLines();
-  requestAnimationFrame(loop);
-}
+function connectLines(){ for(let i=0;i<particles.length;i++){ for(let j=i+1;j<particles.length;j++){ const a=particles[i],b=particles[j]; const dx=a.x-b.x,dy=a.y-b.y; const dist=Math.sqrt(dx*dx+dy*dy); if(dist<110){ ctx.strokeStyle='rgba(0,255,255,0.06)'; ctx.lineWidth=1; ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y); ctx.stroke(); }}}}
+function loop(){ ctx.clearRect(0,0,canvas.width,canvas.height); for(let p of particles){ p.move(); p.draw(); } connectLines(); requestAnimationFrame(loop);}
 loop();
 
-/* -------------------- Ghost cursor -------------------- */
+/* Ghost Cursor */
 const ghost = document.getElementById('ghostCursor');
-document.addEventListener('mousemove', e => {
-  ghost.style.transform = `translate(${e.clientX - 9}px, ${e.clientY - 9}px)`;
-});
+document.addEventListener('mousemove', e => { ghost.style.transform = `translate(${e.clientX - 9}px, ${e.clientY - 9}px)`; });
 
-/* -------------------- hero intro animation + start sound -------------------- */
+/* Hero intro + sound */
 const hero = document.getElementById('hero');
-window.addEventListener('load', () => {
-  // small delay for cinematic effect
-  setTimeout(() => hero.classList.add('show'), 240);
-
-  // subtle startup tone using WebAudio, no file required
+window.addEventListener('load', ()=>{
+  setTimeout(()=>hero.classList.add('show'),240);
   try {
-    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    const o1 = audioCtx.createOscillator();
-    const o2 = audioCtx.createOscillator();
-    const gain = audioCtx.createGain();
-
-    o1.type = 'sine';
-    o1.frequency.setValueAtTime(520, audioCtx.currentTime);
-    o2.type = 'triangle';
-    o2.frequency.setValueAtTime(820, audioCtx.currentTime);
-
-    gain.gain.setValueAtTime(0.0, audioCtx.currentTime);
-    gain.gain.linearRampToValueAtTime(0.04, audioCtx.currentTime + 0.02);
-    gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.6);
-
-    o1.connect(gain);
-    o2.connect(gain);
-    gain.connect(audioCtx.destination);
-
-    o1.start();
-    o2.start();
-    o1.stop(audioCtx.currentTime + 0.6);
-    o2.stop(audioCtx.currentTime + 0.54);
-  } catch (e) {
-    // autoplay may be blocked on some browsers, ignore silently
-    console.log('audio start blocked or not supported', e);
-  }
+    const audioCtx=new (window.AudioContext||window.webkitAudioContext)();
+    const o1=audioCtx.createOscillator(); const o2=audioCtx.createOscillator();
+    const gain=audioCtx.createGain();
+    o1.type='sine'; o1.frequency.setValueAtTime(520,audioCtx.currentTime);
+    o2.type='triangle'; o2.frequency.setValueAtTime(820,audioCtx.currentTime);
+    gain.gain.setValueAtTime(0.0,audioCtx.currentTime);
+    gain.gain.linearRampToValueAtTime(0.04,audioCtx.currentTime+0.02);
+    gain.gain.exponentialRampToValueAtTime(0.0001,audioCtx.currentTime+0.6);
+    o1.connect(gain); o2.connect(gain); gain.connect(audioCtx.destination);
+    o1.start(); o2.start(); o1.stop(audioCtx.currentTime+0.6); o2.stop(audioCtx.currentTime+0.54);
+  } catch(e){console.log('audio blocked',e);}
 });
 
-/* -------------------- scroll reveal observer -------------------- */
-const obs = new IntersectionObserver((entries) => {
-  entries.forEach(en => {
-    if (en.isIntersecting) {
-      en.target.querySelectorAll('.heading, .body, .card, .title, .tag').forEach(el => {
-        el.classList.add('visible');
-      });
-      // once visible, unobserve
+/* Scroll reveal */
+const obs = new IntersectionObserver(entries=>{
+  entries.forEach(en=>{
+    if(en.isIntersecting){
+      en.target.querySelectorAll('.heading,.body,.card,.title,.tag').forEach(el=>el.classList.add('visible'));
       obs.unobserve(en.target);
     }
   });
-}, { threshold: 0.22 });
+},{ threshold:0.22 });
+document.querySelectorAll('.section').forEach(s=>obs.observe(s));
+setTimeout(()=>{document.querySelectorAll('.title,.tag').forEach(el=>el.classList.add('visible'));},420);
 
-document.querySelectorAll('.section').forEach(s => obs.observe(s));
-
-/* observe hero separately so it gets visible class for title and tag */
-setTimeout(() => {
-  document.querySelectorAll('.title, .tag').forEach(el => el.classList.add('visible'));
-}, 420);
-
-/* -------------------- smooth background shift while scroll (subtle) -------------------- */
-window.addEventListener('scroll', () => {
-  const max = document.body.scrollHeight - window.innerHeight;
-  const pos = Math.max(0, Math.min(1, window.scrollY / (max || 1)));
-  // subtle shift to give depth
-  const r = Math.floor(0 + pos * 16);
-  const g = Math.floor(16 + pos * 60);
-  const b = Math.floor(24 + pos * 120);
-  canvas.style.background = `radial-gradient(circle at center, rgb(${r},${g},${b}) 6%, #000 90%)`;
+/* Background subtle shift */
+window.addEventListener('scroll',()=>{
+  const max=document.body.scrollHeight-window.innerHeight;
+  const pos=Math.max(0,Math.min(1,window.scrollY/(max||1)));
+  const r=Math.floor(0+pos*16);
+  const g=Math.floor(16+pos*60);
+  const b=Math.floor(24+pos*120);
+  canvas.style.background=`radial-gradient(circle at center,rgb(${r},${g},${b}) 6%,#000 90%)`;
 });
 </script>
-  
-<footer>
-  © 2025 AYNIX | All rights reserved | CEO Ali Yahya
-</footer>
-
-<!-- ghost cursor -->
-<div class="ghost-cursor" id="ghostCursor"></div>
-
 
 </body>
 </html>
+
 
 
