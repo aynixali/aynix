@@ -140,11 +140,18 @@
     border-radius: 14px;
     padding: 28px;
     text-align: left;
-    transition: transform .35s ease, box-shadow .35s ease, border-color .35s ease;
     text-decoration: none;
     color: inherit;
     cursor: pointer;
+
+    /* slide animation */
+    opacity: 0;
+    transform: translateX(50px);
+    transition: transform 0.6s cubic-bezier(.2,.9,.2,1), opacity 0.6s ease;
   }
+  .card.left { transform: translateX(-50px); } /* slide from left */
+  .card.visible { opacity: 1; transform: translateX(0); }
+
   .card h4 { color: #00ffff; font-family: 'Orbitron', sans-serif; margin-bottom: 10px; }
   .card p { color: #cfcfcf; line-height: 1.6; font-size: .95rem; }
   .card:hover {
@@ -254,7 +261,6 @@ let particles = [];
 function resize() { canvas.width = innerWidth; canvas.height = innerHeight; }
 window.addEventListener('resize', resize);
 resize();
-
 class P {
   constructor() { this.reset(); }
   reset() { this.x = Math.random()*canvas.width; this.y = Math.random()*canvas.height; this.r=Math.random()*1.8+0.6; this.vx=(Math.random()-0.5)*0.6; this.vy=(Math.random()-0.5)*0.6; this.alpha=0.25+Math.random()*0.4; }
@@ -289,17 +295,32 @@ window.addEventListener('load', ()=>{
   } catch(e){console.log('audio blocked',e);}
 });
 
-/* Scroll reveal */
+/* Scroll reveal for sections */
 const obs = new IntersectionObserver(entries=>{
   entries.forEach(en=>{
     if(en.isIntersecting){
-      en.target.querySelectorAll('.heading,.body,.card,.title,.tag').forEach(el=>el.classList.add('visible'));
+      en.target.querySelectorAll('.heading,.body,.title,.tag').forEach(el=>el.classList.add('visible'));
       obs.unobserve(en.target);
     }
   });
 },{ threshold:0.22 });
 document.querySelectorAll('.section').forEach(s=>obs.observe(s));
 setTimeout(()=>{document.querySelectorAll('.title,.tag').forEach(el=>el.classList.add('visible'));},420);
+
+/* Scroll reveal for cards with left/right alternation */
+const cards = document.querySelectorAll('.card');
+cards.forEach((card, i) => {
+  if(i % 2 === 0) card.classList.add('left'); // even cards slide left
+});
+const obsCards = new IntersectionObserver(entries => {
+  entries.forEach(en => {
+    if(en.isIntersecting){
+      en.target.classList.add('visible');
+      obsCards.unobserve(en.target);
+    }
+  });
+},{ threshold: 0.2 });
+cards.forEach(c => obsCards.observe(c));
 
 /* Background subtle shift */
 window.addEventListener('scroll',()=>{
