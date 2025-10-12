@@ -1,50 +1,105 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>AYNIX</title>
 <link rel="icon" type="image/png" href="ay.png.png">
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 <style>
-* { box-sizing:border-box; margin:0; padding:0; }
-html,body {height:100%; font-family:'Roboto',sans-serif; background:#000; color:#fff; overflow-x:hidden;}
-#particle-bg {position:fixed; inset:0; z-index:-1; background: radial-gradient(circle at center,#001 10%,#000 90%);}
+  * { box-sizing: border-box; margin:0; padding:0; }
+  html, body { height:100%; }
+  body {
+    font-family:'Roboto',sans-serif;
+    background:#000;
+    color:#fff;
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+  }
 
-/* Navbar */
-nav {position:fixed; top:0; left:0; width:100%; padding:18px 36px; display:flex; justify-content:space-between; align-items:center; background:rgba(0,0,0,0.7); backdrop-filter:blur(8px); border-bottom:1px solid rgba(0,255,255,0.06); z-index:50;}
-nav .brand {font-family:'Orbitron',sans-serif; color:#00ffff; font-size:1.15rem; letter-spacing:0.4px; text-shadow:0 0 10px #00ffff;}
-nav .links a {color:#fff; text-decoration:none; margin-left:18px; font-weight:600; transition:0.22s;}
-nav .links a:hover {color:#00ffff; text-shadow:0 0 10px #00ffff;}
+  /* Particle Canvas */
+  #particle-bg {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background: radial-gradient(circle at center,#001 10%,#000 90%);
+  }
 
-/* Hero */
-.hero {height:100vh; display:grid; place-items:center; text-align:center; padding:0 24px;}
-.hero .title {font-family:'Orbitron',sans-serif; color:#00ffff; font-size:4.2rem; line-height:1; margin-bottom:14px; opacity:0; transform:scale(0.98) translateY(12px); transition:0.9s; text-shadow:0 0 18px rgba(0,255,255,0.08),0 0 40px rgba(0,71,255,0.06);}
-.hero .tag {color:#cfcfcf; max-width:780px; font-size:1.15rem; opacity:0; transform:translateY(12px); transition:0.9s 0.18s;}
-.hero.show .title {opacity:1; transform:scale(1) translateY(0);}
-.hero.show .tag {opacity:1; transform:translateY(0);}
+  /* Nav */
+  nav {
+    position: fixed; left:0; top:0; width:100%;
+    padding: 18px 36px;
+    display:flex; justify-content:space-between; align-items:center;
+    background: rgba(0,0,0,0.7); backdrop-filter: blur(8px);
+    border-bottom:1px solid rgba(0,255,255,0.06);
+    z-index:50;
+  }
+  nav .brand { font-family:'Orbitron',sans-serif; color:#00ffff; font-size:1.15rem; text-shadow:0 0 10px #00ffff; }
+  nav .links a {
+    color:#fff; text-decoration:none; margin-left:18px; font-weight:600;
+    transition:color .22s ease, text-shadow .22s ease;
+  }
+  nav .links a:hover { color:#00ffff; text-shadow:0 0 10px #00ffff; }
 
-/* Main Sections */
-main {padding-top:100px; display:flex; flex-direction:column; gap:30px; align-items:center;}
+  /* Hero */
+  .hero { height:100vh; display:grid; place-items:center; text-align:center; padding:0 24px; }
+  .hero .title {
+    font-family:'Orbitron',sans-serif; color:#00ffff; font-size:4.2rem; line-height:1; margin-bottom:14px;
+    opacity:0; transform:scale(0.98) translateY(12px);
+    transition:opacity .9s ease, transform .9s cubic-bezier(.2,.9,.2,1);
+    text-shadow:0 0 18px rgba(0,255,255,0.08),0 0 40px rgba(0,71,255,0.06);
+  }
+  .hero .tag {
+    color:#cfcfcf; max-width:780px; font-size:1.15rem;
+    opacity:0; transform:translateY(12px);
+    transition:opacity .9s ease .18s, transform .9s cubic-bezier(.2,.9,.2,1) .18s;
+  }
+  .hero.show .title { opacity:1; transform:scale(1) translateY(0); }
+  .hero.show .tag { opacity:1; transform:translateY(0); }
 
-/* Zig-Zag Sections */
-.section-wrapper {width:90%; max-width:1000px; cursor:pointer; overflow:hidden; transition:0.5s;}
-.section-wrapper:nth-child(odd) .section-content {align-self:flex-end; text-align:right;}
-.section-wrapper:nth-child(even) .section-content {align-self:flex-start; text-align:left;}
-.section-wrapper .section-header {padding:20px; background:rgba(0,255,255,0.05); border:1px solid rgba(0,255,255,0.1); border-radius:12px; transition:0.4s;}
-.section-wrapper .section-header:hover {background:rgba(0,255,255,0.1); border-color:rgba(0,255,255,0.3);}
-.section-wrapper .section-header h3 {color:#00ffff; font-family:'Orbitron',sans-serif; margin:0; font-size:1.5rem;}
-.section-wrapper .section-content {margin-top:0; opacity:0; max-height:0; transition:all 0.6s ease; color:#cfcfcf; line-height:1.6; background:rgba(0,255,255,0.02); padding:0 20px; border-radius:0 0 12px 12px;}
-.section-wrapper.active .section-content {opacity:1; max-height:600px; padding:20px;}
+  /* Sections */
+  main { padding-bottom:80px; }
+  .section {
+    min-height:82vh; display:flex; justify-content:center; align-items:center;
+    padding:84px 20px; text-align:left; position:relative;
+  }
+  .section:nth-child(even) .content { margin-left:auto; text-align:right; }
+  .section:nth-child(odd) .content { margin-right:auto; text-align:left; }
+  .section .content {
+    max-width:720px;
+    opacity:0; transform:translateY(20px) scale(.995);
+    transition:opacity .85s ease, transform .85s cubic-bezier(.2,.9,.2,1);
+  }
+  .section .heading { font-family:'Orbitron',sans-serif; color:#00ffff; font-size:2.2rem; margin-bottom:22px; }
+  .section .body { color:#bfbfbf; line-height:1.8; font-size:1.05rem; }
 
-/* Footer */
-footer {padding:34px 18px; background:rgba(0,0,0,0.85); color:#9a9a9a; text-align:center; font-size:0.92rem; border-top:1px solid rgba(255,255,255,0.02);}
+  .visible { opacity:1 !important; transform:translateY(0) scale(1) !important; text-shadow:0 0 20px rgba(0,255,255,0.06); }
 
-/* Ghost Cursor */
-.ghost-cursor {position:fixed;width:18px;height:18px;border:2px solid rgba(0,255,255,0.95);border-radius:50%;pointer-events:none;transform:translate(-9px,-9px);z-index:9999;transition:transform .08s linear;width .12s ease,height .12s ease;mix-blend-mode:screen;}
+  /* Projects Grid (inside section) */
+  .projects { display:grid; gap:28px; grid-template-columns:1fr; margin-top:28px; }
+  .card {
+    display:block; background:rgba(255,255,255,0.02); border:1px solid rgba(0,255,255,0.06);
+    border-radius:14px; padding:28px; transition:transform .35s ease, box-shadow .35s ease, border-color .35s ease;
+    text-decoration:none; color:inherit; cursor:pointer;
+  }
+  .card h4 { color:#00ffff; font-family:'Orbitron',sans-serif; margin-bottom:10px; }
+  .card p { color:#cfcfcf; line-height:1.6; font-size:.95rem; }
+  .card:hover { transform:translateY(-10px) scale(1.02); box-shadow:0 14px 40px rgba(0,255,255,0.1); border-color:rgba(0,255,255,0.3); }
+  .card:hover h4 { text-shadow:0 0 10px #00ffff; }
 
-/* Responsive */
-@media (max-width:720px){.hero .title{font-size:2.6rem;}.section-wrapper .section-content{max-height:400px;}}
+  /* Footer */
+  footer { padding:34px 18px; background:rgba(0,0,0,0.85); color:#9a9a9a; text-align:center; font-size:.92rem; border-top:1px solid rgba(255,255,255,0.02); }
+
+  /* Ghost Cursor */
+  .ghost-cursor { position:fixed; width:18px; height:18px; border:2px solid rgba(0,255,255,0.95); border-radius:50%; pointer-events:none; transform:translate(-9px,-9px); z-index:9999; transition:transform .08s linear,width .12s ease,height .12s ease; mix-blend-mode:screen; }
+
+  /* Responsive */
+  @media(max-width:720px){
+    .hero .title{font-size:2.6rem;}
+    .section{padding:60px 18px; min-height:auto;}
+    .section .content{max-width:100%; text-align:center !important;}
+  }
 </style>
 </head>
 <body>
@@ -54,78 +109,82 @@ footer {padding:34px 18px; background:rgba(0,0,0,0.85); color:#9a9a9a; text-alig
 <nav>
   <div class="brand">AYNIX</div>
   <div class="links">
-    <a href="index.html">Home</a>
-    <a href="smartwatch.html">Smartwatches</a>
-    <a href="laptops.html">Laptops</a>
-    <a href="mobiles.html">Mobiles</a>
-    <a href="future.html">Future Tech</a>
+    <a href="#hero">Home</a>
+    <a href="#vision">Vision</a>
+    <a href="#projects">Projects</a>
+    <a href="#footer">Footer</a>
   </div>
 </nav>
 
 <section class="hero" id="hero">
-  <div>
-    <div class="title">AYNIX</div>
-    <div class="tag">Built different</div>
-  </div>
+  <div class="title">AYNIX</div>
+  <div class="tag">Built different</div>
 </section>
 
 <main>
-  <div class="section-wrapper">
-    <div class="section-header"><h3>Smartwatches</h3></div>
-    <div class="section-content">
-      Thoughtful wearable technology that respects time and daily life. <br><br>
-      Focused on clarity, simplicity and useful innovation.
+  <section class="section" id="vision">
+    <div class="content">
+      <div class="heading">Our Vision</div>
+      <div class="body">
+        AYNIX focuses on considered progress and practical value. We design technology that serves with integrity and clarity.
+        <br><br>
+        From wearables to intelligent systems, our work aims to connect people and possibilities in a careful and meaningful way.
+      </div>
     </div>
-  </div>
+  </section>
 
-  <div class="section-wrapper">
-    <div class="section-header"><h3>Laptop Series</h3></div>
-    <div class="section-content">
-      Design and precision for creators and professionals who value clarity. <br><br>
-      Power, elegance, and practicality combined.
+  <section class="section" id="projects">
+    <div class="content">
+      <div class="heading">Projects</div>
+      <div class="projects">
+        <a href="smartwatch.html" class="card">
+          <h4>Smartwatches</h4>
+          <p>Thoughtful wearable technology that respects time and daily life.</p>
+        </a>
+        <a href="laptops.html" class="card">
+          <h4>Laptop Series</h4>
+          <p>Design and precision for creators and professionals who value clarity.</p>
+        </a>
+        <a href="mobiles.html" class="card">
+          <h4>Mobile Series</h4>
+          <p>Devices that prioritize useful experiences over raw numbers.</p>
+        </a>
+        <a href="future.html" class="card">
+          <h4>Future Tech</h4>
+          <p>Work in AI, robotics, and electric mobility focused on practical benefit and care.</p>
+        </a>
+      </div>
     </div>
-  </div>
-
-  <div class="section-wrapper">
-    <div class="section-header"><h3>Mobile Series</h3></div>
-    <div class="section-content">
-      Devices that prioritize useful experiences over raw numbers. <br><br>
-      Thoughtful performance and connectivity for daily life.
-    </div>
-  </div>
-
-  <div class="section-wrapper">
-    <div class="section-header"><h3>Future Tech</h3></div>
-    <div class="section-content">
-      Work in AI, robotics, and electric mobility focused on practical benefit and care. <br><br>
-      Designed for long-term impact and responsible innovation.
-    </div>
-  </div>
+  </section>
 </main>
 
-<footer>© 2025 AYNIX All rights reserved CEO Ali Yahya</footer>
+<footer id="footer">
+  © 2025 AYNIX All rights reserved CEO Ali Yahya
+</footer>
+
 <div class="ghost-cursor" id="ghostCursor"></div>
 
 <script>
-/* Particles */
+/* -------------------- Particles -------------------- */
 const canvas = document.getElementById('particle-bg');
 const ctx = canvas.getContext('2d');
 let particles = [];
-function resize(){canvas.width=innerWidth;canvas.height=innerHeight;}
+function resize(){canvas.width=innerWidth; canvas.height=innerHeight;}
 window.addEventListener('resize',resize);
 resize();
-class P{constructor(){this.reset();}reset(){this.x=Math.random()*canvas.width;this.y=Math.random()*canvas.height;this.r=Math.random()*1.8+0.6;this.vx=(Math.random()-0.5)*0.6;this.vy=(Math.random()-0.5)*0.6;this.alpha=0.25+Math.random()*0.4;}move(){this.x+=this.vx;this.y+=this.vy;if(this.x<-10||this.x>canvas.width+10)this.reset();if(this.y<-10||this.y>canvas.height+10)this.reset();}draw(){ctx.globalAlpha=this.alpha;ctx.fillStyle="#00ffff";ctx.beginPath();ctx.arc(this.x,this.y,this.r,0,Math.PI*2);ctx.fill();ctx.globalAlpha=1;}}
-function initParticles(){particles=[];const count=Math.min(120,Math.floor((canvas.width*canvas.height)/90000));for(let i=0;i<count;i++)particles.push(new P());}
+
+class P{constructor(){this.reset();} reset(){this.x=Math.random()*canvas.width; this.y=Math.random()*canvas.height; this.r=Math.random()*1.8+0.6; this.vx=(Math.random()-0.5)*0.6; this.vy=(Math.random()-0.5)*0.6; this.alpha=0.25+Math.random()*0.4;} move(){this.x+=this.vx; this.y+=this.vy; if(this.x<-10||this.x>canvas.width+10)this.reset(); if(this.y<-10||this.y>canvas.height+10)this.reset();} draw(){ctx.globalAlpha=this.alpha; ctx.fillStyle="#00ffff"; ctx.beginPath(); ctx.arc(this.x,this.y,this.r,0,Math.PI*2); ctx.fill(); ctx.globalAlpha=1;}}
+function initParticles(){particles=[]; const count=Math.min(120,Math.floor((canvas.width*canvas.height)/90000)); for(let i=0;i<count;i++)particles.push(new P());}
 initParticles();
-function connectLines(){for(let i=0;i<particles.length;i++){for(let j=i+1;j<particles.length;j++){const a=particles[i],b=particles[j];const dx=a.x-b.x,dy=a.y-b.y;const dist=Math.sqrt(dx*dx+dy*dy);if(dist<110){ctx.strokeStyle='rgba(0,255,255,0.06)';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke();}}}}
-function loop(){ctx.clearRect(0,0,canvas.width,canvas.height);for(let p of particles){p.move();p.draw();}connectLines();requestAnimationFrame(loop);}
+function connectLines(){for(let i=0;i<particles.length;i++){for(let j=i+1;j<particles.length;j++){const a=particles[i],b=particles[j]; const dx=a.x-b.x, dy=a.y-b.y; const dist=Math.sqrt(dx*dx+dy*dy); if(dist<110){ctx.strokeStyle='rgba(0,255,255,0.06)'; ctx.lineWidth=1; ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y); ctx.stroke();}}}}
+function loop(){ctx.clearRect(0,0,canvas.width,canvas.height); for(let p of particles){p.move(); p.draw();} connectLines(); requestAnimationFrame(loop);}
 loop();
 
-/* Ghost cursor */
+/* -------------------- Ghost Cursor -------------------- */
 const ghost=document.getElementById('ghostCursor');
 document.addEventListener('mousemove',e=>{ghost.style.transform=`translate(${e.clientX-9}px,${e.clientY-9}px)`;});
 
-/* Hero intro + sound */
+/* -------------------- Hero intro + sound -------------------- */
 const hero=document.getElementById('hero');
 window.addEventListener('load',()=>{
   setTimeout(()=>hero.classList.add('show'),240);
@@ -143,10 +202,13 @@ window.addEventListener('load',()=>{
   }catch(e){console.log('audio blocked',e);}
 });
 
-/* Section expand toggle */
-document.querySelectorAll('.section-wrapper').forEach(wrapper=>{
-  wrapper.addEventListener('click',()=>{ wrapper.classList.toggle('active'); });
-});
+/* -------------------- Scroll reveal -------------------- */
+const obs=new IntersectionObserver(entries=>{entries.forEach(en=>{if(en.isIntersecting){en.target.querySelectorAll('.heading,.body,.card,.title,.tag').forEach(el=>el.classList.add('visible')); obs.unobserve(en.target);}})},{threshold:0.22});
+document.querySelectorAll('.section').forEach(s=>obs.observe(s));
+setTimeout(()=>{document.querySelectorAll('.title,.tag').forEach(el=>el.classList.add('visible'));},420);
+
+/* -------------------- Background subtle shift -------------------- */
+window.addEventListener('scroll',()=>{const max=document.body.scrollHeight-window.innerHeight; const pos=Math.max(0,Math.min(1,window.scrollY/(max||1))); const r=Math.floor(0+pos*16); const g=Math.floor(16+pos*60); const b=Math.floor(24+pos*120); canvas.style.background=`radial-gradient(circle at center,rgb(${r},${g},${b}) 6%,#000 90%)`;});
 </script>
 
 </body>
