@@ -125,13 +125,14 @@
     text-shadow: 0 0 20px rgba(0,255,255,0.06);
   }
 
-  /* Projects Grid */
+  /* Projects Vertical Zig-Zag */
   .projects {
-    max-width: 1020px;
+    display: flex;
+    flex-direction: column;
+    gap: 80px;
+    align-items: center;
     margin-top: 28px;
-    display: grid;
-    gap: 28px;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    width: 100%;
   }
   .card {
     display: block;
@@ -142,14 +143,14 @@
     text-align: left;
     text-decoration: none;
     color: inherit;
+    width: 70%;
+    max-width: 500px;
     cursor: pointer;
-
-    /* slide animation */
     opacity: 0;
-    transform: translateX(50px);
-    transition: transform 0.6s cubic-bezier(.2,.9,.2,1), opacity 0.6s ease;
+    transition: transform 0.8s cubic-bezier(.2,.9,.2,1), opacity 0.8s ease;
   }
-  .card.left { transform: translateX(-50px); } /* slide from left */
+  .card.left { transform: translateX(-120px); align-self: flex-start; }
+  .card.right { transform: translateX(120px); align-self: flex-end; }
   .card.visible { opacity: 1; transform: translateX(0); }
 
   .card h4 { color: #00ffff; font-family: 'Orbitron', sans-serif; margin-bottom: 10px; }
@@ -189,6 +190,7 @@
   @media (max-width: 720px) {
     .hero .title { font-size: 2.6rem; }
     .section { padding: 60px 18px; min-height: auto; }
+    .card { width: 90%; align-self: center !important; transform: translateY(40px); }
   }
 </style>
 </head>
@@ -227,19 +229,19 @@
   <section class="section" id="projects">
     <div class="heading">Projects</div>
     <div class="projects">
-      <a href="smartwatch.html" class="card">
+      <a href="smartwatch.html" class="card left">
         <h4>Smartwatches</h4>
         <p>Thoughtful wearable technology that respects time and daily life.</p>
       </a>
-      <a href="laptops.html" class="card">
+      <a href="laptops.html" class="card right">
         <h4>Laptop Series</h4>
         <p>Design and precision for creators and professionals who value clarity.</p>
       </a>
-      <a href="mobiles.html" class="card">
+      <a href="mobiles.html" class="card left">
         <h4>Mobile Series</h4>
         <p>Devices that prioritize useful experiences over raw numbers.</p>
       </a>
-      <a href="future.html" class="card">
+      <a href="future.html" class="card right">
         <h4>Future Tech</h4>
         <p>Work in AI, robotics, and electric mobility focused on practical benefit and care.</p>
       </a>
@@ -295,7 +297,7 @@ window.addEventListener('load', ()=>{
   } catch(e){console.log('audio blocked',e);}
 });
 
-/* Scroll reveal for sections */
+/* Section Scroll Reveal */
 const obs = new IntersectionObserver(entries=>{
   entries.forEach(en=>{
     if(en.isIntersecting){
@@ -307,11 +309,8 @@ const obs = new IntersectionObserver(entries=>{
 document.querySelectorAll('.section').forEach(s=>obs.observe(s));
 setTimeout(()=>{document.querySelectorAll('.title,.tag').forEach(el=>el.classList.add('visible'));},420);
 
-/* Scroll reveal for cards with left/right alternation */
+/* Card Scroll Reveal */
 const cards = document.querySelectorAll('.card');
-cards.forEach((card, i) => {
-  if(i % 2 === 0) card.classList.add('left'); // even cards slide left
-});
 const obsCards = new IntersectionObserver(entries => {
   entries.forEach(en => {
     if(en.isIntersecting){
