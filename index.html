@@ -236,28 +236,72 @@
 
 
 
+<section class="section" id="projects">
+  <div class="heading">Projects</div>
+  <div class="projects grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
 
-  <section class="section" id="projects">
-    <div class="heading">Projects</div>
-    <div class="projects">
-      <a href="smartwatch.html" class="card left">
-        <h4>Smartwatches</h4>
-        <p>Thoughtful wearable technology that respects time and daily life.</p>
-      </a>
-      <a href="laptops.html" class="card right">
-        <h4>Laptop Series</h4>
-        <p>Design and precision for creators and professionals who value clarity.</p>
-      </a>
-      <a href="mobiles.html" class="card left">
-        <h4>Mobile Series</h4>
-        <p>Devices that prioritize useful experiences over raw numbers.</p>
-      </a>
-      <a href="future.html" class="card right">
-        <h4>Future Tech</h4>
-        <p>Work in AI, robotics, and electric mobility focused on practical benefit and care.</p>
-      </a>
-    </div>
-  </section>
+    <!-- Smartwatches -->
+    <a href="smartwatch.html" class="card left bg-gray-900/50 backdrop-blur-md rounded-2xl overflow-hidden">
+      <img src="img/smartwatch.jpg" alt="Smartwatches" class="w-full h-40 object-cover">
+      <div class="p-4">
+        <h4 class="text-neon-cyan font-orbitron font-bold text-xl mb-2">Smartwatches</h4>
+        <p class="text-gray-400 text-sm">
+          Thoughtful wearable technology that respects time and daily life.
+        </p>
+      </div>
+    </a>
+
+    <!-- Laptops -->
+    <a href="laptops.html" class="card right bg-gray-900/50 backdrop-blur-md rounded-2xl overflow-hidden">
+      <img src="img/laptop.jpg" alt="Laptop Series" class="w-full h-40 object-cover">
+      <div class="p-4">
+        <h4 class="text-neon-cyan font-orbitron font-bold text-xl mb-2">Laptop Series</h4>
+        <p class="text-gray-400 text-sm">
+          Design and precision for creators and professionals who value clarity.
+        </p>
+      </div>
+    </a>
+
+    <!-- Mobiles -->
+    <a href="mobiles.html" class="card left bg-gray-900/50 backdrop-blur-md rounded-2xl overflow-hidden">
+      <img src="img/mobile.jpg" alt="Mobile Series" class="w-full h-40 object-cover">
+      <div class="p-4">
+        <h4 class="text-neon-cyan font-orbitron font-bold text-xl mb-2">Mobile Series</h4>
+        <p class="text-gray-400 text-sm">
+          Devices that prioritize useful experiences over raw numbers.
+        </p>
+      </div>
+    </a>
+
+    <!-- Future Tech -->
+    <a href="future.html" class="card right bg-gray-900/50 backdrop-blur-md rounded-2xl overflow-hidden">
+      <img src="img/future.jpg" alt="Future Tech" class="w-full h-40 object-cover">
+      <div class="p-4">
+        <h4 class="text-neon-cyan font-orbitron font-bold text-xl mb-2">Future Tech</h4>
+        <p class="text-gray-400 text-sm">
+          Work in AI, robotics, and electric mobility focused on practical benefit and care.
+        </p>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+<style>
+/* Neon color for headings */
+.text-neon-cyan { 
+  color: #00ffff; 
+  text-shadow: 0 0 4px #00ffff, 0 0 10px #00ffff, 0 0 20px #00ffff;
+}
+
+/* Neon shadow on hover */
+.card:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 0 6px #00ffff, 0 0 12px #00ffff, 0 0 18px #00ffff, 0 0 32px rgba(0,255,255,0.6);
+  transition: all 0.4s ease;
+}
+</style>
+
 </main>
 
 <footer>
