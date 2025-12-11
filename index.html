@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>AYNIX</title>
+<title>Aynix</title>
 <link rel="icon" type="image/png" href="ay.png.png">
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 <style>
@@ -67,41 +67,28 @@
     place-items: center;
     text-align: center;
     padding: 0 24px;
-    position: relative;
-  }
-  .hero .title, .hero .tag {
-    opacity: 0;
-    transform: scale(0.98) translateY(12px);
-    transition: opacity .9s ease, transform .9s cubic-bezier(.2,.9,.2,1);
   }
   .hero .title {
     font-family: 'Orbitron', sans-serif;
     color: #00ffff;
-    font-size: 5rem;
+    font-size: 4.2rem;
     line-height: 1;
     margin-bottom: 14px;
-    text-shadow:
-      0 0 10px #00ffff,
-      0 0 20px #00ffff,
-      0 0 40px #00ffff,
-      0 0 80px #00ffff;
-    animation: pulseGlow 2.5s infinite alternate;
+    opacity: 0;
+    transform: scale(0.98) translateY(12px);
+    transition: opacity .9s ease, transform .9s cubic-bezier(.2,.9,.2,1);
+    text-shadow: 0 0 18px rgba(0,255,255,0.08), 0 0 40px rgba(0,71,255,0.06);
   }
   .hero .tag {
     color: #cfcfcf;
     max-width: 780px;
-    font-size: 1.25rem;
-    transition-delay: 0.18s;
+    font-size: 1.15rem;
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity .9s ease .18s, transform .9s cubic-bezier(.2,.9,.2,1) .18s;
   }
   .hero.show .title { opacity: 1; transform: scale(1) translateY(0); }
   .hero.show .tag { opacity: 1; transform: translateY(0); }
-
-  /* Hero Glow Pulse Animation */
-  @keyframes pulseGlow {
-    0% { text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff, 0 0 40px #00ffff, 0 0 60px #00ffff; }
-    50% { text-shadow: 0 0 20px #00ffff, 0 0 40px #00ffff, 0 0 80px #00ffff, 0 0 120px #00ffff; }
-    100% { text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff, 0 0 40px #00ffff, 0 0 60px #00ffff; }
-  }
 
   /* Sections */
   main { padding-bottom: 80px; }
@@ -165,9 +152,14 @@
   .card.left { transform: translateX(-120px); align-self: flex-start; }
   .card.right { transform: translateX(120px); align-self: flex-end; }
   .card.visible { opacity: 1; transform: translateX(0); }
+
   .card h4 { color: #00ffff; font-family: 'Orbitron', sans-serif; margin-bottom: 10px; }
   .card p { color: #cfcfcf; line-height: 1.6; font-size: .95rem; }
-  .card:hover { transform: translateY(-10px) scale(1.02); box-shadow: 0 14px 40px rgba(0,255,255,0.1); border-color: rgba(0,255,255,0.3); }
+  .card:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 14px 40px rgba(0,255,255,0.1);
+    border-color: rgba(0,255,255,0.3);
+  }
   .card:hover h4 { text-shadow: 0 0 10px #00ffff; }
 
   /* Footer */
@@ -196,7 +188,7 @@
 
   /* Responsive */
   @media (max-width: 720px) {
-    .hero .title { font-size: 3rem; }
+    .hero .title { font-size: 2.6rem; }
     .section { padding: 60px 18px; min-height: auto; }
     .card { width: 90%; align-self: center !important; transform: translateY(40px); }
   }
@@ -217,15 +209,20 @@
   </div>
 </nav>
 
-<!-- HERO -->
-<section id="hero" class="hero relative w-full h-screen flex items-center px-10 bg-cover bg-center"
-  style="background-image: url('img/a.jpg');">
+<section class="hero relative w-full h-screen flex items-center px-10" id="hero" 
+         style="background-image: url('img/a.jpg.jpg'); background-size: cover; background-position: center;">
+  
+  <!-- Overlay to darken for text readability -->
   <div class="absolute inset-0 bg-black/40"></div>
+
+  <!-- Text -->
   <div class="relative z-10 text-white space-y-4 max-w-xl">
     <div class="title text-6xl font-bold">AYNIX</div>
     <div class="tag text-2xl">Built different</div>
+    
   </div>
 </section>
+
 
 <main>
   <section class="section" id="vision">
@@ -236,6 +233,9 @@
       From wearables to intelligent systems, our work aims to connect people and possibilities in a careful and meaningful way.
     </div>
   </section>
+
+
+
 
   <section class="section" id="projects">
     <div class="heading">Projects</div>
@@ -275,11 +275,16 @@ let particles = [];
 function resize() { canvas.width = innerWidth; canvas.height = innerHeight; }
 window.addEventListener('resize', resize);
 resize();
-class P { constructor(){this.reset();} reset(){this.x=Math.random()*canvas.width;this.y=Math.random()*canvas.height;this.r=Math.random()*1.8+0.6;this.vx=(Math.random()-0.5)*0.6;this.vy=(Math.random()-0.5)*0.6;this.alpha=0.25+Math.random()*0.4;} move(){this.x+=this.vx;this.y+=this.vy;if(this.x<-10||this.x>canvas.width+10)this.reset();if(this.y<-10||this.y>canvas.height+10)this.reset();} draw(){ctx.globalAlpha=this.alpha;ctx.fillStyle="#00ffff";ctx.beginPath();ctx.arc(this.x,this.y,this.r,0,Math.PI*2);ctx.fill();ctx.globalAlpha=1;}}
-function initParticles(){particles=[];const count=Math.min(120,Math.floor((canvas.width*canvas.height)/90000));for(let i=0;i<count;i++)particles.push(new P());}
+class P {
+  constructor() { this.reset(); }
+  reset() { this.x = Math.random()*canvas.width; this.y = Math.random()*canvas.height; this.r=Math.random()*1.8+0.6; this.vx=(Math.random()-0.5)*0.6; this.vy=(Math.random()-0.5)*0.6; this.alpha=0.25+Math.random()*0.4; }
+  move(){ this.x+=this.vx; this.y+=this.vy; if(this.x<-10||this.x>canvas.width+10)this.reset(); if(this.y<-10||this.y>canvas.height+10)this.reset(); }
+  draw(){ ctx.globalAlpha=this.alpha; ctx.fillStyle="#00ffff"; ctx.beginPath(); ctx.arc(this.x,this.y,this.r,0,Math.PI*2); ctx.fill(); ctx.globalAlpha=1; }
+}
+function initParticles(){ particles=[]; const count=Math.min(120,Math.floor((canvas.width*canvas.height)/90000)); for(let i=0;i<count;i++)particles.push(new P()); }
 initParticles();
-function connectLines(){for(let i=0;i<particles.length;i++){for(let j=i+1;j<particles.length;j++){const a=particles[i],b=particles[j];const dx=a.x-b.x,dy=a.y-b.y;const dist=Math.sqrt(dx*dx+dy*dy);if(dist<110){ctx.strokeStyle='rgba(0,255,255,0.06)';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke();}}}}
-function loop(){ctx.clearRect(0,0,canvas.width,canvas.height);for(let p of particles){p.move();p.draw();}connectLines();requestAnimationFrame(loop);}
+function connectLines(){ for(let i=0;i<particles.length;i++){ for(let j=i+1;j<particles.length;j++){ const a=particles[i],b=particles[j]; const dx=a.x-b.x,dy=a.y-b.y; const dist=Math.sqrt(dx*dx+dy*dy); if(dist<110){ ctx.strokeStyle='rgba(0,255,255,0.06)'; ctx.lineWidth=1; ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y); ctx.stroke(); }}}}
+function loop(){ ctx.clearRect(0,0,canvas.width,canvas.height); for(let p of particles){ p.move(); p.draw(); } connectLines(); requestAnimationFrame(loop);}
 loop();
 
 /* Ghost Cursor */
@@ -341,6 +346,7 @@ window.addEventListener('scroll',()=>{
 
 </body>
 </html>
+
 
 
 
