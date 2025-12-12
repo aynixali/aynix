@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Aynix</title>
-<link rel="icon" type="image/png" href="ay.png.png">
+<title>AYNIX</title>
+<link rel="icon" type="image/png" href="ay.png">
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -67,28 +67,40 @@
     place-items: center;
     text-align: center;
     padding: 0 24px;
+    position: relative;
+    background-size: cover;
+    background-position: center;
+  }
+  .hero .overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    z-index: 1;
+  }
+  .hero .text {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    color: #fff;
   }
   .hero .title {
     font-family: 'Orbitron', sans-serif;
     color: #00ffff;
-    font-size: 4.2rem;
-    line-height: 1;
-    margin-bottom: 14px;
+    font-size: 4rem;
+    margin-bottom: 12px;
     opacity: 0;
-    transform: scale(0.98) translateY(12px);
+    transform: translateY(12px) scale(0.98);
     transition: opacity .9s ease, transform .9s cubic-bezier(.2,.9,.2,1);
-    text-shadow: 0 0 18px rgba(0,255,255,0.08), 0 0 40px rgba(0,71,255,0.06);
   }
   .hero .tag {
     color: #cfcfcf;
-    max-width: 780px;
-    font-size: 1.15rem;
+    font-size: 1.2rem;
     opacity: 0;
     transform: translateY(12px);
     transition: opacity .9s ease .18s, transform .9s cubic-bezier(.2,.9,.2,1) .18s;
   }
-  .hero.show .title { opacity: 1; transform: scale(1) translateY(0); }
-  .hero.show .tag { opacity: 1; transform: translateY(0); }
+  .hero.show .title { opacity:1; transform: translateY(0) scale(1); }
+  .hero.show .tag { opacity:1; transform: translateY(0); }
 
   /* Sections */
   main { padding-bottom: 80px; }
@@ -119,13 +131,8 @@
     transform: translateY(20px) scale(.995);
     transition: opacity .85s ease .12s, transform .85s cubic-bezier(.2,.9,.2,1) .12s;
   }
-  .visible {
-    opacity: 1 !important;
-    transform: translateY(0) scale(1) !important;
-    text-shadow: 0 0 20px rgba(0,255,255,0.06);
-  }
 
-  /* Projects Vertical Zig-Zag */
+  /* Projects */
   .projects {
     display: flex;
     flex-direction: column;
@@ -147,12 +154,10 @@
     max-width: 500px;
     cursor: pointer;
     opacity: 0;
+    transform: translateY(40px);
     transition: transform 0.8s cubic-bezier(.2,.9,.2,1), opacity 0.8s ease;
   }
-  .card.left { transform: translateX(-120px); align-self: flex-start; }
-  .card.right { transform: translateX(120px); align-self: flex-end; }
-  .card.visible { opacity: 1; transform: translateX(0); }
-
+  .card.visible { opacity:1; transform: translateY(0); }
   .card h4 { color: #00ffff; font-family: 'Orbitron', sans-serif; margin-bottom: 10px; }
   .card p { color: #cfcfcf; line-height: 1.6; font-size: .95rem; }
   .card:hover {
@@ -160,7 +165,6 @@
     box-shadow: 0 14px 40px rgba(0,255,255,0.1);
     border-color: rgba(0,255,255,0.3);
   }
-  .card:hover h4 { text-shadow: 0 0 10px #00ffff; }
 
   /* Footer */
   footer {
@@ -172,26 +176,18 @@
     border-top: 1px solid rgba(255,255,255,0.02);
   }
 
-  /* Ghost Cursor */
-  .ghost-cursor {
-    position: fixed;
-    width: 18px;
-    height: 18px;
-    border: 2px solid rgba(0,255,255,0.95);
-    border-radius: 50%;
-    pointer-events: none;
-    transform: translate(-9px, -9px);
-    z-index: 9999;
-    transition: transform .08s linear, width .12s ease, height .12s ease;
-    mix-blend-mode: screen;
-  }
+  /* Neon color */
+  .text-neon-cyan { color: #00ffff; text-shadow: 0 0 4px #00ffff,0 0 10px #00ffff,0 0 20px #00ffff; }
 
   /* Responsive */
   @media (max-width: 720px) {
     .hero .title { font-size: 2.6rem; }
     .section { padding: 60px 18px; min-height: auto; }
-    .card { width: 90%; align-self: center !important; transform: translateY(40px); }
+    .card { width: 90%; transform: translateY(40px); }
   }
+
+  /* Reveal visible class */
+  .visible { opacity:1 !important; transform: translateY(0) scale(1) !important; }
 </style>
 </head>
 <body>
@@ -209,271 +205,104 @@
   </div>
 </nav>
 
-<section class="hero relative w-full h-screen flex items-center px-10" id="hero" 
-         style="background-image: url('img/a.jpg.jpg'); background-size: cover; background-position: center;">
-  
-  <!-- Overlay to darken for text readability -->
-  <div class="absolute inset-0 bg-black/40"></div>
-
-  <!-- Text -->
-  <div class="relative z-10 text-white space-y-4 max-w-xl">
-    <div class="title text-6xl font-bold">AYNIX</div>
-    <div class="tag text-2xl">Built different</div>
-    
+<section class="hero" id="hero" style="background-image: url('img/a.jpg');">
+  <div class="overlay"></div>
+  <div class="text">
+    <div class="title">AYNIX</div>
+    <div class="tag">Built different</div>
   </div>
 </section>
-
 
 <main>
   <section class="section" id="vision">
     <div class="heading">Our vision</div>
     <div class="body">
-      AYNIX focuses on considered progress and practical value. We design technology that serves with integrity and clarity.
-      <br><br>
+      AYNIX focuses on considered progress and practical value. We design technology that serves with integrity and clarity.<br><br>
       From wearables to intelligent systems, our work aims to connect people and possibilities in a careful and meaningful way.
     </div>
   </section>
 
-<!-- Projects section — modern + robust image loader -->
-<section class="section" id="projects">
-  <div class="heading text-2xl font-semibold mb-6">Projects</div>
-
-  <div class="projects grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-
-    <!-- Card template: set data-file to the filename you saved -->
-    <a href="smartwatch.html" class="card group bg-gray-900/60 backdrop-blur-md rounded-2xl overflow-hidden shadow-md transition-transform transform hover:-translate-y-2">
-      <div class="relative w-full h-40 bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center">
-        <!-- data-file contains the filename only (no folders) -->
-        <img data-file="smartwatch.png" alt="Smartwatches" class="project-img w-full h-full object-cover object-center opacity-0 transition-opacity duration-300" />
-        <!-- subtle overlay */
-        <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent pointer-events-none"></div>
-      </div>
-      <div class="p-4">
-        <h4 class="text-neon-cyan font-orbitron font-bold text-lg mb-1">Smartwatches</h4>
-        <p class="text-gray-400 text-sm">
-          Thoughtful wearable technology that respects time and daily life.
-        </p>
-      </div>
-    </a>
-
-    <a href="laptops.html" class="card group bg-gray-900/60 backdrop-blur-md rounded-2xl overflow-hidden shadow-md transition-transform transform hover:-translate-y-2">
-      <div class="relative w-full h-40 bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center">
-        <img data-file="laptop.png" alt="Laptop Series" class="project-img w-full h-full object-cover object-center opacity-0 transition-opacity duration-300" />
-        <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent pointer-events-none"></div>
-      </div>
-      <div class="p-4">
-        <h4 class="text-neon-cyan font-orbitron font-bold text-lg mb-1">Laptop Series</h4>
-        <p class="text-gray-400 text-sm">
-          Design and precision for creators and professionals who value clarity.
-        </p>
-      </div>
-    </a>
-
-    <a href="mobiles.html" class="card group bg-gray-900/60 backdrop-blur-md rounded-2xl overflow-hidden shadow-md transition-transform transform hover:-translate-y-2">
-      <div class="relative w-full h-40 bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center">
-        <img data-file="mobile.png" alt="Mobile Series" class="project-img w-full h-full object-cover object-center opacity-0 transition-opacity duration-300" />
-        <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent pointer-events-none"></div>
-      </div>
-      <div class="p-4">
-        <h4 class="text-neon-cyan font-orbitron font-bold text-lg mb-1">Mobile Series</h4>
-        <p class="text-gray-400 text-sm">
-          Devices that prioritize useful experiences over raw numbers.
-        </p>
-      </div>
-    </a>
-
-    <a href="future.html" class="card group bg-gray-900/60 backdrop-blur-md rounded-2xl overflow-hidden shadow-md transition-transform transform hover:-translate-y-2">
-      <div class="relative w-full h-40 bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center">
-        <img data-file="future.png" alt="Future Tech" class="project-img w-full h-full object-cover object-center opacity-0 transition-opacity duration-300" />
-        <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent pointer-events-none"></div>
-      </div>
-      <div class="p-4">
-        <h4 class="text-neon-cyan font-orbitron font-bold text-lg mb-1">Future Tech</h4>
-        <p class="text-gray-400 text-sm">
-          Work in AI, robotics, and electric mobility focused on practical benefit and care.
-        </p>
-      </div>
-    </a>
-
-  </div>
-</section>
-
-<style>
-  /* Neon color for headings */
-  .text-neon-cyan {
-    color: #00ffff;
-    text-shadow: 0 0 4px #00ffff, 0 0 10px #00ffff, 0 0 20px #00ffff;
-  }
-
-  /* Smooth image fade-in when loaded */
-  .project-img.loaded {
-    opacity: 1 !important;
-  }
-
-  /* Basic card hover glow (keeps subtle & modern) */
-  .card:focus,
-  .card:hover {
-    box-shadow: 0 8px 30px rgba(0, 255, 255, 0.06);
-  }
-</style>
-
-<script>
-/*
- Robust image loader:
- - Each <img> has data-file="filename.png"
- - Script attempts multiple common folder paths automatically:
-    img/, ./img/, /img/, ../img/, assets/img/
- - On success it sets the real src and applies .loaded class for fade-in.
- - On failure it sets a small SVG placeholder so layout stays consistent.
-*/
-(function () {
-  const candidatesFor = (file) => [
-    `img/${file}`,      // common: img folder next to HTML
-    `./img/${file}`,    // explicit local
-    `/${file.startsWith('/') ? file.slice(1) : file}`, // direct (file in root)
-    `/${'img'}/${file}`,// root-relative /img/filename
-    `../img/${file}`,   // if page is in a subfolder
-    `assets/img/${file}`// alternative assets path
-  ];
-
-  const placeholder = (w=600,h=400,text='No image') => {
-    const svg = encodeURIComponent(
-      `<svg xmlns='http://www.w3.org/2000/svg' width='${w}' height='${h}'><rect width='100%' height='100%' fill='#0b1220'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' font-family='Arial,sans-serif' fill='#374151' font-size='18'>${text}</text></svg>`
-    );
-    return `data:image/svg+xml;charset=utf-8,${svg}`;
-  };
-
-  function tryLoadElement(imgEl, file, list, idx = 0) {
-    if (idx >= list.length) {
-      imgEl.src = placeholder(800, 400, 'image not found');
-      imgEl.classList.add('loaded');
-      return;
-    }
-    const url = list[idx];
-    const tester = new Image();
-    tester.onload = function () {
-      imgEl.src = url;
-      imgEl.classList.add('loaded');
-    };
-    tester.onerror = function () {
-      tryLoadElement(imgEl, file, list, idx + 1);
-    };
-    // start test
-    tester.src = url;
-  }
-
-  // Find all images with data-file and attempt load
-  document.addEventListener('DOMContentLoaded', function () {
-    const imgs = document.querySelectorAll('img[data-file]');
-    imgs.forEach(img => {
-      const file = img.getAttribute('data-file').trim();
-      if (!file) return;
-      // small accessibility: if no alt, set one
-      if (!img.getAttribute('alt')) img.setAttribute('alt', file.replace(/[-_]/g, ' '));
-      const list = Array.from(new Set(candidatesFor(file))); // remove duplicates
-      tryLoadElement(img, file, list, 0);
-      // fallback on error while image is already set (extra safety)
-      img.addEventListener('error', () => {
-        if (!img.classList.contains('loaded')) {
-          tryLoadElement(img, file, list, 0);
-        } else {
-          img.src = placeholder(800, 400, 'image not found');
-        }
-      });
-    });
-  });
-})();
-</script>
-
-
+  <section class="section" id="projects">
+    <div class="heading">Projects</div>
+    <div class="projects">
+      <a href="smartwatch.html" class="card">
+        <img src="img/smartwatch.png" alt="Smartwatch" style="width:100%; height:200px; object-fit:cover; border-radius:8px; margin-bottom:12px;">
+        <h4>Smartwatches</h4>
+        <p>Thoughtful wearable technology that respects time and daily life.</p>
+      </a>
+      <a href="laptops.html" class="card">
+        <img src="img/laptop.png" alt="Laptop" style="width:100%; height:200px; object-fit:cover; border-radius:8px; margin-bottom:12px;">
+        <h4>Laptop Series</h4>
+        <p>Design and precision for creators and professionals who value clarity.</p>
+      </a>
+      <a href="mobiles.html" class="card">
+        <img src="img/mobile.png" alt="Mobile" style="width:100%; height:200px; object-fit:cover; border-radius:8px; margin-bottom:12px;">
+        <h4>Mobile Series</h4>
+        <p>Devices that prioritize useful experiences over raw numbers.</p>
+      </a>
+      <a href="future.html" class="card">
+        <img src="img/future.png" alt="Future Tech" style="width:100%; height:200px; object-fit:cover; border-radius:8px; margin-bottom:12px;">
+        <h4>Future Tech</h4>
+        <p>Work in AI, robotics, and electric mobility focused on practical benefit and care.</p>
+      </a>
+    </div>
+  </section>
 </main>
 
 <footer>
-  © 2025 AYNIX All rights reserved CEO Ali Yahya
-  <p>Contact us: <a href="mailto:contact@aynixglobal.com" style="color:#00ffff; text-decoration:none;">contact@aynixglobal.com</a></p>
+  © 2025 AYNIX All rights reserved CEO Ali Yahya<br>
+  Contact us: <a href="mailto:contact@aynixglobal.com" style="color:#00ffff; text-decoration:none;">contact@aynixglobal.com</a>
 </footer>
 
 <div class="ghost-cursor" id="ghostCursor"></div>
 
 <script>
-/* Particles */
+/* Particle Background */
 const canvas = document.getElementById('particle-bg');
 const ctx = canvas.getContext('2d');
 let particles = [];
 function resize() { canvas.width = innerWidth; canvas.height = innerHeight; }
-window.addEventListener('resize', resize);
-resize();
-class P {
-  constructor() { this.reset(); }
-  reset() { this.x = Math.random()*canvas.width; this.y = Math.random()*canvas.height; this.r=Math.random()*1.8+0.6; this.vx=(Math.random()-0.5)*0.6; this.vy=(Math.random()-0.5)*0.6; this.alpha=0.25+Math.random()*0.4; }
-  move(){ this.x+=this.vx; this.y+=this.vy; if(this.x<-10||this.x>canvas.width+10)this.reset(); if(this.y<-10||this.y>canvas.height+10)this.reset(); }
-  draw(){ ctx.globalAlpha=this.alpha; ctx.fillStyle="#00ffff"; ctx.beginPath(); ctx.arc(this.x,this.y,this.r,0,Math.PI*2); ctx.fill(); ctx.globalAlpha=1; }
-}
-function initParticles(){ particles=[]; const count=Math.min(120,Math.floor((canvas.width*canvas.height)/90000)); for(let i=0;i<count;i++)particles.push(new P()); }
+window.addEventListener('resize', resize); resize();
+class P { constructor(){this.reset()} reset(){this.x=Math.random()*canvas.width;this.y=Math.random()*canvas.height;this.r=Math.random()*1.8+0.6;this.vx=(Math.random()-0.5)*0.6;this.vy=(Math.random()-0.5)*0.6;this.alpha=0.25+Math.random()*0.4;} move(){this.x+=this.vx;this.y+=this.vy;if(this.x<-10||this.x>canvas.width+10)this.reset();if(this.y<-10||this.y>canvas.height+10)this.reset();} draw(){ctx.globalAlpha=this.alpha;ctx.fillStyle="#00ffff";ctx.beginPath();ctx.arc(this.x,this.y,this.r,0,Math.PI*2);ctx.fill();ctx.globalAlpha=1;}}
+function initParticles(){particles=[];for(let i=0;i<Math.min(120,Math.floor((canvas.width*canvas.height)/90000));i++)particles.push(new P());}
 initParticles();
-function connectLines(){ for(let i=0;i<particles.length;i++){ for(let j=i+1;j<particles.length;j++){ const a=particles[i],b=particles[j]; const dx=a.x-b.x,dy=a.y-b.y; const dist=Math.sqrt(dx*dx+dy*dy); if(dist<110){ ctx.strokeStyle='rgba(0,255,255,0.06)'; ctx.lineWidth=1; ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y); ctx.stroke(); }}}}
-function loop(){ ctx.clearRect(0,0,canvas.width,canvas.height); for(let p of particles){ p.move(); p.draw(); } connectLines(); requestAnimationFrame(loop);}
+function connectLines(){for(let i=0;i<particles.length;i++){for(let j=i+1;j<particles.length;j++){const a=particles[i],b=particles[j];const dx=a.x-b.x,dy=a.y-b.y;const dist=Math.sqrt(dx*dx+dy*dy);if(dist<110){ctx.strokeStyle='rgba(0,255,255,0.06)';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke();}}}}
+function loop(){ctx.clearRect(0,0,canvas.width,canvas.height);for(let p of particles){p.move();p.draw();}connectLines();requestAnimationFrame(loop);}
 loop();
 
 /* Ghost Cursor */
 const ghost = document.getElementById('ghostCursor');
-document.addEventListener('mousemove', e => { ghost.style.transform = `translate(${e.clientX - 9}px, ${e.clientY - 9}px)`; });
+document.addEventListener('mousemove', e=>{ghost.style.transform=`translate(${e.clientX-9}px,${e.clientY-9}px)`});
 
-/* Hero intro + sound */
+/* Hero intro */
 const hero = document.getElementById('hero');
 window.addEventListener('load', ()=>{
   setTimeout(()=>hero.classList.add('show'),240);
-  try {
-    const audioCtx=new (window.AudioContext||window.webkitAudioContext)();
-    const o1=audioCtx.createOscillator(); const o2=audioCtx.createOscillator();
-    const gain=audioCtx.createGain();
-    o1.type='sine'; o1.frequency.setValueAtTime(520,audioCtx.currentTime);
-    o2.type='triangle'; o2.frequency.setValueAtTime(820,audioCtx.currentTime);
-    gain.gain.setValueAtTime(0.0,audioCtx.currentTime);
-    gain.gain.linearRampToValueAtTime(0.04,audioCtx.currentTime+0.02);
-    gain.gain.exponentialRampToValueAtTime(0.0001,audioCtx.currentTime+0.6);
-    o1.connect(gain); o2.connect(gain); gain.connect(audioCtx.destination);
-    o1.start(); o2.start(); o1.stop(audioCtx.currentTime+0.6); o2.stop(audioCtx.currentTime+0.54);
-  } catch(e){console.log('audio blocked',e);}
 });
 
-/* Section Scroll Reveal */
-const obs = new IntersectionObserver(entries=>{
-  entries.forEach(en=>{
-    if(en.isIntersecting){
-      en.target.querySelectorAll('.heading,.body,.title,.tag').forEach(el=>el.classList.add('visible'));
-      obs.unobserve(en.target);
-    }
-  });
-},{ threshold:0.22 });
-document.querySelectorAll('.section').forEach(s=>obs.observe(s));
-setTimeout(()=>{document.querySelectorAll('.title,.tag').forEach(el=>el.classList.add('visible'));},420);
-
-/* Card Scroll Reveal */
-const cards = document.querySelectorAll('.card');
-const obsCards = new IntersectionObserver(entries => {
-  entries.forEach(en => {
-    if(en.isIntersecting){
-      en.target.classList.add('visible');
-      obsCards.unobserve(en.target);
-    }
-  });
-},{ threshold: 0.2 });
-cards.forEach(c => obsCards.observe(c));
+/* Reveal all sections and cards */
+function revealElements(selector){
+  const elements = document.querySelectorAll(selector);
+  const observer = new IntersectionObserver((entries, obs)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){ entry.target.classList.add('visible'); obs.unobserve(entry.target); }
+    });
+  }, { threshold:0.1 });
+  elements.forEach(el=>observer.observe(el));
+}
+revealElements('.section, .card, .title, .tag, .heading, .body');
 
 /* Background subtle shift */
-window.addEventListener('scroll',()=>{
+window.addEventListener('scroll', ()=>{
   const max=document.body.scrollHeight-window.innerHeight;
   const pos=Math.max(0,Math.min(1,window.scrollY/(max||1)));
-  const r=Math.floor(0+pos*16);
-  const g=Math.floor(16+pos*60);
-  const b=Math.floor(24+pos*120);
+  const r=Math.floor(0+pos*16), g=Math.floor(16+pos*60), b=Math.floor(24+pos*120);
   canvas.style.background=`radial-gradient(circle at center,rgb(${r},${g},${b}) 6%,#000 90%)`;
 });
 </script>
-
 </body>
 </html>
+
 
 
 
