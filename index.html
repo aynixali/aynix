@@ -234,50 +234,61 @@
     </div>
   </section>
 
-
-
+<!-- Projects section — modern + robust image loader -->
 <section class="section" id="projects">
-  <div class="heading">Projects</div>
+  <div class="heading text-2xl font-semibold mb-6">Projects</div>
+
   <div class="projects grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
 
-    <!-- Smartwatches -->
-    <a href="smartwatch.html" class="card left bg-gray-900/50 backdrop-blur-md rounded-2xl overflow-hidden">
-      <img src="smartwatch.png" alt="Smartwatches" class="w-full h-40 object-cover">
+    <!-- Card template: set data-file to the filename you saved -->
+    <a href="smartwatch.html" class="card group bg-gray-900/60 backdrop-blur-md rounded-2xl overflow-hidden shadow-md transition-transform transform hover:-translate-y-2">
+      <div class="relative w-full h-40 bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center">
+        <!-- data-file contains the filename only (no folders) -->
+        <img data-file="smartwatch.png" alt="Smartwatches" class="project-img w-full h-full object-cover object-center opacity-0 transition-opacity duration-300" />
+        <!-- subtle overlay */
+        <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent pointer-events-none"></div>
+      </div>
       <div class="p-4">
-        <h4 class="text-neon-cyan font-orbitron font-bold text-xl mb-2">Smartwatches</h4>
+        <h4 class="text-neon-cyan font-orbitron font-bold text-lg mb-1">Smartwatches</h4>
         <p class="text-gray-400 text-sm">
           Thoughtful wearable technology that respects time and daily life.
         </p>
       </div>
     </a>
 
-    <!-- Laptops -->
-    <a href="laptops.html" class="card right bg-gray-900/50 backdrop-blur-md rounded-2xl overflow-hidden">
-      <img src="laptop.png" alt="Laptop Series" class="w-full h-40 object-cover">
+    <a href="laptops.html" class="card group bg-gray-900/60 backdrop-blur-md rounded-2xl overflow-hidden shadow-md transition-transform transform hover:-translate-y-2">
+      <div class="relative w-full h-40 bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center">
+        <img data-file="laptop.png" alt="Laptop Series" class="project-img w-full h-full object-cover object-center opacity-0 transition-opacity duration-300" />
+        <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent pointer-events-none"></div>
+      </div>
       <div class="p-4">
-        <h4 class="text-neon-cyan font-orbitron font-bold text-xl mb-2">Laptop Series</h4>
+        <h4 class="text-neon-cyan font-orbitron font-bold text-lg mb-1">Laptop Series</h4>
         <p class="text-gray-400 text-sm">
           Design and precision for creators and professionals who value clarity.
         </p>
       </div>
     </a>
 
-    <!-- Mobiles -->
-    <a href="mobiles.html" class="card left bg-gray-900/50 backdrop-blur-md rounded-2xl overflow-hidden">
-      <img src="mobile.png" alt="Mobile Series" class="w-full h-40 object-cover">
+    <a href="mobiles.html" class="card group bg-gray-900/60 backdrop-blur-md rounded-2xl overflow-hidden shadow-md transition-transform transform hover:-translate-y-2">
+      <div class="relative w-full h-40 bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center">
+        <img data-file="mobile.png" alt="Mobile Series" class="project-img w-full h-full object-cover object-center opacity-0 transition-opacity duration-300" />
+        <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent pointer-events-none"></div>
+      </div>
       <div class="p-4">
-        <h4 class="text-neon-cyan font-orbitron font-bold text-xl mb-2">Mobile Series</h4>
+        <h4 class="text-neon-cyan font-orbitron font-bold text-lg mb-1">Mobile Series</h4>
         <p class="text-gray-400 text-sm">
           Devices that prioritize useful experiences over raw numbers.
         </p>
       </div>
     </a>
 
-    <!-- Future Tech -->
-    <a href="future.html" class="card right bg-gray-900/50 backdrop-blur-md rounded-2xl overflow-hidden">
-      <img src="future.png" alt="Future Tech" class="w-full h-40 object-cover">
+    <a href="future.html" class="card group bg-gray-900/60 backdrop-blur-md rounded-2xl overflow-hidden shadow-md transition-transform transform hover:-translate-y-2">
+      <div class="relative w-full h-40 bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center">
+        <img data-file="future.png" alt="Future Tech" class="project-img w-full h-full object-cover object-center opacity-0 transition-opacity duration-300" />
+        <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent pointer-events-none"></div>
+      </div>
       <div class="p-4">
-        <h4 class="text-neon-cyan font-orbitron font-bold text-xl mb-2">Future Tech</h4>
+        <h4 class="text-neon-cyan font-orbitron font-bold text-lg mb-1">Future Tech</h4>
         <p class="text-gray-400 text-sm">
           Work in AI, robotics, and electric mobility focused on practical benefit and care.
         </p>
@@ -288,19 +299,92 @@
 </section>
 
 <style>
-/* Neon color for headings */
-.text-neon-cyan { 
-  color: #00ffff; 
-  text-shadow: 0 0 4px #00ffff, 0 0 10px #00ffff, 0 0 20px #00ffff;
-}
+  /* Neon color for headings */
+  .text-neon-cyan {
+    color: #00ffff;
+    text-shadow: 0 0 4px #00ffff, 0 0 10px #00ffff, 0 0 20px #00ffff;
+  }
 
-/* Neon shadow on hover */
-.card:hover {
-  transform: translateY(-6px) scale(1.02);
-  box-shadow: 0 0 6px #00ffff, 0 0 12px #00ffff, 0 0 18px #00ffff, 0 0 32px rgba(0,255,255,0.6);
-  transition: all 0.4s ease;
-}
+  /* Smooth image fade-in when loaded */
+  .project-img.loaded {
+    opacity: 1 !important;
+  }
+
+  /* Basic card hover glow (keeps subtle & modern) */
+  .card:focus,
+  .card:hover {
+    box-shadow: 0 8px 30px rgba(0, 255, 255, 0.06);
+  }
 </style>
+
+<script>
+/*
+ Robust image loader:
+ - Each <img> has data-file="filename.png"
+ - Script attempts multiple common folder paths automatically:
+    img/, ./img/, /img/, ../img/, assets/img/
+ - On success it sets the real src and applies .loaded class for fade-in.
+ - On failure it sets a small SVG placeholder so layout stays consistent.
+*/
+(function () {
+  const candidatesFor = (file) => [
+    `img/${file}`,      // common: img folder next to HTML
+    `./img/${file}`,    // explicit local
+    `/${file.startsWith('/') ? file.slice(1) : file}`, // direct (file in root)
+    `/${'img'}/${file}`,// root-relative /img/filename
+    `../img/${file}`,   // if page is in a subfolder
+    `assets/img/${file}`// alternative assets path
+  ];
+
+  const placeholder = (w=600,h=400,text='No image') => {
+    const svg = encodeURIComponent(
+      `<svg xmlns='http://www.w3.org/2000/svg' width='${w}' height='${h}'><rect width='100%' height='100%' fill='#0b1220'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' font-family='Arial,sans-serif' fill='#374151' font-size='18'>${text}</text></svg>`
+    );
+    return `data:image/svg+xml;charset=utf-8,${svg}`;
+  };
+
+  function tryLoadElement(imgEl, file, list, idx = 0) {
+    if (idx >= list.length) {
+      imgEl.src = placeholder(800, 400, 'image not found');
+      imgEl.classList.add('loaded');
+      return;
+    }
+    const url = list[idx];
+    const tester = new Image();
+    tester.onload = function () {
+      imgEl.src = url;
+      imgEl.classList.add('loaded');
+    };
+    tester.onerror = function () {
+      tryLoadElement(imgEl, file, list, idx + 1);
+    };
+    // start test
+    tester.src = url;
+  }
+
+  // Find all images with data-file and attempt load
+  document.addEventListener('DOMContentLoaded', function () {
+    const imgs = document.querySelectorAll('img[data-file]');
+    imgs.forEach(img => {
+      const file = img.getAttribute('data-file').trim();
+      if (!file) return;
+      // small accessibility: if no alt, set one
+      if (!img.getAttribute('alt')) img.setAttribute('alt', file.replace(/[-_]/g, ' '));
+      const list = Array.from(new Set(candidatesFor(file))); // remove duplicates
+      tryLoadElement(img, file, list, 0);
+      // fallback on error while image is already set (extra safety)
+      img.addEventListener('error', () => {
+        if (!img.classList.contains('loaded')) {
+          tryLoadElement(img, file, list, 0);
+        } else {
+          img.src = placeholder(800, 400, 'image not found');
+        }
+      });
+    });
+  });
+})();
+</script>
+
 
 </main>
 
