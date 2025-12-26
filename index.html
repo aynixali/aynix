@@ -4,199 +4,221 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>AYNIX</title>
+
 <link rel="icon" type="image/png" href="aynix.png">
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
 <style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  html, body { height: 100%; }
-  body {
-    font-family: 'Roboto', sans-serif;
-    background: #000;
-    color: #fff;
-    overflow-x: hidden;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; }
 
-  /* Particle Canvas */
-  #particle-bg {
-    position: fixed;
-    inset: 0;
-    z-index: -1;
-    background: radial-gradient(circle at center, #001 10%, #000 90%);
-  }
+body {
+  font-family: 'Roboto', sans-serif;
+  background: #000;
+  color: #fff;
+  overflow-x: hidden;
+}
 
-  /* Nav */
-  nav {
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 100%;
-    padding: 18px 36px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: rgba(0,0,0,0.7);
-    backdrop-filter: blur(8px);
-    border-bottom: 1px solid rgba(0,255,255,0.06);
-    z-index: 50;
-  }
-  nav .brand {
-    font-family: 'Orbitron', sans-serif;
-    color: #00ffff;
-    font-size: 1.15rem;
-    letter-spacing: 0.4px;
-    text-shadow: 0 0 10px #00ffff;
-  }
-  nav .links a {
-    color: #fff;
-    text-decoration: none;
-    margin-left: 18px;
-    font-weight: 600;
-    transition: color .22s ease, text-shadow .22s ease;
-  }
-  nav .links a:hover {
-    color: #00ffff;
-    text-shadow: 0 0 10px #00ffff;
-  }
+/* ===== PARTICLE CANVAS ===== */
+#particle-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(circle at center, #001 8%, #000 90%);
+  animation: bgPulse 8s ease-in-out infinite;
+}
 
-  /* Hero */
-  .hero {
-    height: 100vh;
-    display: grid;
-    place-items: center;
-    text-align: center;
-    padding: 0 24px;
-    position: relative;
-    background-size: cover;
-    background-position: center;
-  }
-  .hero .overlay {
-    position: absolute;
-    inset: 0;
-    background: rgba(0,0,0,0.4);
-    z-index: 1;
-  }
-  .hero .text {
-    position: relative;
-    z-index: 2;
-    text-align: center;
-    color: #fff;
-  }
-  .hero .title {
-    font-family: 'Orbitron', sans-serif;
-    color: #00ffff;
-    font-size: 4rem;
-    margin-bottom: 12px;
-    opacity: 0;
-    transform: translateY(12px) scale(0.98);
-    transition: opacity .9s ease, transform .9s cubic-bezier(.2,.9,.2,1);
-  }
-  .hero .tag {
-    color: #cfcfcf;
-    font-size: 1.2rem;
-    opacity: 0;
-    transform: translateY(12px);
-    transition: opacity .9s ease .18s, transform .9s cubic-bezier(.2,.9,.2,1) .18s;
-  }
-  .hero.show .title { opacity:1; transform: translateY(0) scale(1); }
-  .hero.show .tag { opacity:1; transform: translateY(0); }
+@keyframes bgPulse {
+  0% { filter: brightness(1) drop-shadow(0 0 14px rgba(0,255,255,0.05)); }
+  50% { filter: brightness(1.15) drop-shadow(0 0 30px rgba(0,255,255,0.12)); }
+  100% { filter: brightness(1) drop-shadow(0 0 14px rgba(0,255,255,0.05)); }
+}
 
-  /* Sections */
-  main { padding-bottom: 80px; }
-  .section {
-    min-height: 82vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 84px 20px;
-    text-align: center;
-  }
-  .section .heading {
-    font-family: 'Orbitron', sans-serif;
-    color: #00ffff;
-    font-size: 2.2rem;
-    margin-bottom: 22px;
-    opacity: 0;
-    transform: translateY(20px) scale(.995);
-    transition: opacity .85s ease, transform .85s cubic-bezier(.2,.9,.2,1);
-  }
-  .section .body {
-    max-width: 920px;
-    color: #bfbfbf;
-    line-height: 1.8;
-    font-size: 1.05rem;
-    opacity: 0;
-    transform: translateY(20px) scale(.995);
-    transition: opacity .85s ease .12s, transform .85s cubic-bezier(.2,.9,.2,1) .12s;
-  }
+/* ===== NAV ===== */
+nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  padding: 18px 36px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(0,0,0,0.7);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(0,255,255,0.06);
+  z-index: 50;
+}
 
-  /* Projects */
-  .projects {
-    display: flex;
-    flex-direction: column;
-    gap: 80px;
-    align-items: center;
-    margin-top: 28px;
-    width: 100%;
-  }
-  .card {
-    display: block;
-    background: rgba(255,255,255,0.02);
-    border: 1px solid rgba(0,255,255,0.06);
-    border-radius: 14px;
-    padding: 28px;
-    text-align: left;
-    text-decoration: none;
-    color: inherit;
-    width: 70%;
-    max-width: 500px;
-    cursor: pointer;
-    opacity: 0;
-    transform: translateY(40px);
-    transition: transform 0.8s cubic-bezier(.2,.9,.2,1), opacity 0.8s ease;
-  }
-  .card.visible { opacity:1; transform: translateY(0); }
-  .card h4 { color: #00ffff; font-family: 'Orbitron', sans-serif; margin-bottom: 10px; }
-  .card p { color: #cfcfcf; line-height: 1.6; font-size: .95rem; }
-  .card:hover {
-    transform: translateY(-10px) scale(1.02);
-    box-shadow: 0 14px 40px rgba(0,255,255,0.1);
-    border-color: rgba(0,255,255,0.3);
-  }
+nav .brand {
+  font-family: 'Orbitron', sans-serif;
+  color: #00ffff;
+  text-shadow: 0 0 10px #00ffff;
+}
 
-  /* Footer */
-  footer {
-    padding: 34px 18px;
-    background: rgba(0,0,0,0.85);
-    color: #9a9a9a;
-    text-align: center;
-    font-size: 0.92rem;
-    border-top: 1px solid rgba(255,255,255,0.02);
-  }
+nav a {
+  color: #fff;
+  margin-left: 18px;
+  text-decoration: none;
+  font-weight: 600;
+}
 
-  /* Neon color */
-  .text-neon-cyan { color: #00ffff; text-shadow: 0 0 4px #00ffff,0 0 10px #00ffff,0 0 20px #00ffff; }
+nav a:hover {
+  color: #00ffff;
+  text-shadow: 0 0 10px #00ffff;
+}
 
-  /* Responsive */
-  @media (max-width: 720px) {
-    .hero .title { font-size: 2.6rem; }
-    .section { padding: 60px 18px; min-height: auto; }
-    .card { width: 90%; transform: translateY(40px); }
-  }
+/* ===== HERO ===== */
+.hero {
+  height: 100vh;
+  display: grid;
+  place-items: center;
+  position: relative;
+  text-align: center;
+  background-size: cover;
+  background-position: center;
+}
 
-  /* Reveal visible class */
-  .visible { opacity:1 !important; transform: translateY(0) scale(1) !important; }
+.hero .overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+}
+
+.hero .text {
+  position: relative;
+  z-index: 2;
+}
+
+.hero .title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 4rem;
+  color: #00ffff;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: .9s ease;
+}
+
+.hero .tag {
+  margin-top: 12px;
+  color: #cfcfcf;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: .9s ease .15s;
+}
+
+.hero.show .title,
+.hero.show .tag {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ===== SECTIONS ===== */
+.section {
+  min-height: 82vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 90px 20px;
+  text-align: center;
+}
+
+.heading {
+  font-family: 'Orbitron', sans-serif;
+  color: #00ffff;
+  font-size: 2.2rem;
+  margin-bottom: 22px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: .8s ease;
+}
+
+.body {
+  max-width: 900px;
+  color: #bfbfbf;
+  line-height: 1.8;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: .8s ease .1s;
+}
+
+/* ===== PROJECT CARDS ===== */
+.projects {
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
+  margin-top: 30px;
+  width: 100%;
+  align-items: center;
+}
+
+.card {
+  width: 70%;
+  max-width: 500px;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(0,255,255,0.06);
+  border-radius: 14px;
+  padding: 28px;
+  text-decoration: none;
+  color: inherit;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: .8s ease;
+}
+
+.card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+
+.card h4 {
+  font-family: 'Orbitron', sans-serif;
+  color: #00ffff;
+  margin-bottom: 8px;
+}
+
+.card p {
+  color: #cfcfcf;
+}
+
+.card:hover {
+  transform: translateY(-10px) scale(1.03);
+  box-shadow: 0 18px 50px rgba(0,255,255,0.12);
+}
+
+/* ===== FOOTER ===== */
+footer {
+  padding: 34px;
+  text-align: center;
+  background: rgba(0,0,0,0.85);
+  border-top: 1px solid rgba(255,255,255,0.05);
+  color: #9a9a9a;
+}
+
+/* ===== REVEAL ===== */
+.visible {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 720px) {
+  .hero .title { font-size: 2.6rem; }
+  .card { width: 90%; }
+}
 </style>
 </head>
+
 <body>
 
 <canvas id="particle-bg"></canvas>
 
 <nav>
   <div class="brand">AYNIX</div>
-  <div class="links">
+  <div>
     <a href="index.html">Home</a>
     <a href="smartwatch.html">Smartwatches</a>
     <a href="laptops.html">Laptops</a>
@@ -205,7 +227,7 @@
   </div>
 </nav>
 
-<section class="hero" id="hero" style="background-image: url('img/a.jpg');">
+<section class="hero" id="hero" style="background-image:url('img/a.jpg')">
   <div class="overlay"></div>
   <div class="text">
     <div class="title">AYNIX</div>
@@ -214,92 +236,157 @@
 </section>
 
 <main>
-  <section class="section" id="vision">
-    <div class="heading">Our vision</div>
-    <div class="body">
-      AYNIX focuses on considered progress and practical value. We design technology that serves with integrity and clarity.<br><br>
-      From wearables to intelligent systems, our work aims to connect people and possibilities in a careful and meaningful way.
-    </div>
-  </section>
 
-  <section class="section" id="projects">
-    <div class="heading">Projects</div>
-    <div class="projects">
-      <a href="smartwatch.html" class="card">
-        <img src="img/smartwatch.png" alt="Smartwatch" style="width:100%; height:200px; object-fit:cover; border-radius:8px; margin-bottom:12px;">
-        <h4>Smartwatches</h4>
-        <p>Thoughtful wearable technology that respects time and daily life.</p>
-      </a>
-      <a href="laptops.html" class="card">
-        <img src="img/laptop.png" alt="Laptop" style="width:100%; height:200px; object-fit:cover; border-radius:8px; margin-bottom:12px;">
-        <h4>Laptop Series</h4>
-        <p>Design and precision for creators and professionals who value clarity.</p>
-      </a>
-      <a href="mobiles.html" class="card">
-        <img src="img/mobile.png" alt="Mobile" style="width:100%; height:200px; object-fit:cover; border-radius:8px; margin-bottom:12px;">
-        <h4>Mobile Series</h4>
-        <p>Devices that prioritize useful experiences over raw numbers.</p>
-      </a>
-      <a href="future.html" class="card">
-        <img src="img/future.png" alt="Future Tech" style="width:100%; height:200px; object-fit:cover; border-radius:8px; margin-bottom:12px;">
-        <h4>Future Tech</h4>
-        <p>Work in AI, robotics, and electric mobility focused on practical benefit and care.</p>
-      </a>
-    </div>
-  </section>
+<section class="section">
+  <div class="heading">Our vision</div>
+  <div class="body">
+    AYNIX focuses on considered progress and practical value.<br><br>
+    We design technology that connects people and possibilities with clarity.
+  </div>
+</section>
+
+<section class="section">
+  <div class="heading">Projects</div>
+  <div class="projects">
+
+    <a class="card" href="smartwatch.html">
+      <img src="img/smartwatch.png">
+      <h4>Smartwatches</h4>
+      <p>Thoughtful wearable technology.</p>
+    </a>
+
+    <a class="card" href="laptops.html">
+      <img src="img/laptop.png">
+      <h4>Laptops</h4>
+      <p>Precision for creators.</p>
+    </a>
+
+    <a class="card" href="mobiles.html">
+      <img src="img/mobile.png">
+      <h4>Mobiles</h4>
+      <p>Useful experiences first.</p>
+    </a>
+
+    <a class="card" href="future.html">
+      <img src="img/future.png">
+      <h4>Future Tech</h4>
+      <p>AI, robotics & mobility.</p>
+    </a>
+
+  </div>
+</section>
+
 </main>
 
 <footer>
-  © 2025 AYNIX All rights reserved CEO Ali Yahya<br>
-  Contact us: <a href="mailto:contact@aynixglobal.com" style="color:#00ffff; text-decoration:none;">contact@aynixglobal.com</a>
+  © 2025 AYNIX — CEO Ali Yahya<br>
+  <a href="mailto:contact@aynixglobal.com" style="color:#00ffff">contact@aynixglobal.com</a>
 </footer>
 
-<div class="ghost-cursor" id="ghostCursor"></div>
-
 <script>
-/* Particle Background */
+/* ===== ENHANCED PARTICLES (SAME STYLE, MORE LIFE) ===== */
 const canvas = document.getElementById('particle-bg');
 const ctx = canvas.getContext('2d');
 let particles = [];
-function resize() { canvas.width = innerWidth; canvas.height = innerHeight; }
-window.addEventListener('resize', resize); resize();
-class P { constructor(){this.reset()} reset(){this.x=Math.random()*canvas.width;this.y=Math.random()*canvas.height;this.r=Math.random()*1.8+0.6;this.vx=(Math.random()-0.5)*0.6;this.vy=(Math.random()-0.5)*0.6;this.alpha=0.25+Math.random()*0.4;} move(){this.x+=this.vx;this.y+=this.vy;if(this.x<-10||this.x>canvas.width+10)this.reset();if(this.y<-10||this.y>canvas.height+10)this.reset();} draw(){ctx.globalAlpha=this.alpha;ctx.fillStyle="#00ffff";ctx.beginPath();ctx.arc(this.x,this.y,this.r,0,Math.PI*2);ctx.fill();ctx.globalAlpha=1;}}
-function initParticles(){particles=[];for(let i=0;i<Math.min(120,Math.floor((canvas.width*canvas.height)/90000));i++)particles.push(new P());}
-initParticles();
-function connectLines(){for(let i=0;i<particles.length;i++){for(let j=i+1;j<particles.length;j++){const a=particles[i],b=particles[j];const dx=a.x-b.x,dy=a.y-b.y;const dist=Math.sqrt(dx*dx+dy*dy);if(dist<110){ctx.strokeStyle='rgba(0,255,255,0.06)';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke();}}}}
-function loop(){ctx.clearRect(0,0,canvas.width,canvas.height);for(let p of particles){p.move();p.draw();}connectLines();requestAnimationFrame(loop);}
-loop();
+let mouse = { x: null, y: null };
 
-/* Ghost Cursor */
-const ghost = document.getElementById('ghostCursor');
-document.addEventListener('mousemove', e=>{ghost.style.transform=`translate(${e.clientX-9}px,${e.clientY-9}px)`});
-
-/* Hero intro */
-const hero = document.getElementById('hero');
-window.addEventListener('load', ()=>{
-  setTimeout(()=>hero.classList.add('show'),240);
-});
-
-/* Reveal all sections and cards */
-function revealElements(selector){
-  const elements = document.querySelectorAll(selector);
-  const observer = new IntersectionObserver((entries, obs)=>{
-    entries.forEach(entry=>{
-      if(entry.isIntersecting){ entry.target.classList.add('visible'); obs.unobserve(entry.target); }
-    });
-  }, { threshold:0.1 });
-  elements.forEach(el=>observer.observe(el));
+function resize() {
+  canvas.width = innerWidth;
+  canvas.height = innerHeight;
 }
-revealElements('.section, .card, .title, .tag, .heading, .body');
+window.addEventListener('resize', resize);
+resize();
 
-/* Background subtle shift */
-window.addEventListener('scroll', ()=>{
-  const max=document.body.scrollHeight-window.innerHeight;
-  const pos=Math.max(0,Math.min(1,window.scrollY/(max||1)));
-  const r=Math.floor(0+pos*16), g=Math.floor(16+pos*60), b=Math.floor(24+pos*120);
-  canvas.style.background=`radial-gradient(circle at center,rgb(${r},${g},${b}) 6%,#000 90%)`;
+document.addEventListener('mousemove', e => {
+  mouse.x = e.clientX;
+  mouse.y = e.clientY;
 });
+
+class Particle {
+  constructor() { this.reset(); }
+
+  reset() {
+    this.x = Math.random() * canvas.width;
+    this.y = Math.random() * canvas.height;
+    this.depth = Math.random();
+    this.r = 0.6 + this.depth * 2;
+    this.alpha = 0.25 + this.depth * 0.5;
+    this.vx = (Math.random() - 0.5) * (0.3 + this.depth);
+    this.vy = (Math.random() - 0.5) * (0.3 + this.depth);
+  }
+
+  move() {
+    this.x += this.vx;
+    this.y += this.vy;
+
+    if (mouse.x) {
+      const dx = mouse.x - this.x;
+      const dy = mouse.y - this.y;
+      const d = Math.sqrt(dx*dx + dy*dy);
+      if (d < 140) {
+        this.x -= dx * 0.0015 * this.depth;
+        this.y -= dy * 0.0015 * this.depth;
+      }
+    }
+
+    if (this.x < -50 || this.x > canvas.width + 50 ||
+        this.y < -50 || this.y > canvas.height + 50) this.reset();
+  }
+
+  draw() {
+    ctx.globalAlpha = this.alpha;
+    ctx.fillStyle = '#00ffff';
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.r, 0, Math.PI*2);
+    ctx.fill();
+    ctx.globalAlpha = 1;
+  }
+}
+
+function init() {
+  particles = [];
+  const count = Math.min(160, canvas.width * canvas.height / 8500);
+  for (let i=0;i<count;i++) particles.push(new Particle());
+}
+init();
+
+function connect() {
+  for (let i=0;i<particles.length;i++) {
+    for (let j=i+1;j<particles.length;j++) {
+      const a = particles[i], b = particles[j];
+      const dx = a.x - b.x, dy = a.y - b.y;
+      const d = Math.sqrt(dx*dx + dy*dy);
+      if (d < 120) {
+        ctx.strokeStyle = `rgba(0,255,255,${0.06*(1-d/120)})`;
+        ctx.beginPath();
+        ctx.moveTo(a.x,a.y);
+        ctx.lineTo(b.x,b.y);
+        ctx.stroke();
+      }
+    }
+  }
+}
+
+function animate() {
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  particles.forEach(p=>{p.move();p.draw();});
+  connect();
+  requestAnimationFrame(animate);
+}
+animate();
+
+/* HERO + REVEALS */
+window.onload = () => document.getElementById('hero').classList.add('show');
+
+const obs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){ e.target.classList.add('visible'); }
+  });
+},{threshold:.15});
+
+document.querySelectorAll('.heading,.body,.card').forEach(el=>obs.observe(el));
 </script>
+
 </body>
 </html>
 
