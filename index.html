@@ -277,11 +277,19 @@ footer {
 </section>
 
 </main>
+<footer>
+  <div class="footer-text">
+    © <span id="year"></span> Aynix  Built Ceo Ali yahya
+  </div>
 
-<footer>   <div style={{ marginTop: 14, color: "var(--muted)" }}>
-            © {new Date().getFullYear()} Aynix Built different  </div>
-  <a href="mailto:contact@aynixglobal.com" style="color:#00ffff">contact@aynixglobal.com</a>
+  <a href="mailto:contact@aynixglobal.com" class="footer-mail">
+    contact@aynixglobal.com
+  </a>
 </footer>
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+
 
 <script>
 /* ===== ENHANCED PARTICLES (SAME STYLE, MORE LIFE) ===== */
