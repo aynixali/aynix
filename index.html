@@ -1,62 +1,217 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>AYNIX</title>
-<link rel="icon" href="aynix.png" type="image/png">
+
+<link rel="icon" type="image/png" href="aynix.png">
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 
 <style>
-/* ===== GLOBAL ===== */
-* { margin:0; padding:0; box-sizing:border-box; }
-body { font-family:'Roboto', sans-serif; background:#000; color:#fff; overflow-x:hidden; }
-a { text-decoration:none; color:inherit; }
-h1,h2,h3,h4 { font-family:'Orbitron', sans-serif; }
-img { max-width:100%; display:block; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; }
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background: #000;
+  color: #fff;
+  overflow-x: hidden;
+}
+
+/* ===== PARTICLE CANVAS ===== */
+#particle-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(circle at center, #001 8%, #000 90%);
+  animation: bgPulse 8s ease-in-out infinite;
+}
+
+@keyframes bgPulse {
+  0% { filter: brightness(1) drop-shadow(0 0 14px rgba(0,255,255,0.05)); }
+  50% { filter: brightness(1.15) drop-shadow(0 0 30px rgba(0,255,255,0.12)); }
+  100% { filter: brightness(1) drop-shadow(0 0 14px rgba(0,255,255,0.05)); }
+}
 
 /* ===== NAV ===== */
-nav { position:fixed; top:0; width:100%; padding:18px 36px; display:flex; justify-content:space-between; align-items:center; background:rgba(0,0,0,0.7); backdrop-filter:blur(8px); border-bottom:1px solid rgba(0,255,255,0.06); z-index:50; }
-nav .brand { color:#00ffff; text-shadow:0 0 10px #00ffff; }
-nav a { margin-left:18px; font-weight:600; transition:.3s; }
-nav a:hover { color:#00ffff; text-shadow:0 0 10px #00ffff; }
+nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  padding: 18px 36px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(0,0,0,0.7);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(0,255,255,0.06);
+  z-index: 50;
+}
+
+nav .brand {
+  font-family: 'Orbitron', sans-serif;
+  color: #00ffff;
+  text-shadow: 0 0 10px #00ffff;
+}
+
+nav a {
+  color: #fff;
+  margin-left: 18px;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+nav a:hover {
+  color: #00ffff;
+  text-shadow: 0 0 10px #00ffff;
+}
 
 /* ===== HERO ===== */
-.hero { height:100vh; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; position:relative; }
-.hero .overlay { position:absolute; inset:0; background:rgba(0,0,0,0.45); }
-.hero h1 { font-size:4rem; color:#00ffff; margin-bottom:12px; }
-.hero p { color:#cfcfcf; font-size:1.3rem; }
+.hero {
+  height: 100vh;
+  display: grid;
+  place-items: center;
+  position: relative;
+  text-align: center;
+  background-size: cover;
+  background-position: center;
+}
 
-/* ===== PARTICLES ===== */
-#particle-bg { position:fixed; inset:0; z-index:-1; background:radial-gradient(circle at center, #001 8%, #000 90%); }
+.hero .overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+}
+
+.hero .text {
+  position: relative;
+  z-index: 2;
+}
+
+.hero .title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 4rem;
+  color: #00ffff;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: .9s ease;
+}
+
+.hero .tag {
+  margin-top: 12px;
+  color: #cfcfcf;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: .9s ease .15s;
+}
+
+.hero.show .title,
+.hero.show .tag {
+  opacity: 1;
+  transform: translateY(0);
+}
 
 /* ===== SECTIONS ===== */
-.section { min-height:80vh; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:90px 20px; text-align:center; }
-.section h2 { color:#00ffff; font-size:2.2rem; margin-bottom:20px; }
-.section p { color:#bfbfbf; max-width:900px; line-height:1.7; }
+.section {
+  min-height: 82vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 90px 20px;
+  text-align: center;
+}
+
+.heading {
+  font-family: 'Orbitron', sans-serif;
+  color: #00ffff;
+  font-size: 2.2rem;
+  margin-bottom: 22px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: .8s ease;
+}
+
+.body {
+  max-width: 900px;
+  color: #bfbfbf;
+  line-height: 1.8;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: .8s ease .1s;
+}
 
 /* ===== PROJECT CARDS ===== */
-.projects { display:flex; flex-wrap:wrap; gap:40px; justify-content:center; }
-.card { width:250px; background:rgba(255,255,255,0.02); border:1px solid rgba(0,255,255,0.06); border-radius:14px; padding:20px; transition:.3s; }
-.card:hover { transform:translateY(-8px) scale(1.03); box-shadow:0 18px 50px rgba(0,255,255,0.12); }
-.card h3 { color:#00ffff; margin:12px 0 6px; }
-.card p { color:#cfcfcf; }
+.projects {
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
+  margin-top: 30px;
+  width: 100%;
+  align-items: center;
+}
+
+.card {
+  width: 70%;
+  max-width: 500px;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(0,255,255,0.06);
+  border-radius: 14px;
+  padding: 28px;
+  text-decoration: none;
+  color: inherit;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: .8s ease;
+}
+
+.card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+
+.card h4 {
+  font-family: 'Orbitron', sans-serif;
+  color: #00ffff;
+  margin-bottom: 8px;
+}
+
+.card p {
+  color: #cfcfcf;
+}
+
+.card:hover {
+  transform: translateY(-10px) scale(1.03);
+  box-shadow: 0 18px 50px rgba(0,255,255,0.12);
+}
 
 /* ===== FOOTER ===== */
-footer { padding:34px; text-align:center; background:rgba(0,0,0,0.85); border-top:1px solid rgba(255,255,255,0.05); color:#9a9a9a; }
+footer {
+  padding: 34px;
+  text-align: center;
+  background: rgba(0,0,0,0.85);
+  border-top: 1px solid rgba(255,255,255,0.05);
+  color: #9a9a9a;
+}
 
-/* ===== CHATBOT ===== */
-#chatbot-btn { position:fixed; bottom:20px; right:20px; background:#00ffff; border:none; border-radius:50%; width:60px; height:60px; cursor:pointer; box-shadow:0 0 20px #00ffff; color:#000; font-weight:bold; font-size:1.5rem; }
-#chatbot { position:fixed; bottom:90px; right:20px; width:300px; max-height:400px; background:#111; border:1px solid #00ffff; border-radius:14px; display:none; flex-direction:column; overflow:hidden; }
-#chatbot .messages { flex:1; padding:10px; overflow-y:auto; }
-#chatbot .messages div { margin-bottom:8px; }
-#chatbot input { border:none; padding:10px; width:100%; outline:none; background:#222; color:#fff; }
-#chatbot input::placeholder { color:#888; }
+/* ===== REVEAL ===== */
+.visible {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
 
 /* ===== RESPONSIVE ===== */
-@media(max-width:720px){ .hero h1{font-size:2.6rem;} .card{width:90%;} }
+@media (max-width: 720px) {
+  .hero .title { font-size: 2.6rem; }
+  .card { width: 90%; }
+}
 </style>
 </head>
+
 <body>
 
 <canvas id="particle-bg"></canvas>
@@ -64,104 +219,182 @@ footer { padding:34px; text-align:center; background:rgba(0,0,0,0.85); border-to
 <nav>
   <div class="brand">AYNIX</div>
   <div>
-    <a href="#">Home</a>
-    <a href="#">Smartwatch</a>
-    <a href="#">Laptop</a>
-    <a href="#">Phone</a>
+    <a href="index.html">Home</a>
+    <a href="smartwatch.html">Smartwatches</a>
+    <a href="laptops.html">Laptops</a>
+    <a href="mobiles.html">Mobiles</a>
+    <a href="future.html">Future Tech</a>
   </div>
 </nav>
 
-<section class="hero">
+<section class="hero" id="hero" style="background-image:url('img/a.jpg')">
   <div class="overlay"></div>
-  <h1>AYNIX</h1>
-  <p>Built different</p>
-</section>
-
-<section class="section">
-  <h2>Our Vision</h2>
-  <p>AYNIX focuses on considered progress and practical value.<br>We design technology that connects people and possibilities with clarity.</p>
-</section>
-
-<section class="section">
-  <h2>Projects</h2>
-  <div class="projects">
-    <div class="card">
-      <img src="smartwatch.png" alt="Smartwatch">
-      <h3>Smartwatch</h3>
-      <p>Coming Soon</p>
-    </div>
-    <div class="card">
-      <img src="laptop.png" alt="Laptop">
-      <h3>Laptop</h3>
-      <p>Coming Soon</p>
-    </div>
-    <div class="card">
-      <img src="mobile.png" alt="Phone">
-      <h3>Phone</h3>
-      <p>Coming Soon</p>
-    </div>
+  <div class="text">
+    <div class="title">AYNIX</div>
+    <div class="tag">Built different</div>
   </div>
 </section>
 
-<footer>
-  © <span id="year"></span> Aynix • contact@aynixglobal.com
-</footer>
+<main>
 
-<button id="chatbot-btn">💬</button>
-<div id="chatbot">
-  <div class="messages"></div>
-  <input type="text" placeholder="Ask me..." />
-</div>
+<section class="section">
+  <div class="heading">Our vision</div>
+  <div class="body">
+    AYNIX focuses on considered progress and practical value.<br><br>
+    We design technology that connects people and possibilities with clarity.
+  </div>
+</section>
+
+<section class="section">
+  <div class="heading">Projects</div>
+  <div class="projects">
+
+    <a class="card" href="smartwatch.html">
+      <img src="img/smartwatch.png">
+      <h4>Smartwatches</h4>
+      <p>Thoughtful wearable technology.</p>
+    </a>
+
+    <a class="card" href="laptops.html">
+      <img src="img/laptop.png">
+      <h4>Laptops</h4>
+      <p>Precision for creators.</p>
+    </a>
+
+    <a class="card" href="mobiles.html">
+      <img src="img/mobile.png">
+      <h4>Mobiles</h4>
+      <p>Useful experiences first.</p>
+    </a>
+
+    <a class="card" href="future.html">
+      <img src="img/future.png">
+      <h4>Future Tech</h4>
+      <p>AI, robotics & mobility.</p>
+    </a>
+
+  </div>
+</section>
+
+</main>
+<footer>
+  <div class="footer-text">
+    © <span id="year"></span> Aynix  Built Ceo Ali yahya
+  </div>
+
+  <a href="mailto:contact@aynixglobal.com" class="footer-mail">
+    contact@aynixglobal.com
+  </a>
+</footer>
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+
 
 <script>
-/* ===== YEAR ===== */
-document.getElementById('year').textContent = new Date().getFullYear();
-
-/* ===== PARTICLES ===== */
+/* ===== ENHANCED PARTICLES (SAME STYLE, MORE LIFE) ===== */
 const canvas = document.getElementById('particle-bg');
 const ctx = canvas.getContext('2d');
 let particles = [];
-let mouse = { x:null, y:null };
-function resize(){canvas.width=innerWidth; canvas.height=innerHeight;}
-window.addEventListener('resize',resize);
-resize();
-document.addEventListener('mousemove', e=>{mouse.x=e.clientX; mouse.y=e.clientY;});
+let mouse = { x: null, y: null };
 
-class Particle{
-  constructor(){this.reset();}
-  reset(){this.x=Math.random()*canvas.width; this.y=Math.random()*canvas.height; this.r=0.6+Math.random()*1.5; this.alpha=0.3+Math.random()*0.4; this.vx=(Math.random()-0.5)*0.3; this.vy=(Math.random()-0.5)*0.3;}
-  move(){this.x+=this.vx; this.y+=this.vy; if(this.x<-50||this.x>canvas.width+50||this.y<-50||this.y>canvas.height+50) this.reset();}
-  draw(){ctx.globalAlpha=this.alpha; ctx.fillStyle='#00ffff'; ctx.beginPath(); ctx.arc(this.x,this.y,this.r,0,Math.PI*2); ctx.fill(); ctx.globalAlpha=1;}
+function resize() {
+  canvas.width = innerWidth;
+  canvas.height = innerHeight;
+}
+window.addEventListener('resize', resize);
+resize();
+
+document.addEventListener('mousemove', e => {
+  mouse.x = e.clientX;
+  mouse.y = e.clientY;
+});
+
+class Particle {
+  constructor() { this.reset(); }
+
+  reset() {
+    this.x = Math.random() * canvas.width;
+    this.y = Math.random() * canvas.height;
+    this.depth = Math.random();
+    this.r = 0.6 + this.depth * 2;
+    this.alpha = 0.25 + this.depth * 0.5;
+    this.vx = (Math.random() - 0.5) * (0.3 + this.depth);
+    this.vy = (Math.random() - 0.5) * (0.3 + this.depth);
+  }
+
+  move() {
+    this.x += this.vx;
+    this.y += this.vy;
+
+    if (mouse.x) {
+      const dx = mouse.x - this.x;
+      const dy = mouse.y - this.y;
+      const d = Math.sqrt(dx*dx + dy*dy);
+      if (d < 140) {
+        this.x -= dx * 0.0015 * this.depth;
+        this.y -= dy * 0.0015 * this.depth;
+      }
+    }
+
+    if (this.x < -50 || this.x > canvas.width + 50 ||
+        this.y < -50 || this.y > canvas.height + 50) this.reset();
+  }
+
+  draw() {
+    ctx.globalAlpha = this.alpha;
+    ctx.fillStyle = '#00ffff';
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.r, 0, Math.PI*2);
+    ctx.fill();
+    ctx.globalAlpha = 1;
+  }
 }
 
-function init(){particles=[]; for(let i=0;i<150;i++) particles.push(new Particle());}
-function animate(){ctx.clearRect(0,0,canvas.width,canvas.height); particles.forEach(p=>{p.move();p.draw();}); requestAnimationFrame(animate);}
-init(); animate();
+function init() {
+  particles = [];
+  const count = Math.min(160, canvas.width * canvas.height / 8500);
+  for (let i=0;i<count;i++) particles.push(new Particle());
+}
+init();
 
-/* ===== CHATBOT ===== */
-const btn = document.getElementById('chatbot-btn');
-const chat = document.getElementById('chatbot');
-const input = chat.querySelector('input');
-const messages = chat.querySelector('.messages');
-
-btn.addEventListener('click', ()=>{ chat.style.display = chat.style.display==='flex'?'none':'flex'; chat.style.flexDirection='column'; });
-
-input.addEventListener('keypress', e=>{
-  if(e.key==='Enter' && input.value.trim()!==''){
-    const userMsg = input.value;
-    const msgDiv = document.createElement('div'); msgDiv.textContent='You: '+userMsg; messages.appendChild(msgDiv);
-    let reply='I did not understand that.';
-    const text = userMsg.toLowerCase();
-    if(text.includes('contact')) reply='You can contact Aynix at aynixofficial@gmail.com';
-    else if(text.includes('company')) reply='Aynix is a futuristic technology brand focused on modern consumer devices.';
-    else if(text.includes('products')) reply='Aynix will release smartwatches, laptops, and phones in the future.';
-    const botDiv = document.createElement('div'); botDiv.textContent='Aynix: '+reply; messages.appendChild(botDiv);
-    messages.scrollTop=messages.scrollHeight; input.value='';
+function connect() {
+  for (let i=0;i<particles.length;i++) {
+    for (let j=i+1;j<particles.length;j++) {
+      const a = particles[i], b = particles[j];
+      const dx = a.x - b.x, dy = a.y - b.y;
+      const d = Math.sqrt(dx*dx + dy*dy);
+      if (d < 120) {
+        ctx.strokeStyle = `rgba(0,255,255,${0.06*(1-d/120)})`;
+        ctx.beginPath();
+        ctx.moveTo(a.x,a.y);
+        ctx.lineTo(b.x,b.y);
+        ctx.stroke();
+      }
+    }
   }
-});
+}
+
+function animate() {
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  particles.forEach(p=>{p.move();p.draw();});
+  connect();
+  requestAnimationFrame(animate);
+}
+animate();
+
+/* HERO + REVEALS */
+window.onload = () => document.getElementById('hero').classList.add('show');
+
+const obs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){ e.target.classList.add('visible'); }
+  });
+},{threshold:.15});
+
+document.querySelectorAll('.heading,.body,.card').forEach(el=>obs.observe(el));
 </script>
 
 </body>
 </html>
-
 
