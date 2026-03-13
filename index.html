@@ -1,217 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>AYNIX</title>
-
 <link rel="icon" type="image/png" href="aynix.png">
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
 
 <style>
-* { box-sizing: border-box; margin: 0; padding: 0; }
-html, body { height: 100%; }
+/* ===== RESET ===== */
+* { margin:0; padding:0; box-sizing:border-box; }
+html, body { height:100%; font-family:'Roboto',sans-serif; scroll-behavior:smooth; background:#000; color:#fff; }
 
-body {
-  font-family: 'Roboto', sans-serif;
-  background: #000;
-  color: #fff;
-  overflow-x: hidden;
-}
-
-/* ===== PARTICLE CANVAS ===== */
-#particle-bg {
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  background: radial-gradient(circle at center, #001 8%, #000 90%);
-  animation: bgPulse 8s ease-in-out infinite;
-}
-
-@keyframes bgPulse {
-  0% { filter: brightness(1) drop-shadow(0 0 14px rgba(0,255,255,0.05)); }
-  50% { filter: brightness(1.15) drop-shadow(0 0 30px rgba(0,255,255,0.12)); }
-  100% { filter: brightness(1) drop-shadow(0 0 14px rgba(0,255,255,0.05)); }
-}
+/* ===== PARTICLE BACKGROUND ===== */
+#particle-bg { position:fixed; inset:0; z-index:-1; background: radial-gradient(circle at center, #000 0%, #010101 100%); }
 
 /* ===== NAV ===== */
 nav {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  padding: 18px 36px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: rgba(0,0,0,0.7);
-  backdrop-filter: blur(8px);
-  border-bottom: 1px solid rgba(0,255,255,0.06);
-  z-index: 50;
+  position:fixed; top:0; width:100%; padding:16px 32px; display:flex; justify-content:space-between; align-items:center;
+  background: rgba(0,0,0,0.55); backdrop-filter: blur(12px); border-bottom:1px solid rgba(0,255,255,0.08); z-index:50;
 }
-
-nav .brand {
-  font-family: 'Orbitron', sans-serif;
-  color: #00ffff;
-  text-shadow: 0 0 10px #00ffff;
-}
-
-nav a {
-  color: #fff;
-  margin-left: 18px;
-  text-decoration: none;
-  font-weight: 600;
-}
-
-nav a:hover {
-  color: #00ffff;
-  text-shadow: 0 0 10px #00ffff;
-}
+nav .brand { font-family:'Orbitron',sans-serif; color:#0ff; font-size:1.6rem; text-shadow:0 0 15px #0ff; }
+nav a { color:#fff; margin-left:20px; font-weight:500; text-decoration:none; transition:.3s; }
+nav a:hover { color:#0ff; text-shadow:0 0 12px #0ff; }
 
 /* ===== HERO ===== */
 .hero {
-  height: 100vh;
-  display: grid;
-  place-items: center;
-  position: relative;
-  text-align: center;
-  background-size: cover;
-  background-position: center;
+  height:100vh; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center;
+  background: url('img/a.jpg') center/cover no-repeat; position:relative;
 }
-
-.hero .overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(0,0,0,0.45);
-}
-
-.hero .text {
-  position: relative;
-  z-index: 2;
-}
-
-.hero .title {
-  font-family: 'Orbitron', sans-serif;
-  font-size: 4rem;
-  color: #00ffff;
-  opacity: 0;
-  transform: translateY(20px);
-  transition: .9s ease;
-}
-
-.hero .tag {
-  margin-top: 12px;
-  color: #cfcfcf;
-  opacity: 0;
-  transform: translateY(20px);
-  transition: .9s ease .15s;
-}
-
-.hero.show .title,
-.hero.show .tag {
-  opacity: 1;
-  transform: translateY(0);
-}
+.hero .overlay { position:absolute; inset:0; background: rgba(0,0,0,0.55); }
+.hero .text { position:relative; z-index:2; }
+.hero .title { font-family:'Orbitron',sans-serif; font-size:4rem; color:#0ff; letter-spacing:2px; opacity:0; transform:translateY(30px); transition:.7s ease; }
+.hero .tag { margin-top:12px; font-size:1.4rem; color:#aaf; opacity:0; transform:translateY(30px); transition:.7s ease .2s; }
 
 /* ===== SECTIONS ===== */
-.section {
-  min-height: 82vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 90px 20px;
-  text-align: center;
-}
-
-.heading {
-  font-family: 'Orbitron', sans-serif;
-  color: #00ffff;
-  font-size: 2.2rem;
-  margin-bottom: 22px;
-  opacity: 0;
-  transform: translateY(20px);
-  transition: .8s ease;
-}
-
-.body {
-  max-width: 900px;
-  color: #bfbfbf;
-  line-height: 1.8;
-  opacity: 0;
-  transform: translateY(20px);
-  transition: .8s ease .1s;
-}
+.section { min-height:80vh; display:flex; flex-direction:column; justify-content:center; align-items:center; padding:90px 20px; text-align:center; }
+.heading { font-family:'Orbitron',sans-serif; color:#0ff; font-size:2.4rem; margin-bottom:20px; opacity:0; transform:translateY(20px); transition:.7s ease; text-shadow:0 0 8px #0ff; }
+.body { max-width:900px; color:#ccc; line-height:1.8; opacity:0; transform:translateY(20px); transition:.7s ease .1s; }
 
 /* ===== PROJECT CARDS ===== */
-.projects {
-  display: flex;
-  flex-direction: column;
-  gap: 80px;
-  margin-top: 30px;
-  width: 100%;
-  align-items: center;
-}
-
+.projects { display:flex; flex-wrap:wrap; justify-content:center; gap:40px; margin-top:30px; }
 .card {
-  width: 70%;
-  max-width: 500px;
-  background: rgba(255,255,255,0.02);
-  border: 1px solid rgba(0,255,255,0.06);
-  border-radius: 14px;
-  padding: 28px;
-  text-decoration: none;
-  color: inherit;
-  opacity: 0;
-  transform: translateY(40px);
-  transition: .8s ease;
+  width:260px; background: rgba(255,255,255,0.02); border:1px solid rgba(0,255,255,0.1);
+  border-radius:16px; padding:18px; color:#fff; backdrop-filter: blur(8px); transition:transform .4s, box-shadow .4s;
+  opacity:0; transform:translateY(50px);
 }
-
-.card img {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-  border-radius: 8px;
-  margin-bottom: 12px;
-}
-
-.card h4 {
-  font-family: 'Orbitron', sans-serif;
-  color: #00ffff;
-  margin-bottom: 8px;
-}
-
-.card p {
-  color: #cfcfcf;
-}
-
-.card:hover {
-  transform: translateY(-10px) scale(1.03);
-  box-shadow: 0 18px 50px rgba(0,255,255,0.12);
-}
+.card img { width:100%; height:180px; object-fit:cover; border-radius:10px; margin-bottom:12px; transition: transform .3s; }
+.card h4 { font-family:'Orbitron',sans-serif; color:#0ff; margin-bottom:6px; font-size:1.2rem; }
+.card p { color:#aaf; font-size:.95rem; }
+.card:hover { transform:translateY(-10px) scale(1.08); box-shadow:0 20px 40px rgba(0,255,255,0.2); }
+.card:hover img { transform:scale(1.05); }
 
 /* ===== FOOTER ===== */
-footer {
-  padding: 34px;
-  text-align: center;
-  background: rgba(0,0,0,0.85);
-  border-top: 1px solid rgba(255,255,255,0.05);
-  color: #9a9a9a;
+footer { padding:40px; text-align:center; background: rgba(0,0,0,0.9); border-top:1px solid rgba(0,255,255,0.1); color:#888; font-size:.9rem; }
+
+/* ===== BOT WIDGET ===== */
+#chatbot {
+  position:fixed; bottom:20px; right:20px; width:300px; max-height:420px; background: rgba(0,0,0,0.97);
+  border:1px solid rgba(0,255,255,0.15); border-radius:14px; display:flex; flex-direction:column; z-index:100; font-family:'Roboto',sans-serif;
 }
+#chatbot-header { background:#0ff; color:#000; font-weight:700; padding:10px; border-radius:14px 14px 0 0; text-align:center; box-shadow:0 4px 16px rgba(0,255,255,0.25); }
+#chatbot-messages { flex:1; overflow-y:auto; padding:10px; font-size:.9rem; }
+#chatbot-input { border:none; outline:none; padding:8px; margin:6px; border-radius:6px; background:#111; color:#0ff; }
+
+.user-msg { text-align:right; margin:6px 0; color:#0ff; font-weight:500; }
+.bot-msg { text-align:left; margin:6px 0; color:#ccc; font-weight:500; }
 
 /* ===== REVEAL ===== */
-.visible {
-  opacity: 1 !important;
-  transform: translateY(0) !important;
-}
+.visible { opacity:1 !important; transform:translateY(0) !important; }
 
 /* ===== RESPONSIVE ===== */
-@media (max-width: 720px) {
-  .hero .title { font-size: 2.6rem; }
-  .card { width: 90%; }
-}
+@media(max-width:720px){ .hero .title{font-size:2.6rem;} .card{width:90%;} #chatbot{width:90%;} }
 </style>
 </head>
-
 <body>
 
 <canvas id="particle-bg"></canvas>
@@ -231,14 +93,13 @@ footer {
   <div class="overlay"></div>
   <div class="text">
     <div class="title">AYNIX</div>
-    <div class="tag">Built different</div>
+    <div class="tag">Built Different</div>
   </div>
 </section>
 
 <main>
-
 <section class="section">
-  <div class="heading">Our vision</div>
+  <div class="heading">Our Vision</div>
   <div class="body">
     AYNIX focuses on considered progress and practical value.<br><br>
     We design technology that connects people and possibilities with clarity.
@@ -248,153 +109,84 @@ footer {
 <section class="section">
   <div class="heading">Projects</div>
   <div class="projects">
-
-    <a class="card" href="smartwatch.html">
-      <img src="img/smartwatch.png">
-      <h4>Smartwatches</h4>
-      <p>Thoughtful wearable technology.</p>
-    </a>
-
-    <a class="card" href="laptops.html">
-      <img src="img/laptop.png">
-      <h4>Laptops</h4>
-      <p>Precision for creators.</p>
-    </a>
-
-    <a class="card" href="mobiles.html">
-      <img src="img/mobile.png">
-      <h4>Mobiles</h4>
-      <p>Useful experiences first.</p>
-    </a>
-
-    <a class="card" href="future.html">
-      <img src="img/future.png">
-      <h4>Future Tech</h4>
-      <p>AI, robotics & mobility.</p>
-    </a>
-
+    <a class="card" href="smartwatch.html"><img src="img/smartwatch.png"><h4>Smartwatches</h4><p>Thoughtful wearable technology.</p></a>
+    <a class="card" href="laptops.html"><img src="img/laptop.png"><h4>Laptops</h4><p>Precision for creators.</p></a>
+    <a class="card" href="mobiles.html"><img src="img/mobile.png"><h4>Mobiles</h4><p>Useful experiences first.</p></a>
+    <a class="card" href="future.html"><img src="img/future.png"><h4>Future Tech</h4><p>AI, robotics & mobility.</p></a>
   </div>
 </section>
-
 </main>
+
 <footer>
-  <div class="footer-text">
-    © <span id="year"></span> Aynix  Built Ceo Ali yahya
-  </div>
-
-  <a href="mailto:contact@aynixglobal.com" class="footer-mail">
-    contact@aynixglobal.com
-  </a>
+  <div class="footer-text">© <span id="year"></span> Aynix - Built by CEO Ali Yahya</div>
+  <a href="mailto:contact@aynixglobal.com">contact@aynixglobal.com</a>
 </footer>
-<script>
-  document.getElementById("year").textContent = new Date().getFullYear();
-</script>
 
+<!-- CHATBOT -->
+<div id="chatbot">
+  <div id="chatbot-header">Aynix Bot 🤖</div>
+  <div id="chatbot-messages">
+    <div class="bot-msg">Hello! I’m Aynix Bot. For detailed queries, please contact <a href="mailto:contact@aynixglobal.com" style="color:#0ff;">contact@aynixglobal.com</a>.</div>
+  </div>
+  <input id="chatbot-input" placeholder="Type your message...">
+</div>
 
 <script>
-/* ===== ENHANCED PARTICLES (SAME STYLE, MORE LIFE) ===== */
+document.getElementById("year").textContent = new Date().getFullYear();
+
+/* ===== PARTICLES ===== */
 const canvas = document.getElementById('particle-bg');
 const ctx = canvas.getContext('2d');
-let particles = [];
-let mouse = { x: null, y: null };
+let particles=[], mouse={x:null,y:null};
 
-function resize() {
-  canvas.width = innerWidth;
-  canvas.height = innerHeight;
-}
-window.addEventListener('resize', resize);
-resize();
+function resize(){ canvas.width=innerWidth; canvas.height=innerHeight; }
+window.addEventListener('resize',resize); resize();
 
-document.addEventListener('mousemove', e => {
-  mouse.x = e.clientX;
-  mouse.y = e.clientY;
-});
+document.addEventListener('mousemove', e=>{ mouse.x=e.clientX; mouse.y=e.clientY; });
 
-class Particle {
-  constructor() { this.reset(); }
-
-  reset() {
-    this.x = Math.random() * canvas.width;
-    this.y = Math.random() * canvas.height;
-    this.depth = Math.random();
-    this.r = 0.6 + this.depth * 2;
-    this.alpha = 0.25 + this.depth * 0.5;
-    this.vx = (Math.random() - 0.5) * (0.3 + this.depth);
-    this.vy = (Math.random() - 0.5) * (0.3 + this.depth);
-  }
-
-  move() {
-    this.x += this.vx;
-    this.y += this.vy;
-
-    if (mouse.x) {
-      const dx = mouse.x - this.x;
-      const dy = mouse.y - this.y;
-      const d = Math.sqrt(dx*dx + dy*dy);
-      if (d < 140) {
-        this.x -= dx * 0.0015 * this.depth;
-        this.y -= dy * 0.0015 * this.depth;
-      }
-    }
-
-    if (this.x < -50 || this.x > canvas.width + 50 ||
-        this.y < -50 || this.y > canvas.height + 50) this.reset();
-  }
-
-  draw() {
-    ctx.globalAlpha = this.alpha;
-    ctx.fillStyle = '#00ffff';
-    ctx.beginPath();
-    ctx.arc(this.x, this.y, this.r, 0, Math.PI*2);
-    ctx.fill();
-    ctx.globalAlpha = 1;
-  }
+class Particle{
+  constructor(){ this.reset(); }
+  reset(){ this.x=Math.random()*canvas.width; this.y=Math.random()*canvas.height; this.depth=Math.random(); this.r=0.8+this.depth*2; this.alpha=0.25+this.depth*0.5; this.vx=(Math.random()-0.5)*(0.5+this.depth*1.5); this.vy=(Math.random()-0.5)*(0.5+this.depth*1.5); }
+  move(){ this.x+=this.vx; this.y+=this.vy;
+    if(mouse.x){ const dx=mouse.x-this.x, dy=mouse.y-this.y, d=Math.sqrt(dx*dx+dy*dy); if(d<150){ this.x-=dx*0.002*this.depth; this.y-=dy*0.002*this.depth; } }
+    if(this.x<-50||this.x>canvas.width+50||this.y<-50||this.y>canvas.height+50) this.reset(); }
+  draw(){ ctx.globalAlpha=this.alpha; ctx.fillStyle='#0ff'; ctx.beginPath(); ctx.arc(this.x,this.y,this.r,0,Math.PI*2); ctx.fill(); ctx.globalAlpha=1; }
 }
 
-function init() {
-  particles = [];
-  const count = Math.min(160, canvas.width * canvas.height / 8500);
-  for (let i=0;i<count;i++) particles.push(new Particle());
-}
+function init(){ particles=[]; const count=Math.min(220,canvas.width*canvas.height/8000); for(let i=0;i<count;i++) particles.push(new Particle()); }
 init();
 
-function connect() {
-  for (let i=0;i<particles.length;i++) {
-    for (let j=i+1;j<particles.length;j++) {
-      const a = particles[i], b = particles[j];
-      const dx = a.x - b.x, dy = a.y - b.y;
-      const d = Math.sqrt(dx*dx + dy*dy);
-      if (d < 120) {
-        ctx.strokeStyle = `rgba(0,255,255,${0.06*(1-d/120)})`;
-        ctx.beginPath();
-        ctx.moveTo(a.x,a.y);
-        ctx.lineTo(b.x,b.y);
-        ctx.stroke();
-      }
-    }
-  }
-}
+function connect(){ for(let i=0;i<particles.length;i++){ for(let j=i+1;j<particles.length;j++){ const a=particles[i],b=particles[j],dx=a.x-b.x,dy=a.y-b.y,d=Math.sqrt(dx*dx+dy*dy); if(d<130){ ctx.strokeStyle=`rgba(0,255,255,${0.06*(1-d/130)})`; ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y); ctx.stroke(); } } } }
 
-function animate() {
-  ctx.clearRect(0,0,canvas.width,canvas.height);
-  particles.forEach(p=>{p.move();p.draw();});
-  connect();
-  requestAnimationFrame(animate);
-}
+function animate(){ ctx.clearRect(0,0,canvas.width,canvas.height); particles.forEach(p=>{p.move();p.draw();}); connect(); requestAnimationFrame(animate); }
 animate();
 
-/* HERO + REVEALS */
-window.onload = () => document.getElementById('hero').classList.add('show');
+/* ===== HERO + REVEALS ===== */
+window.onload = () => {
+  document.getElementById('hero').classList.add('show');
+  const cards = document.querySelectorAll('.card');
+  cards.forEach((c,i)=> setTimeout(()=>c.classList.add('visible'),150*i));
+}
 
-const obs = new IntersectionObserver(entries=>{
-  entries.forEach(e=>{
-    if(e.isIntersecting){ e.target.classList.add('visible'); }
-  });
-},{threshold:.15});
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('visible'); } });
+}, {threshold:.15});
+document.querySelectorAll('.heading,.body').forEach(el=>obs.observe(el));
 
-document.querySelectorAll('.heading,.body,.card').forEach(el=>obs.observe(el));
+/* ===== CHATBOT ===== */
+const input = document.getElementById('chatbot-input');
+const messages = document.getElementById('chatbot-messages');
+input.addEventListener('keypress', e=>{
+  if(e.key==='Enter'){
+    const msg = input.value.trim(); if(!msg) return;
+    messages.innerHTML += `<div class="user-msg">${msg}</div>`;
+    input.value='';
+    const botResponse = `Thank you for reaching out! Please contact our team at <a href="mailto:contact@aynixglobal.com" style="color:#0ff;">contact@aynixglobal.com</a> for detailed assistance.`;
+    messages.innerHTML += `<div class="bot-msg">${botResponse}</div>`;
+    messages.scrollTop = messages.scrollHeight;
+  }
+});
 </script>
-
 </body>
 </html>
 
