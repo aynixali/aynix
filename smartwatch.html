@@ -3,62 +3,127 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Smartwatches</title>
+<title>Mobiles</title>
 <link rel="icon" type="image/png" href="aynix.png">
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800;900&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 /* ===== Base ===== */
 *{margin:0;padding:0;box-sizing:border-box;scroll-behavior:smooth;}
 body{
   font-family:'Roboto',sans-serif;
-  background:linear-gradient(135deg,#000010,#001b29);
+  background: #000002;
   color:#fff;
   overflow-x:hidden;
-  transition:background 2s ease;
 }
 
-/* ===== Nav ===== */
-nav{
-  position:fixed;
-  top:0;left:0;
-  width:100%;
-  padding:20px 40px;
-  background:rgba(0,0,0,0.4);
-  border-bottom:1px solid #00ffff22;
-  backdrop-filter:blur(10px);
-  z-index:100;
+/* ===== ANIMATED GEMINI VIGNETTE CANVAS ===== */
+#bg-layer {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(circle at center, #0a1626 0%, #000002 70%);
+  animation: geminiPulse 10s ease-in-out infinite;
 }
-nav a{
-  margin:0 15px;
-  color:#fff;
-  text-decoration:none;
-  font-weight:600;
-  transition:0.3s;
-}
-nav a:hover{color:#00ffff;text-shadow:0 0 10px #00ffff;}
 
-/* ===== Hero ===== */
+@keyframes geminiPulse {
+  0% { background: radial-gradient(circle at center, #0a1626 0%, #000002 70%); }
+  50% { background: radial-gradient(circle at center, #0f223d 0%, #000002 75%); }
+  100% { background: radial-gradient(circle at center, #0a1626 0%, #000002 70%); }
+}
+
+/* ===== ULTRA-CLEAN GLASS NAV BAR ===== */
+nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  padding: 20px 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(0, 5, 10, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(0, 255, 255, 0.15);
+  box-shadow: 0 4px 30px rgba(0, 255, 255, 0.03);
+  z-index: 100;
+}
+
+nav .brand {
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 800;
+  font-size: 1.5rem;
+  color: #00ffff;
+  text-shadow: 0 0 10px rgba(0, 255, 255, 0.6);
+  text-decoration: none;
+  letter-spacing: 2px;
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+nav .brand:hover {
+  text-shadow: 0 0 25px rgba(0, 255, 255, 1);
+  letter-spacing: 4px;
+}
+
+nav .nav-links {
+  display: flex;
+  gap: 25px;
+}
+
+nav a.nav-item {
+  color: #e0e0e0;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.95rem;
+  letter-spacing: 0.5px;
+  position: relative;
+  padding: 4px 0;
+  transition: color 0.3s ease;
+}
+
+nav a.nav-item::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: #00ffff;
+  box-shadow: 0 0 8px #00ffff;
+  transition: width 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+nav a.nav-item:hover {
+  color: #00ffff;
+}
+
+nav a.nav-item:hover::after {
+  width: 100%;
+}
+
+/* ===== HERO ===== */
 .hero{
-  height:100vh;
+  height:85vh;
   display:flex;
   flex-direction:column;
   justify-content:center;
   align-items:center;
   text-align:center;
-  padding:0 20px;
+  padding: 0 20px;
+  position: relative;
 }
 .hero h1{
   font-family:'Orbitron',sans-serif;
-  font-size:4rem;
-  color:#00ffff;
+  font-size:4.5rem;
+  font-weight: 800;
+  color: #00ffff;
+  text-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
   opacity:0;
   transform:translateY(40px);
   transition:1.2s ease;
-  text-shadow:0 0 25px #00ffff33;
 }
 .hero p{
   color:#ccc;
-  font-size:1.3rem;
+  font-size:1.2rem;
   margin-top:20px;
   opacity:0;
   transform:translateY(40px);
@@ -66,20 +131,44 @@ nav a:hover{color:#00ffff;text-shadow:0 0 10px #00ffff;}
   max-width:700px;
 }
 
+/* ===== Balanced Showcase Frame ===== */
+.product-showcase {
+  max-width: 750px;
+  margin: 0 auto 100px auto;
+  padding: 0 30px;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: 1.2s ease 0.5s;
+}
+.product-showcase img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 10px;
+  filter: grayscale(100%) brightness(0.8);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
+  transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+.product-showcase:hover img {
+  filter: grayscale(0%) brightness(1);
+  box-shadow: 0 30px 60px rgba(0, 255, 255, 0.15);
+  transform: scale(1.02);
+}
+
 /* ===== Sections ===== */
 section{
-  min-height:100vh;
+  min-height:70vh;
   display:flex;
   flex-direction:column;
   justify-content:center;
   align-items:center;
   text-align:center;
   padding:80px 20px;
-  transition:background 1s ease;
 }
 section h2{
   font-size:2.3rem;
-  color:#00ffff;
+  color:#fff;
   font-family:'Orbitron',sans-serif;
   margin-bottom:20px;
   opacity:0;
@@ -89,8 +178,8 @@ section h2{
 section p{
   max-width:800px;
   color:#aaa;
-  font-size:1.15rem;
-  line-height:1.8;
+  font-size:1.1rem;
+  line-height:1.9;
   opacity:0;
   transform:translateY(40px);
   transition:1s ease 0.3s;
@@ -98,97 +187,92 @@ section p{
 .signature{
   font-size:1.3rem;
   margin-top:40px;
-  color:#00ffff;
+  color:#fff;
   opacity:0;
+  transform:translateY(40px);
   transition:1.5s ease 0.6s;
-  text-shadow:0 0 15px #00ffff33;
 }
 
-/* ===== Footer ===== */
-footer{
-  background:#000;
-  text-align:center;
-  padding:25px;
-  color:#555;
-  font-size:0.9rem;
-  border-top:1px solid #00ffff22;
+/* ===== SIMPLE CLEAN FOOTER ===== */
+footer {
+  position: relative;
+  padding: 80px 40px 40px 40px;
+  text-align: center;
+  background: #000000;
+  border-top: 1px solid rgba(255, 255, 255, 0.03);
+  color: #9a9a9a;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 25px;
+  z-index: 10;
+}
+
+.footer-text {
+  font-size: 1rem;
+  letter-spacing: 0.5px;
+  color: #666;
+}
+
+.footer-text strong {
+  color: #aaa;
+  font-family: 'Orbitron', sans-serif;
+}
+
+.footer-mail {
+  color: #e0e0e0;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1.1rem;
+  letter-spacing: 0.5px;
+  transition: color 0.3s ease;
+}
+
+.footer-mail:hover {
+  color: #fff;
+}
+
+.instagram-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  color: #e0e0e0;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: color 0.3s ease;
+}
+
+.instagram-link:hover {
+  color: #fff;
+}
+
+.instagram-link svg {
+  transition: transform 0.4s ease;
+}
+
+.instagram-link:hover svg {
+  transform: rotate(45deg);
+}
+
+.copyright {
+  font-size: 0.8rem;
+  color: #444;
+  margin-top: 10px;
 }
 
 /* ===== Scroll Animation Active States ===== */
 .fade-in{
   opacity:1!important;
   transform:translateY(0)!important;
-  text-shadow:0 0 25px #00ffff55;
 }
-</style>
-</head>
-<body>
 
-<nav>
-  <a href="index.html">Home</a>
-  <a href="smartwatch.html">Smartwatches</a>
-  <a href="laptops.html">Laptops</a>
-  <a href="mobiles.html">Mobiles</a>
-  <a href="future.html">Future Tech</a>
-</nav>
-
-<div class="hero">
-  <h1> Smartwatch</h1>
-  <p>The future of time  envisioned with precision, not haste</p>
-</div>
-
-<section id="vision">
-  <h2>Our Vision</h2>
-  <p>
-    The AYNIX Smartwatch embodies our belief that technology should serve people with purpose and clarity.
-It is being developed to offer more than functionality  aiming to become a thoughtful, enduring companion for everyday life.
-<br><br>
-This vision is not driven by haste, but by care.
-With time and dedication, AYNIX strives to create something meaningful  built to last and evolve with its users.
-  </p>
-  <div class="signature">AYNIX  Crafted for the Next Generation.</div>
-</section>
-
-<section id="future">
-  <h2>The Future Path</h2>
-  <p>
-    Our vision extends far beyond a smartwatch.  
-    AYNIX aims to build a connected ecosystem where every device  from phones to wearables  communicates seamlessly.  
-    <br><br>
-    In the years ahead, we will move steadily toward that goal, ensuring each step reflects innovation, respect, and sustainability.
-  </p>
-</section>
-
-<footer>
-  <p>© 2025 AYNIX Smartwatches. All Rights Reserved. CEO ALI YAHYA </p>
-</footer>
-
-<script>
-// ===== Scroll Animations =====
-const observer = new IntersectionObserver((entries)=>{
-  entries.forEach(entry=>{
-    if(entry.isIntersecting){
-      entry.target.classList.add('fade-in');
-    }
-  });
-},{threshold:0.2});
-
-document.querySelectorAll('h1, h2, p, .signature').forEach(el=>{
-  observer.observe(el);
-});
-
-// ===== Background shift on scroll =====
-window.addEventListener('scroll',()=>{
-  let scrollTop = window.scrollY;
-  let maxScroll = document.body.scrollHeight - window.innerHeight;
-  let ratio = scrollTop / maxScroll;
-  let r = Math.floor(0 + ratio*20);
-  let g = Math.floor(17 + ratio*80);
-  let b = Math.floor(26 + ratio*150);
-  document.body.style.background = `linear-gradient(135deg, rgb(${r},${g},${b}), #000010)`;
-});
-</script>
-
-</body>
-</html>
-
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  nav { padding: 15px 25px; }
+  nav .brand { font-size: 1.3rem; }
+  nav .nav-links { display: none; }
+  .hero h1 { font-size: 3.2rem; }
+  .hero p { font-size: 1rem; }
+  .projects { flex-direction: column; align-items: center; }
+  .product-showcase { margin-top: 0; padding:
