@@ -5,125 +5,75 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mobiles</title>
 <link rel="icon" type="image/png" href="aynix.png">
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800;900&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 /* ===== Base ===== */
 *{margin:0;padding:0;box-sizing:border-box;scroll-behavior:smooth;}
 body{
   font-family:'Roboto',sans-serif;
-  background: #000002;
+  background: radial-gradient(circle at center, #0a1626 0%, #000002 70%);
+  background-attachment: fixed;
   color:#fff;
   overflow-x:hidden;
 }
 
-/* ===== ANIMATED GEMINI VIGNETTE CANVAS ===== */
-#bg-layer {
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  background: radial-gradient(circle at center, #0a1626 0%, #000002 70%);
-  animation: geminiPulse 10s ease-in-out infinite;
+/* ===== Simple Premium Nav ===== */
+nav{
+  position:fixed;
+  top:0;left:0;
+  width:100%;
+  padding:25px 50px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  background:rgba(0,0,0,0.4);
+  border-bottom:1px solid rgba(255, 255, 255, 0.04);
+  backdrop-filter:blur(24px);
+  -webkit-backdrop-filter:blur(24px);
+  z-index:100;
 }
-
-@keyframes geminiPulse {
-  0% { background: radial-gradient(circle at center, #0a1626 0%, #000002 70%); }
-  50% { background: radial-gradient(circle at center, #0f223d 0%, #000002 75%); }
-  100% { background: radial-gradient(circle at center, #0a1626 0%, #000002 70%); }
-}
-
-/* ===== ULTRA-CLEAN GLASS NAV BAR ===== */
-nav {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  padding: 20px 50px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: rgba(0, 5, 10, 0.75);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(0, 255, 255, 0.15);
-  box-shadow: 0 4px 30px rgba(0, 255, 255, 0.03);
-  z-index: 100;
-}
-
 nav .brand {
   font-family: 'Orbitron', sans-serif;
-  font-weight: 800;
-  font-size: 1.5rem;
-  color: #00ffff;
-  text-shadow: 0 0 10px rgba(0, 255, 255, 0.6);
+  font-weight: 700;
+  font-size: 1.3rem;
+  color: #fff;
   text-decoration: none;
-  letter-spacing: 2px;
-  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-}
-
-nav .brand:hover {
-  text-shadow: 0 0 25px rgba(0, 255, 255, 1);
   letter-spacing: 4px;
 }
-
 nav .nav-links {
   display: flex;
   gap: 25px;
 }
-
-nav a.nav-item {
-  color: #e0e0e0;
-  text-decoration: none;
-  font-weight: 500;
+nav a{
+  color:#aaa;
+  text-decoration:none;
+  font-weight:500;
   font-size: 0.95rem;
-  letter-spacing: 0.5px;
-  position: relative;
-  padding: 4px 0;
-  transition: color 0.3s ease;
+  transition:0.3s;
 }
+nav a:hover{color:#fff;}
 
-nav a.nav-item::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 0;
-  height: 2px;
-  background: #00ffff;
-  box-shadow: 0 0 8px #00ffff;
-  transition: width 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
-}
-
-nav a.nav-item:hover {
-  color: #00ffff;
-}
-
-nav a.nav-item:hover::after {
-  width: 100%;
-}
-
-/* ===== HERO ===== */
+/* ===== Hero ===== */
 .hero{
-  height:85vh;
+  height:75vh;
   display:flex;
   flex-direction:column;
   justify-content:center;
   align-items:center;
   text-align:center;
-  padding: 0 20px;
-  position: relative;
+  padding: 120px 20px 0 20px;
 }
 .hero h1{
   font-family:'Orbitron',sans-serif;
-  font-size:4.5rem;
-  font-weight: 800;
-  color: #00ffff;
-  text-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
+  font-size:4rem;
+  color:#fff;
   opacity:0;
   transform:translateY(40px);
   transition:1.2s ease;
 }
 .hero p{
   color:#ccc;
-  font-size:1.2rem;
+  font-size:1.3rem;
   margin-top:20px;
   opacity:0;
   transform:translateY(40px);
@@ -133,7 +83,7 @@ nav a.nav-item:hover::after {
 
 /* ===== Balanced Showcase Frame ===== */
 .product-showcase {
-  max-width: 750px;
+  max-width: 450px; /* Adjusted slightly narrower for a sleek mobile proportions */
   margin: 0 auto 100px auto;
   padding: 0 30px;
   text-align: center;
@@ -145,26 +95,18 @@ nav a.nav-item:hover::after {
   width: 100%;
   height: auto;
   display: block;
-  border-radius: 10px;
-  filter: grayscale(100%) brightness(0.8);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
-  transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
-}
-.product-showcase:hover img {
-  filter: grayscale(0%) brightness(1);
-  box-shadow: 0 30px 60px rgba(0, 255, 255, 0.15);
-  transform: scale(1.02);
+  border-radius: 6px;
 }
 
 /* ===== Sections ===== */
 section{
-  min-height:70vh;
+  min-height:60vh;
   display:flex;
   flex-direction:column;
   justify-content:center;
   align-items:center;
   text-align:center;
-  padding:80px 20px;
+  padding:60px 20px;
 }
 section h2{
   font-size:2.3rem;
@@ -178,8 +120,8 @@ section h2{
 section p{
   max-width:800px;
   color:#aaa;
-  font-size:1.1rem;
-  line-height:1.9;
+  font-size:1.15rem;
+  line-height:1.8;
   opacity:0;
   transform:translateY(40px);
   transition:1s ease 0.3s;
@@ -193,72 +135,38 @@ section p{
   transition:1.5s ease 0.6s;
 }
 
-/* ===== SIMPLE CLEAN FOOTER ===== */
-footer {
-  position: relative;
-  padding: 80px 40px 40px 40px;
-  text-align: center;
-  background: #000000;
-  border-top: 1px solid rgba(255, 255, 255, 0.03);
-  color: #9a9a9a;
+/* ===== Simple Clean Footer ===== */
+footer{
+  background:#000;
+  text-align:center;
+  padding:40px 20px;
+  color:#555;
+  font-size:0.9rem;
+  border-top:1px solid rgba(255, 255, 255, 0.03);
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 25px;
-  z-index: 10;
+  gap: 15px;
 }
-
-.footer-text {
-  font-size: 1rem;
-  letter-spacing: 0.5px;
-  color: #666;
+footer p {
+  color: #555;
 }
-
-.footer-text strong {
-  color: #aaa;
-  font-family: 'Orbitron', sans-serif;
-}
-
 .footer-mail {
-  color: #e0e0e0;
+  color: #aaa;
   text-decoration: none;
-  font-weight: 500;
-  font-size: 1.1rem;
-  letter-spacing: 0.5px;
-  transition: color 0.3s ease;
+  transition: color 0.3s;
 }
-
 .footer-mail:hover {
   color: #fff;
 }
-
 .instagram-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  color: #e0e0e0;
+  color: #aaa;
   text-decoration: none;
-  font-weight: 500;
   font-size: 0.95rem;
-  transition: color 0.3s ease;
+  transition: color 0.3s;
 }
-
 .instagram-link:hover {
   color: #fff;
-}
-
-.instagram-link svg {
-  transition: transform 0.4s ease;
-}
-
-.instagram-link:hover svg {
-  transform: rotate(45deg);
-}
-
-.copyright {
-  font-size: 0.8rem;
-  color: #444;
-  margin-top: 10px;
 }
 
 /* ===== Scroll Animation Active States ===== */
@@ -266,13 +174,80 @@ footer {
   opacity:1!important;
   transform:translateY(0)!important;
 }
+</style>
+</head>
+<body>
 
-/* ===== RESPONSIVE ===== */
-@media (max-width: 768px) {
-  nav { padding: 15px 25px; }
-  nav .brand { font-size: 1.3rem; }
-  nav .nav-links { display: none; }
-  .hero h1 { font-size: 3.2rem; }
-  .hero p { font-size: 1rem; }
-  .projects { flex-direction: column; align-items: center; }
-  .product-showcase { margin-top: 0; padding:
+<nav>
+  <a href="index.html" class="brand">AYNIX</a>
+  <div class="nav-links">
+    <a href="smartwatch.html">Smartwatches</a>
+    <a href="laptops.html">Laptops</a>
+    <a href="mobiles.html">Mobiles</a>
+    <a href="future.html">Future Tech</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <h1>Mobile Series</h1>
+  <p>The future of connection envisioned with clarity, not speed.</p>
+</div>
+
+<div class="product-showcase">
+  <img src="mobile.png" alt="AYNIX Mobile">
+</div>
+
+<section id="vision">
+  <h2>Our Vision</h2>
+  <p>
+    The AYNIX Mobile Series is guided by a belief that meaningful innovation requires time, purpose, and understanding.
+    Our aim is to design devices that evolve with people technology that supports creativity, connection, and progress.
+    <br><br>
+    Each device is envisioned as part of a thoughtful ecosystem, where design and intelligence work together naturally.
+  </p>
+  <div class="signature">AYNIX Designed for the Connected Future.</div>
+</section>
+
+<section id="future">
+  <h2>The Path Forward</h2>
+  <p>
+    AYNIX seeks to redefine mobile technology moving beyond performance metrics toward meaningful, human-centered experiences.
+    We envision a future where every AYNIX device connects seamlessly, empowering creativity, productivity, and everyday living.
+    <br><br>
+    The journey is not rushed; it is envisioned, one generation at a time.
+  </p>
+</section>
+
+<footer id="contact">
+  <p>© 2026 AYNIX Mobile Series. All Rights Reserved. CEO-ALI YAHYA</p>
+  
+  <a href="mailto:aynixofficial@gmail.com" class="footer-mail">aynixofficial@gmail.com</a>
+  
+  <a href="https://instagram.com/aynixofficial" target="_blank" class="instagram-link">Instagram</a>
+</footer>
+
+<script>
+// ===== Scroll Animations =====
+const observer = new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      entry.target.classList.add('fade-in');
+    }
+  });
+},{threshold:0.1});
+
+document.querySelectorAll('h1, h2, p, .signature, .product-showcase').forEach(el=>{
+  observer.observe(el);
+});
+
+// Run loading animations quickly on load
+window.addEventListener('DOMContentLoaded', () => {
+  document.querySelector('.hero h1').classList.add('fade-in');
+  document.querySelector('.hero p').classList.add('fade-in');
+  document.querySelector('.product-showcase').classList.add('fade-in');
+});
+</script>
+
+</body>
+</html>
