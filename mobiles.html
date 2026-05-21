@@ -195,7 +195,8 @@ footer p {
 </div>
 
 <div class="product-showcase">
-  <img src="mobile.png" alt="AYNIX Mobile">
+  <!-- Updated Image Reference Location -->
+  <img src="img/mobile.png" alt="AYNIX Mobile">
 </div>
 
 <section id="vision">
@@ -237,11 +238,12 @@ const observer = new IntersectionObserver((entries)=>{
   });
 },{threshold:0.1});
 
-document.querySelectorAll('h1, h2, p, .signature, .product-showcase').forEach(el=>{
+// Only tracking sections below the fold to avoid layout collision with the DOMContentLoaded events
+document.querySelectorAll('section h2, section p, .signature').forEach(el=>{
   observer.observe(el);
 });
 
-// Run loading animations quickly on load
+// Run folding animations flawlessly on load
 window.addEventListener('DOMContentLoaded', () => {
   document.querySelector('.hero h1').classList.add('fade-in');
   document.querySelector('.hero p').classList.add('fade-in');
