@@ -5,56 +5,85 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Future Vision</title>
 <link rel="icon" type="image/png" href="ay.png.png">
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 <style>
 /* ===== Base ===== */
 *{margin:0;padding:0;box-sizing:border-box;scroll-behavior:smooth;}
 body{
   font-family:'Roboto',sans-serif;
-  background:linear-gradient(135deg,#000010,#001a2b);
+  background: #000002;
   color:#fff;
   overflow-x:hidden;
-  transition:background 2s ease;
 }
 
-/* ===== Nav ===== */
+/* ===== ANIMATED GEMINI VIGNETTE BACKGROUND ===== */
+.bg-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(circle at center, #0a1626 0%, #000002 70%);
+  animation: geminiPulse 10s ease-in-out infinite;
+}
+
+@keyframes geminiPulse {
+  0% { background: radial-gradient(circle at center, #0a1626 0%, #000002 70%); }
+  50% { background: radial-gradient(circle at center, #0f223d 0%, #000002 75%); }
+  100% { background: radial-gradient(circle at center, #0a1626 0%, #000002 70%); }
+}
+
+/* ===== Simple Premium Nav ===== */
 nav{
   position:fixed;
   top:0;left:0;
   width:100%;
-  padding:20px 40px;
+  padding:25px 50px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
   background:rgba(0,0,0,0.4);
-  border-bottom:1px solid #00ffff22;
-  backdrop-filter:blur(10px);
+  border-bottom:1px solid rgba(255, 255, 255, 0.04);
+  backdrop-filter:blur(24px);
+  -webkit-backdrop-filter:blur(24px);
   z-index:100;
 }
+nav .brand {
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 800;
+  font-size: 1.3rem;
+  color: #fff;
+  text-decoration: none;
+  letter-spacing: 4px;
+}
+nav .nav-links {
+  display: flex;
+  gap: 25px;
+}
 nav a{
-  margin:0 15px;
-  color:#fff;
+  color:#aaa;
   text-decoration:none;
-  font-weight:600;
+  font-weight:500;
+  font-size: 0.95rem;
   transition:0.3s;
 }
-nav a:hover{color:#00ffff;text-shadow:0 0 10px #00ffff;}
+nav a:hover{color:#fff;}
 
 /* ===== Hero ===== */
 .hero{
-  height:100vh;
+  height:75vh;
   display:flex;
   flex-direction:column;
   justify-content:center;
   align-items:center;
   text-align:center;
-  padding:0 20px;
+  padding: 120px 20px 0 20px;
 }
 .hero h1{
   font-family:'Orbitron',sans-serif;
   font-size:4rem;
-  color:#00ffff;
+  color:#fff;
   opacity:0;
   transform:translateY(40px);
   transition:1.2s ease;
-  text-shadow:0 0 25px #00ffff33;
 }
 .hero p{
   color:#ccc;
@@ -66,20 +95,36 @@ nav a:hover{color:#00ffff;text-shadow:0 0 10px #00ffff;}
   max-width:700px;
 }
 
+/* ===== Balanced Showcase Frame ===== */
+.product-showcase {
+  max-width: 750px;
+  margin: 0 auto 100px auto;
+  padding: 0 30px;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: 1.2s ease 0.5s;
+}
+.product-showcase img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 6px;
+}
+
 /* ===== Sections ===== */
 section{
-  min-height:100vh;
+  min-height:70vh;
   display:flex;
   flex-direction:column;
   justify-content:center;
   align-items:center;
   text-align:center;
   padding:80px 20px;
-  transition:background 1s ease;
 }
 section h2{
   font-size:2.3rem;
-  color:#00ffff;
+  color:#fff;
   font-family:'Orbitron',sans-serif;
   margin-bottom:20px;
   opacity:0;
@@ -98,84 +143,135 @@ section p{
 .signature{
   font-size:1.3rem;
   margin-top:40px;
-  color:#00ffff;
+  color:#fff;
   opacity:0;
+  transform:translateY(40px);
   transition:1.5s ease 0.6s;
-  text-shadow:0 0 15px #00ffff33;
 }
 
-/* ===== Footer ===== */
+/* ===== Simple Clean Footer ===== */
 footer{
   background:#000;
   text-align:center;
-  padding:25px;
+  padding:40px 20px;
   color:#555;
   font-size:0.9rem;
-  border-top:1px solid #00ffff22;
+  border-top:1px solid rgba(255, 255, 255, 0.03);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+.footer-text {
+  font-size: 0.9rem;
+  color: #555;
+}
+.footer-text strong {
+  color: #aaa;
+  font-family: 'Orbitron', sans-serif;
+}
+.footer-mail {
+  color: #aaa;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+.footer-mail:hover {
+  color: #fff;
+}
+.instagram-link {
+  color: #aaa;
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: color 0.3s;
+}
+.instagram-link:hover {
+  color: #fff;
+}
+.copyright {
+  font-size: 0.8rem;
+  color: #444;
 }
 
-/* ===== Scroll Animation ===== */
+/* ===== Scroll Animation Active States ===== */
 .fade-in{
   opacity:1!important;
   transform:translateY(0)!important;
-  text-shadow:0 0 25px #00ffff55;
 }
 </style>
 </head>
 <body>
 
+<div class="bg-overlay"></div>
+
 <nav>
-  <a href="index.html">Home</a>
-  <a href="smartwatch.html">Smartwatches</a>
-  <a href="laptops.html">Laptops</a>
-  <a href="mobiles.html">Mobiles</a>
-  <a href="future.html">Future Tech</a>
+  <a href="index.html" class="brand">AYNIX</a>
+  <div class="nav-links">
+    <a href="smartwatch.html">Smartwatches</a>
+    <a href="laptops.html">Laptops</a>
+    <a href="mobiles.html">Mobiles</a>
+    <a href="future.html">Future Tech</a>
+    <a href="#contact">Contact</a>
+  </div>
 </nav>
 
 <div class="hero">
   <h1>Future</h1>
-  <p>The future  envisioned with purpose, not pace.</p>
+  <p>The future envisioned with purpose, not pace.</p>
+</div>
+
+<div class="product-showcase">
+  <img src="img/future.png" alt="AYNIX Future Tech">
 </div>
 
 <section id="ai">
   <h2>Artificial Intelligence</h2>
   <p>
     At AYNIX, we view Artificial Intelligence as a step toward meaningful progress not dominance.
-Our aim is to develop technology that assists, understands, and uplifts people, bringing clarity, empathy, and precision to everyday life. 
+    Our aim is to develop technology that assists, understands, and uplifts people, bringing clarity, empathy, and precision to everyday life. 
     <br><br>
-   From healthcare prediction to adaptive education, from smart cities to intelligent homes 
-AYNIX AI is envisioned as a quiet force that supports progress, simplifies life, and creates opportunities for a better futur
+    From healthcare prediction to adaptive education, from smart cities to intelligent homes 
+    AYNIX AI is envisioned as a quiet force that supports progress, simplifies life, and creates opportunities for a better future.
   </p>
-  <div class="signature">AYNIX AI  The Mind of the Future.</div>
+  <div class="signature">AYNIX AI The Mind of the Future.</div>
 </section>
 
 <section id="robotics">
   <h2>Robotics</h2>
   <p>
-   AYNIX Robotics represents the harmony between human creativity and machine intelligence.
-Our vision is not to replace people, but to enhance human capability through intelligent and adaptable systems.
-<br><br>
-We envision a future where robotics assists industries, healthcare, and everyday life seamlessly, safely, and responsibly.
-Every innovation reflects a careful balance of precision, reliability, and purpose. 
+    AYNIX Robotics represents the harmony between human creativity and machine intelligence.
+    Our vision is not to replace people, but to enhance human capability through intelligent and adaptable systems.
+    <br><br>
+    We envision a future where robotics assists industries, healthcare, and everyday life seamlessly, safely, and responsibly.
+    Every innovation reflects a careful balance of precision, reliability, and purpose. 
   </p>
-  <div class="signature">AYNIX Robotics  Motion with Meaning.</div>
+  <div class="signature">AYNIX Robotics Motion with Meaning.</div>
 </section>
 
 <section id="ev">
   <h2>Electric Mobility</h2>
   <p>
-  The AYNIX EV vision goes beyond creating vehicles  it focuses on shaping a connected, sustainable future of movement.
-<br><br>
-Our approach emphasizes sustainability, intelligence, and thoughtful design  ensuring mobility that is efficient, elegant, and aligned with the planet’s well-being.
-<br><br>
-Every innovation is guided by a simple principle:
-To move the world forward, without leaving it behind.
+    The AYNIX EV vision goes beyond creating vehicles it focuses on shaping a connected, sustainable future of movement.
+    <br><br>
+    Our approach emphasizes sustainability, intelligence, and thoughtful design ensuring mobility that is efficient, elegant, and aligned with the planet’s well-being.
+    <br><br>
+    Every innovation is guided by a simple principle:
+    To move the world forward, without leaving it behind.
   </p>
-  <div class="signature">AYNIX EV  Driving the Future Responsibly.</div>
+  <div class="signature">AYNIX EV Driving the Future Responsibly.</div>
 </section>
 
-<footer>
-  <p>© 2025 AYNIX Future Technologies. All Rights Reserved. CEO-ALI YAHYA</p>
+<footer id="contact">
+  <div class="footer-text">
+    CEO — <strong>Ali Yahya</strong>
+  </div>
+  
+  <a href="mailto:aynixofficial@gmail.com" class="footer-mail">aynixofficial@gmail.com</a>
+  
+  <a href="https://instagram.com/aynixofficial" target="_blank" class="instagram-link">Instagram</a>
+
+  <div class="copyright">
+    © 2026 AYNIX Future Technologies. All Rights Reserved.
+  </div>
 </footer>
 
 <script>
@@ -186,21 +282,17 @@ const observer = new IntersectionObserver((entries)=>{
       entry.target.classList.add('fade-in');
     }
   });
-},{threshold:0.2});
+},{threshold:0.1});
 
-document.querySelectorAll('h1, h2, p, .signature').forEach(el=>{
+document.querySelectorAll('h1, h2, p, .signature, .product-showcase').forEach(el=>{
   observer.observe(el);
 });
 
-// ===== Background Animation =====
-window.addEventListener('scroll',()=>{
-  let scrollTop = window.scrollY;
-  let maxScroll = document.body.scrollHeight - window.innerHeight;
-  let ratio = scrollTop / maxScroll;
-  let r = Math.floor(0 + ratio*25);
-  let g = Math.floor(26 + ratio*70);
-  let b = Math.floor(43 + ratio*150);
-  document.body.style.background = `linear-gradient(135deg, rgb(${r},${g},${b}), #000010)`;
+// Run folding animations quickly on load
+window.addEventListener('DOMContentLoaded', () => {
+  document.querySelector('.hero h1').classList.add('fade-in');
+  document.querySelector('.hero p').classList.add('fade-in');
+  document.querySelector('.product-showcase').classList.add('fade-in');
 });
 </script>
 
