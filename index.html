@@ -1,5 +1,4 @@
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,7 +7,7 @@
 <title>AYNIX</title>
 
 <link rel="icon" type="image/png" href="aynix.png">
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800;900&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -26,85 +25,70 @@ body {
   position: fixed;
   inset: 0;
   z-index: -1;
-  background: radial-gradient(circle at center, #00121a 8%, #000000 90%);
-  animation: bgPulse 8s ease-in-out infinite;
+  background: radial-gradient(circle at center, #000b11 0%, #000000 100%);
 }
 
-@keyframes bgPulse {
-  0% { filter: brightness(1) drop-shadow(0 0 14px rgba(0,255,255,0.05)); }
-  50% { filter: brightness(1.1) drop-shadow(0 0 30px rgba(0,255,255,0.1)); }
-  100% { filter: brightness(1) drop-shadow(0 0 14px rgba(0,255,255,0.05)); }
-}
-
-/* ===== REALISTIC INDUSTRIAL NAVBAR ===== */
+/* ===== EXPENSIVE MINIMALIST NAV BAR ===== */
 nav {
   position: fixed;
   top: 0;
   width: 100%;
-  padding: 16px 60px;
+  padding: 25px 80px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: rgba(2, 6, 12, 0.75);
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border-bottom: 1px solid rgba(0, 255, 255, 0.12);
-  box-shadow: 0 4px 40px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
   z-index: 100;
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 nav .brand {
   font-family: 'Orbitron', sans-serif;
   font-weight: 900;
-  font-size: 1.6rem;
+  font-size: 1.3rem;
   color: #fff;
-  letter-spacing: 4px;
   text-decoration: none;
-  background: linear-gradient(135deg, #fff 30%, #00ffff 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  text-shadow: 0 0 30px rgba(0, 255, 255, 0.2);
-  transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+  letter-spacing: 6px;
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 nav .brand:hover {
-  letter-spacing: 6px;
-  filter: drop-shadow(0 0 15px rgba(0, 255, 255, 0.6));
+  letter-spacing: 9px;
+  color: #00ffff;
 }
 
 nav .nav-links {
   display: flex;
-  gap: 30px;
+  gap: 40px;
 }
 
 nav a.nav-item {
-  color: #94a3b8;
+  color: #888;
   text-decoration: none;
-  font-weight: 500;
-  font-size: 0.9rem;
-  letter-spacing: 1px;
+  font-weight: 400;
+  font-size: 0.8rem;
+  letter-spacing: 2px;
   text-transform: uppercase;
   position: relative;
-  padding: 6px 0;
-  transition: color 0.3s ease;
+  transition: color 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 nav a.nav-item::after {
   content: '';
   position: absolute;
-  bottom: 0;
-  left: 50%;
+  bottom: -4px;
+  left: 0;
   width: 0;
-  height: 2px;
+  height: 1px;
   background: #00ffff;
-  box-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff;
-  transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
-  transform: translateX(-50%);
+  transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 nav a.nav-item:hover {
   color: #fff;
-  text-shadow: 0 0 8px rgba(0,255,255,0.4);
 }
 
 nav a.nav-item:hover::after {
@@ -126,7 +110,7 @@ nav a.nav-item:hover::after {
 .hero .overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0, 5, 11, 0.95));
+  background: linear-gradient(to bottom, rgba(0,0,0,0), rgba(0,0,0,1));
 }
 
 .hero .text {
@@ -137,33 +121,31 @@ nav a.nav-item:hover::after {
 
 .hero .title {
   font-family: 'Orbitron', sans-serif;
-  font-size: 5.5rem;
+  font-size: 6rem;
   font-weight: 900;
   color: #fff;
   opacity: 0;
-  letter-spacing: -8px;
-  transform: scale(0.9) translateY(40px);
-  transition: all 1.5s cubic-bezier(0.19, 1, 0.22, 1);
+  letter-spacing: -4px;
+  transform: translateY(40px);
+  transition: all 1.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .hero .tag {
-  margin-top: 20px;
-  color: #94a3b8;
-  font-size: 1.25rem;
-  letter-spacing: 3px;
+  margin-top: 24px;
+  color: #666;
+  font-size: 1rem;
+  font-weight: 300;
+  letter-spacing: 4px;
   text-transform: uppercase;
   opacity: 0;
   transform: translateY(20px);
-  transition: all 1.2s cubic-bezier(0.19, 1, 0.22, 1) 0.4s;
+  transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.4s;
 }
 
 .hero.show .title {
   opacity: 1;
-  letter-spacing: 6px;
-  transform: scale(1) translateY(0);
-  background: linear-gradient(to right, #fff 20%, #00ffff 80%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  letter-spacing: 8px;
+  transform: translateY(0);
 }
 
 .hero.show .tag {
@@ -173,12 +155,12 @@ nav a.nav-item:hover::after {
 
 /* ===== ADVANCED INTERSECTION REVEALS ===== */
 .section {
-  min-height: 82vh;
+  min-height: 80vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 120px 20px;
+  padding: 140px 40px;
   text-align: center;
   position: relative;
   z-index: 2;
@@ -187,316 +169,172 @@ nav a.nav-item:hover::after {
 .reveal-item {
   opacity: 0;
   transform: translateY(50px);
-  transition: opacity 1s cubic-bezier(0.19, 1, 0.22, 1), transform 1s cubic-bezier(0.19, 1, 0.22, 1);
+  transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .heading {
   font-family: 'Orbitron', sans-serif;
   color: #fff;
-  font-size: 2.8rem;
-  font-weight: 800;
-  margin-bottom: 35px;
-  letter-spacing: 3px;
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 40px;
+  letter-spacing: 4px;
   text-transform: uppercase;
-  position: relative;
-}
-
-.heading::before {
-  content: '// ';
-  color: #00ffff;
-  text-shadow: 0 0 10px #00ffff;
 }
 
 .body {
-  max-width: 750px;
-  color: #94a3b8;
-  font-size: 1.15rem;
-  line-height: 2;
-  font-weight: 400;
+  max-width: 700px;
+  color: #888;
+  font-size: 1.1rem;
+  line-height: 2.2;
+  font-weight: 300;
 }
 
-/* ===== HIGH-TECH PROJECT CARDS ===== */
+/* ===== PREMIUM HOVER PROJECT CARDS ===== */
 .projects {
   display: flex;
   flex-wrap: wrap;
-  gap: 35px;
-  margin-top: 50px;
+  gap: 40px;
+  margin-top: 60px;
   width: 100%;
-  max-width: 1100px;
+  max-width: 1200px;
   justify-content: center;
 }
 
 .card {
   width: 100%;
-  max-width: 340px;
-  background: linear-gradient(145deg, rgba(10, 25, 41, 0.3) 0%, rgba(2, 6, 12, 0.6) 100%);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 20px;
-  padding: 24px;
+  max-width: 260px;
+  background: transparent;
   text-decoration: none;
   color: inherit;
-  position: relative;
-  overflow: hidden;
-  transition: all 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
   text-align: left;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-}
-
-.card::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, rgba(0, 255, 255, 0.1), transparent);
-  opacity: 0;
-  transition: opacity 0.4s ease;
 }
 
 .card img {
   width: 100%;
-  height: 180px;
+  height: 280px;
   object-fit: cover;
-  border-radius: 12px;
-  margin-bottom: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  transition: transform 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+  filter: grayscale(100%) brightness(0.7);
+  border-radius: 2px;
+  margin-bottom: 24px;
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .card h4 {
   font-family: 'Orbitron', sans-serif;
   color: #fff;
-  font-size: 1.25rem;
+  font-size: 1rem;
   font-weight: 700;
-  margin-bottom: 10px;
-  transition: color 0.3s;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
 }
 
 .card p {
-  color: #64748b;
-  font-size: 0.95rem;
+  color: #666;
+  font-size: 0.85rem;
   line-height: 1.6;
+  font-weight: 300;
 }
 
 .card:hover {
-  transform: translateY(-10px) scale(1.01);
-  border-color: rgba(0, 255, 255, 0.3);
-  box-shadow: 0 20px 40px rgba(0, 255, 255, 0.08), 0 1px 0 rgba(255,255,255,0.1) inset;
+  transform: translateY(-8px);
 }
 
-.card:hover::before { opacity: 1; }
-.card:hover img { transform: scale(1.02); border-color: rgba(0,255,255,0.2); }
-.card:hover h4 { color: #00ffff; }
+.card:hover img {
+  filter: grayscale(0%) brightness(1);
+  box-shadow: 0 20px 40px rgba(0, 255, 255, 0.1);
+}
 
-/* ===== PREMIUM REALISTIC LAB/TECH FOOTER ===== */
+/* ===== STARK EXPENSIVE MODERN FOOTER ===== */
 footer {
   position: relative;
-  padding: 80px 40px 40px 40px;
-  background: #04080e;
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
-  box-shadow: inset 0 20px 40px rgba(0, 0, 0, 0.9);
+  padding: 120px 80px 60px 80px;
+  background: #000;
+  border-top: 1px solid rgba(255, 255, 255, 0.03);
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 35px;
+  gap: 40px;
   z-index: 10;
 }
 
-/* Subtle architectural divider line pattern background for tech feel */
-footer::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  width: 1px;
-  height: 40px;
-  background: linear-gradient(to bottom, #00ffff, transparent);
-}
-
 .footer-text {
-  font-size: 0.9rem;
-  letter-spacing: 2px;
+  font-size: 0.75rem;
+  letter-spacing: 4px;
   text-transform: uppercase;
-  color: #64748b;
+  color: #555;
 }
 
 .footer-text strong {
   color: #fff;
-  font-family: 'Orbitron', sans-serif;
-  letter-spacing: 1px;
+  font-weight: 500;
 }
 
-/* LAUNCH DIRECT MAILBOX ACTION */
+/* NATIVE MAIL BOX REDIRECT */
 .footer-mail {
   color: #fff;
   text-decoration: none;
-  font-weight: 700;
-  font-size: 1.4rem;
-  font-family: 'Orbitron', sans-serif;
-  letter-spacing: 1px;
-  transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
-  padding: 12px 30px;
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 4px;
+  font-weight: 300;
+  font-size: 1.5rem;
+  letter-spacing: 2px;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  padding: 5px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .footer-mail:hover {
   color: #00ffff;
-  border-color: rgba(0, 255, 255, 0.3);
-  background: rgba(0, 255, 255, 0.03);
-  box-shadow: 0 0 30px rgba(0, 255, 255, 0.1);
+  border-bottom-color: #00ffff;
 }
 
-/* HIGH TECH COMPOSITE INSTAGRAM LOGO AND BUTTON */
+/* CLEAN RESTRAINT INSTAGRAM TOUCH */
 .instagram-link {
   display: inline-flex;
   align-items: center;
-  gap: 14px;
-  color: #94a3b8;
+  gap: 10px;
+  color: #666;
   text-decoration: none;
-  font-weight: 500;
-  font-size: 0.9rem;
-  letter-spacing: 1px;
+  font-size: 0.75rem;
+  letter-spacing: 3px;
   text-transform: uppercase;
-  padding: 14px 32px;
-  background: rgba(13, 20, 30, 0.6);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 4px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
-  transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+  transition: color 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .instagram-link svg {
-  color: #94a3b8;
-  transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+  transition: transform 0.4s ease;
 }
 
 .instagram-link:hover {
   color: #fff;
-  border-color: transparent;
-  background: linear-gradient(135deg, #405de6 0%, #5851db 15%, #833ab4 30%, #c13584 50%, #e1306c 70%, #fd1d1d 85%, #f77737 100%);
-  transform: translateY(-3px);
-  box-shadow: 0 10px 30px rgba(193, 53, 132, 0.35);
 }
 
 .instagram-link:hover svg {
-  color: #fff;
-  transform: scale(1.1) rotate(8deg);
+  transform: rotate(45deg);
 }
 
 .copyright {
-  font-size: 0.75rem;
-  color: #334155;
-  letter-spacing: 1px;
-  margin-top: 15px;
-  text-transform: uppercase;
-}
-
-/* ===== BOT ASSISTANT SYSTEM ===== */
-.bot-container {
-  position: fixed;
-  bottom: 40px;
-  right: 40px;
-  z-index: 1000;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-}
-
-.bot-trigger {
-  width: 56px;
-  height: 56px;
-  border-radius: 4px;
-  background: #02060c;
-  border: 1px solid rgba(0, 255, 255, 0.3);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.6);
-  color: #00ffff;
-  display: grid;
-  place-items: center;
-  cursor: pointer;
-  transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
-}
-
-.bot-trigger:hover {
-  border-color: #00ffff;
-  box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
-  background: #00ffff;
-  color: #02060c;
-}
-
-.bot-window {
-  position: absolute;
-  bottom: 75px;
-  right: 0;
-  width: 330px;
-  background: rgba(2, 6, 12, 0.95);
-  border: 1px solid rgba(0, 255, 255, 0.2);
-  box-shadow: 0 20px 50px rgba(0,0,0,0.8);
-  backdrop-filter: blur(20px);
-  border-radius: 8px;
-  padding: 24px;
-  display: none;
-  flex-direction: column;
-  gap: 14px;
-  opacity: 0;
-  transform: translateY(15px);
-  transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
-}
-
-.bot-window.open {
-  display: flex;
-  transform: translateY(0);
-  opacity: 1;
-}
-
-.bot-header {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  padding-bottom: 12px;
-}
-
-.bot-header h5 {
   font-family: 'Orbitron', sans-serif;
-  color: #fff;
-  font-size: 0.9rem;
-  letter-spacing: 1px;
+  font-size: 0.65rem;
+  color: #444;
+  letter-spacing: 2px;
+  margin-top: 40px;
 }
 
-.bot-status-dot {
-  width: 6px;
-  height: 6px;
-  background: #00ffff;
-  border-radius: 50%;
-  box-shadow: 0 0 8px #00ffff;
-  animation: pulse 2s infinite;
-}
-
-@keyframes pulse { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; } }
-
-.bot-content {
-  font-size: 0.9rem;
-  color: #94a3b8;
-  line-height: 1.6;
-}
-
-.bot-content strong { color: #00ffff; }
-
+/* ===== REVEAL TRIGGER ===== */
 .visible {
   opacity: 1 !important;
   transform: translateY(0) !important;
 }
 
-/* ===== RESPONSIVE ===== */
+/* ===== RESPONSIVE RESCALING ===== */
 @media (max-width: 768px) {
-  nav { padding: 15px 30px; }
-  nav .brand { font-size: 1.4rem; }
-  nav .nav-links { gap: 15px; }
-  nav a.nav-item { font-size: 0.75rem; }
-  .hero .title { font-size: 3.5rem; letter-spacing: -3px; }
-  .hero.show .title { letter-spacing: 2px; }
-  .hero .tag { font-size: 1rem; }
-  .projects { flex-direction: column; align-items: center; }
-  .card { width: 95%; }
+  nav { padding: 20px 30px; }
+  nav .nav-links { display: none; } /* Kept clean on smaller devices */
+  .hero .title { font-size: 3.5rem; }
+  .projects { gap: 50px; }
+  .card { max-width: 100%; padding: 0 20px; }
+  footer { padding: 80px 30px 40px 30px; }
 }
 </style>
 </head>
@@ -542,25 +380,25 @@ footer::before {
     <a class="card reveal-item" href="smartwatch.html">
       <img src="img/smartwatch.png" alt="Smartwatches">
       <h4>Smartwatches</h4>
-      <p>Designed for the future. Precision, performance, and minimalism in one seamless experience.</p>
+      <p>Precision, performance, and minimalism in one seamless experience.</p>
     </a>
 
     <a class="card reveal-item" href="laptops.html">
       <img src="img/laptop.png" alt="Laptops">
       <h4>Laptops</h4>
-      <p>Designed with premium minimalism and engineered to deliver powerful performance for the future.</p>
+      <p>Premium minimalism engineered to deliver powerful performance.</p>
     </a>
 
     <a class="card reveal-item" href="mobiles.html">
       <img src="img/mobile.png" alt="Mobiles">
       <h4>Mobiles</h4>
-      <p>A smartphone experience crafted with sleek design, intelligent performance, and modern innovation.</p>
+      <p>Sleek design, intelligent performance, and modern innovation.</p>
     </a>
 
     <a class="card reveal-item" href="future.html">
       <img src="img/future.png" alt="Future Tech">
       <h4>Future Tech</h4>
-      <p>AI, robotics & mobility. Advanced AI technology and futuristic engineering combined into one powerful digital ecosystem.</p>
+      <p>Advanced AI ecosystems and futuristic engineering combined.</p>
     </a>
 
   </div>
@@ -568,26 +406,9 @@ footer::before {
 
 </main>
 
-<div class="bot-container">
-  <div class="bot-window" id="botWindow">
-    <div class="bot-header">
-      <div class="bot-status-dot"></div>
-      <h5>AYNIX.SYS // ONLINE</h5>
-    </div>
-    <div class="bot-content">
-      Welcome to the <strong>AYNIX</strong> matrix. This architecture serves as our primary node interface.<br><br> Use the controls above to navigate through our engineering lines across <strong>Smartwatches</strong>, <strong>Laptops</strong>, and <strong>Automated Intelligence architectures</strong>.
-    </div>
-  </div>
-  <div class="bot-trigger" id="botTrigger">
-    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 16 16">
-      <path d="M6 12.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5ZM3 8.062C3 6.76 4.235 5.765 5.53 5.886a26.58 26.58 0 0 0 4.94 0C11.765 5.765 13 6.76 13 8.062v1.157a4.448 4.448 0 0 1-1.4 3.175l-.767.68a.5.5 0 0 1-.666 0l-.768-.68a4.45 4.45 0 0 1-1.41-3.175V8.5a.5.5 0 0 0-1 0v.757a4.445 4.445 0 0 1-1.41 3.175l-.767.68a.5.5 0 0 1-.666 0l-.768-.68A4.45 4.45 0 0 1 3 9.22V8.062Zm1.396-1.843A3.495 3.495 0 0 1 7.5 5h1a3.495 3.495 0 0 1 3.104 1.219 25.581 25.581 0 0 1-7.208 0ZM5 9a1 1 0 1 0 0-2 1 1 0 0 0 0 2Zm6 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z"/>
-    </svg>
-  </div>
-</div>
-
 <footer id="contact">
   <div class="footer-text">
-    EXECUTIVE OFFICE — <strong>Ali Yahya</strong>
+    CHIEF EXECUTIVE OFFICER // <strong>Ali Yahya</strong>
   </div>
 
   <a href="mailto:aynixofficial@gmail.com" class="footer-mail">
@@ -595,14 +416,14 @@ footer::before {
   </a>
 
   <a href="https://instagram.com/aynixofficial" target="_blank" class="instagram-link">
-    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16">
       <path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a5.517 5.517 0 0 0-1.994 1.3 5.514 5.514 0 0 0-1.3 1.993C.11 4.703.048 5.284.048 6.703a11.54 11.54 0 0 0 0 2.594c.047 1.419.109 2 .313 2.51.198.51.465.982.866 1.381.4.4.872.666 1.381.866.51.204 1.09.266 2.509.313 1.42.047 2 .048 2.594.048 1.419 0 2-.001 2.51-.205.51-.198.982-.465 1.381-.866.4-.4.666-.872.866-1.381.204-.51.266-1.09.313-2.509.047-1.42.048-2 .048-2.594 0-1.419-.001-2-.205-2.51a5.541 5.541 0 0 0-.866-1.381 5.562 5.562 0 0 0-1.381-.866C11.297.11 10.716.048 9.297.048 7.878.048 7.3.047 5.881.047H8zM8 3.892a4.108 4.108 0 1 1 0 8.216 4.108 4.108 0 0 1 0-8.216zm0 6.784a2.676 2.676 0 1 0 0-5.352 2.676 2.676 0 0 0 0 5.352zm4.271-6.845a.96.96 0 1 1-1.92 0 .96.96 0 0 1 1.92 0z"/>
     </svg>
-    <span>Instagram Pulse</span>
+    <span>Instagram Portfolio</span>
   </a>
 
   <div class="copyright">
-    &copy; <span id="year"></span> AYNIX LABS INC. QUANTUM FRAMEWORKS RETAINED.
+    &copy; <span id="year"></span> AYNIX. ALL RIGHTS RESERVED.
   </div>
 </footer>
 
@@ -611,30 +432,7 @@ footer::before {
 </script>
 
 <script>
-/* ===== BOT EVENT CONTROLLER ===== */
-const botTrigger = document.getElementById('botTrigger');
-const botWindow = document.getElementById('botWindow');
-
-botTrigger.addEventListener('click', (e) => {
-  e.stopPropagation();
-  if(botWindow.classList.contains('open')) {
-    botWindow.classList.remove('open');
-    setTimeout(() => { botWindow.style.display = 'none'; }, 400);
-  } else {
-    botWindow.style.display = 'flex';
-    setTimeout(() => { botWindow.classList.add('open'); }, 10);
-  }
-});
-
-document.addEventListener('click', () => {
-  if(botWindow.classList.contains('open')) {
-    botWindow.classList.remove('open');
-    setTimeout(() => { botWindow.style.display = 'none'; }, 400);
-  }
-});
-botWindow.addEventListener('click', (e) => e.stopPropagation());
-
-/* ===== SYSTEM PARTICLE ENGINE ===== */
+/* ===== MINIMAL AMBIENT BACKGROUND MATRIX ===== */
 const canvas = document.getElementById('particle-bg');
 const ctx = canvas.getContext('2d');
 let particles = [];
@@ -659,10 +457,10 @@ class Particle {
     this.x = Math.random() * canvas.width;
     this.y = Math.random() * canvas.height;
     this.depth = Math.random();
-    this.r = 0.6 + this.depth * 2;
-    this.alpha = 0.2 + this.depth * 0.4;
-    this.vx = (Math.random() - 0.5) * (0.2 + this.depth);
-    this.vy = (Math.random() - 0.5) * (0.2 + this.depth);
+    this.r = 0.5 + this.depth * 1.5;
+    this.alpha = 0.15 + this.depth * 0.3;
+    this.vx = (Math.random() - 0.5) * (0.1 + this.depth * 0.2);
+    this.vy = (Math.random() - 0.5) * (0.1 + this.depth * 0.2);
   }
 
   move() {
@@ -674,8 +472,8 @@ class Particle {
       const dy = mouse.y - this.y;
       const d = Math.sqrt(dx*dx + dy*dy);
       if (d < 140) {
-        this.x -= dx * 0.0015 * this.depth;
-        this.y -= dy * 0.0015 * this.depth;
+        this.x -= dx * 0.001 * this.depth;
+        this.y -= dy * 0.001 * this.depth;
       }
     }
 
@@ -695,19 +493,19 @@ class Particle {
 
 function init() {
   particles = [];
-  const count = Math.min(140, canvas.width * canvas.height / 9000);
+  const count = Math.min(100, canvas.width * canvas.height / 12000);
   for (let i=0;i<count;i++) particles.push(new Particle());
 }
 init();
 
 function connect() {
-  for (let i=0;i<particles.length;i++) {
-    for (let j=i+1;j<particles.length;j++) {
+  for (let i=0; i<particles.length; i++) {
+    for (let j=i+1; j<particles.length; j++) {
       const a = particles[i], b = particles[j];
       const dx = a.x - b.x, dy = a.y - b.y;
       const d = Math.sqrt(dx*dx + dy*dy);
-      if (d < 120) {
-        ctx.strokeStyle = `rgba(0,255,255,${0.05*(1-d/120)})`;
+      if (d < 150) {
+        ctx.strokeStyle = `rgba(0,255,255,${0.03 * (1 - d/150)})`;
         ctx.beginPath();
         ctx.moveTo(a.x,a.y);
         ctx.lineTo(b.x,b.y);
@@ -725,16 +523,18 @@ function animate() {
 }
 animate();
 
-/* INITIALIZATION */
+/* TRANSITION REVEALS */
 window.addEventListener('DOMContentLoaded', () => {
   document.getElementById('hero').classList.add('show');
 });
 
 const obs = new IntersectionObserver(entries => {
   entries.forEach(e => {
-    if(e.isIntersecting){ e.target.classList.add('visible'); }
+    if(e.isIntersecting){ 
+      e.target.classList.add('visible'); 
+    }
   });
-},{threshold:.10});
+},{threshold:.05});
 
 document.querySelectorAll('.reveal-item').forEach(el => obs.observe(el));
 </script>
