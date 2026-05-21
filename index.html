@@ -14,24 +14,24 @@ html, body { height: 100%; scroll-behavior: smooth; }
 
 body {
   font-family: 'Roboto', sans-serif;
-  background: #000;
+  background: #000002;
   color: #fff;
   overflow-x: hidden;
 }
 
-/* ===== PARTICLE CANVAS ===== */
+/* ===== ANIMATED GEMINI VIGNETTE CANVAS ===== */
 #particle-bg {
   position: fixed;
   inset: 0;
   z-index: -1;
-  background: radial-gradient(circle at center, #001 8%, #000 90%);
-  animation: bgPulse 8s ease-in-out infinite;
+  background: radial-gradient(circle at center, #0a1626 0%, #000002 70%);
+  animation: geminiPulse 10s ease-in-out infinite;
 }
 
-@keyframes bgPulse {
-  0% { filter: brightness(1) drop-shadow(0 0 14px rgba(0,255,255,0.05)); }
-  50% { filter: brightness(1.15) drop-shadow(0 0 30px rgba(0,255,255,0.12)); }
-  100% { filter: brightness(1) drop-shadow(0 0 14px rgba(0,255,255,0.05)); }
+@keyframes geminiPulse {
+  0% { background: radial-gradient(circle at center, #0a1626 0%, #000002 70%); }
+  50% { background: radial-gradient(circle at center, #0f223d 0%, #000002 75%); }
+  100% { background: radial-gradient(circle at center, #0a1626 0%, #000002 70%); }
 }
 
 /* ===== ATTRACTIVE NAV BAR ===== */
@@ -242,86 +242,57 @@ nav a.nav-item:hover::after {
   background: rgba(0, 255, 255, 0.02);
 }
 
-/* ===== PREMIUM CYBERPUNK FOOTER ===== */
+/* ===== SIMPLE CLEAN FOOTER ===== */
 footer {
   position: relative;
   padding: 60px 20px 40px 20px;
   text-align: center;
-  background: linear-gradient(to top, #00050a 0%, rgba(0,0,0,0.95) 100%);
-  border-top: 1px solid rgba(0, 255, 255, 0.1);
-  color: #9a9a9a;
+  background: #000000;
+  border-top: 1px solid rgba(255, 255, 255, 0.03);
+  color: #555;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 25px;
+  gap: 15px;
   z-index: 10;
 }
 
 .footer-text {
-  font-size: 1rem;
-  letter-spacing: 0.5px;
-  color: #aaa;
+  font-size: 0.9rem;
+  color: #555;
 }
 
 .footer-text strong {
-  color: #fff;
+  color: #aaa;
   font-family: 'Orbitron', sans-serif;
 }
 
 .footer-mail {
-  color: #00ffff;
-  text-decoration: none;
-  font-weight: 700;
-  font-size: 1.1rem;
-  letter-spacing: 0.5px;
-  transition: all 0.3s ease;
-  padding: 5px 15px;
-  border: 1px solid transparent;
-  border-radius: 30px;
-}
-
-.footer-mail:hover {
-  text-shadow: 0 0 15px #00ffff;
-  background: rgba(0, 255, 255, 0.05);
-  border-color: rgba(0, 255, 255, 0.2);
-}
-
-/* GLOWING INSTAGRAM PILL BUTTON */
-.instagram-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  color: #fff;
+  color: #aaa;
   text-decoration: none;
   font-weight: 500;
   font-size: 0.95rem;
-  padding: 10px 24px;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 30px;
-  transition: all 0.4s ease;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+  transition: color 0.3s ease;
+}
+
+.footer-mail:hover {
+  color: #fff;
+}
+
+.instagram-link {
+  color: #aaa;
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: color 0.3s ease;
 }
 
 .instagram-link:hover {
-  background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
-  border-color: transparent;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(220, 39, 67, 0.4);
-}
-
-.instagram-link svg {
-  transition: transform 0.4s ease;
-}
-
-.instagram-link:hover svg {
-  transform: rotate(15deg) scale(1.1);
+  color: #fff;
 }
 
 .copyright {
   font-size: 0.8rem;
-  color: #666;
-  margin-top: 10px;
+  color: #444;
 }
 
 /* ===== REVEAL TRIGGER ===== */
@@ -420,24 +391,15 @@ footer {
     aynixofficial@gmail.com
   </a>
 
-  <a href="https://instagram.com/aynixofficial" target="_blank" class="instagram-link">
-    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16">
-      <path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a5.517 5.517 0 0 0-1.994 1.3 5.514 5.514 0 0 0-1.3 1.993C.11 4.703.048 5.284.048 6.703a11.54 11.54 0 0 0 0 2.594c.047 1.419.109 2 .313 2.51.198.51.465.982.866 1.381.4.4.872.666 1.381.866.51.204 1.09.266 2.509.313 1.42.047 2 .048 2.594.048 1.419 0 2-.001 2.51-.205.51-.198.982-.465 1.381-.866.4-.4.666-.872.866-1.381.204-.51.266-1.09.313-2.509.047-1.42.048-2 .048-2.594 0-1.419-.001-2-.205-2.51a5.541 5.541 0 0 0-.866-1.381 5.562 5.562 0 0 0-1.381-.866C11.297.11 10.716.048 9.297.048 7.878.048 7.3.047 5.881.047H8zM8 3.892a4.108 4.108 0 1 1 0 8.216 4.108 4.108 0 0 1 0-8.216zm0 6.784a2.676 2.676 0 1 0 0-5.352 2.676 2.676 0 0 0 0 5.352zm4.271-6.845a.96.96 0 1 1-1.92 0 .96.96 0 0 1 1.92 0z"/>
-    </svg>
-    <span>Connect on Instagram</span>
-  </a>
+  <a href="https://instagram.com/aynixofficial" target="_blank" class="instagram-link">Instagram</a>
 
   <div class="copyright">
-    &copy; <span id="year"></span> AYNIX. All rights reserved.
+    &copy; 2026 AYNIX. All rights reserved.
   </div>
 </footer>
 
 <script>
-  document.getElementById("year").textContent = new Date().getFullYear();
-</script>
-
-<script>
-/* ===== ENHANCED PARTICLES ===== */
+/* ===== ENHANCED PARTICLES OVER GEMINI PULSE ===== */
 const canvas = document.getElementById('particle-bg');
 const ctx = canvas.getContext('2d');
 let particles = [];
@@ -521,12 +483,22 @@ function connect() {
 }
 
 function animate() {
-  ctx.clearRect(0,0,canvas.width,canvas.height);
   particles.forEach(p=>{p.move();p.draw();});
   connect();
   requestAnimationFrame(animate);
 }
-animate();
+
+// Background layer canvas rendering loops
+function drawLoop() {
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  particles.forEach(p=>{p.draw();});
+  connect();
+  requestAnimationFrame(drawLoop);
+}
+setInterval(() => {
+  particles.forEach(p=>{p.move();});
+}, 16);
+drawLoop();
 
 /* HERO + REVEALS */
 window.addEventListener('DOMContentLoaded', () => {
