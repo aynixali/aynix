@@ -48,12 +48,22 @@ footer { padding: 80px 40px; text-align: center; border-top: 1px solid rgba(255,
 .footer-text strong { color: #aaa; font-family: 'Orbitron', sans-serif; }
 .footer-mail { color: #e0e0e0; text-decoration: none; font-weight: 500; font-size: 1.1rem; transition: 0.3s; }
 .footer-mail:hover { color: #fff; }
-.instagram-link { display: inline-flex; align-items: center; gap: 12px; color: #e0e0e0; text-decoration: none; font-weight: 500; transition: 0.3s; }
-.instagram-link:hover { color: #fff; }
-.instagram-link svg { transition: transform 0.4s ease; }
-.instagram-link:hover svg { transform: rotate(45deg); }
-.copyright { font-size: 0.8rem; color: #444; }
 
+/* Instagram Link Design */
+.instagram-link { 
+  display: inline-flex; align-items: center; gap: 10px; 
+  padding: 10px 20px; border: 1px solid #333; border-radius: 50px; 
+  color: #aaa; text-decoration: none; font-weight: 500; 
+  transition: 0.4s ease; font-size: 0.9rem; letter-spacing: 1px;
+}
+.instagram-link:hover { 
+  color: #00ffff; border-color: #00ffff; 
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
+}
+.instagram-link svg { transition: transform 0.4s ease; }
+.instagram-link:hover svg { transform: rotate(360deg); }
+
+.copyright { font-size: 0.8rem; color: #444; }
 .fade-in { opacity: 1 !important; transform: translateY(0) !important; }
 
 @media (max-width: 768px) { .nav-links { display: none; } .hero h1 { font-size: 3.2rem; } }
@@ -76,11 +86,11 @@ footer { padding: 80px 40px; text-align: center; border-top: 1px solid rgba(255,
 
 <div class="hero">
   <h1>Smartwatch Series</h1>
-  <p>Time redesigned around awareness, presence, and balance.</p>
+  <p>Planning & Vision Stage</p>
 </div>
 
 <div class="product-showcase">
-  <img src="img/smartwatch.png" alt="AYNIX Smartwatch">
+  <img src="img/smartwatch.png" alt="AYNIX Smartwatch Concept">
 </div>
 
 <section id="vision">
@@ -95,11 +105,11 @@ footer { padding: 80px 40px; text-align: center; border-top: 1px solid rgba(255,
 </section>
 
 <footer id="contact">
-  <p class="footer-text">© 2026 <strong>AYNIX</strong> Smartwatch Series. All Rights Reserved. CEO — ALI YAHYA</p>
+  <p class="footer-text">© 2026 <strong>AYNIX</strong> Smartwatch Series. Planning Stage. CEO — ALI YAHYA</p>
   <a href="mailto:aynixofficial@gmail.com" class="footer-mail">aynixofficial@gmail.com</a>
   <a href="https://instagram.com/aynixofficial" target="_blank" class="instagram-link">
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
-    Instagram
+    FOLLOW OUR PROGRESS
   </a>
   <p class="copyright">AYNIX Core Engineering Framework Labs.</p>
 </footer>
