@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mobiles</title>
+<title>Smartwatches</title>
 <link rel="icon" type="image/png" href="aynix.png">
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800;900&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
@@ -46,6 +46,7 @@ nav {
   border-bottom: 1px solid rgba(0, 255, 255, 0.15);
   box-shadow: 0 4px 30px rgba(0, 255, 255, 0.03);
   z-index: 100;
+  transform: translateZ(0);
 }
 
 nav .brand {
@@ -133,7 +134,7 @@ nav a.nav-item:hover::after {
 
 /* ===== Balanced Showcase Frame ===== */
 .product-showcase {
-  max-width: 750px;
+  max-width: 450px; /* Scaled precisely to fit a sleek wearable silhouette */
   margin: 0 auto 100px auto;
   padding: 0 30px;
   text-align: center;
@@ -274,5 +275,87 @@ footer {
   nav .nav-links { display: none; }
   .hero h1 { font-size: 3.2rem; }
   .hero p { font-size: 1rem; }
-  .projects { flex-direction: column; align-items: center; }
-  .product-showcase { margin-top: 0; padding:
+  .product-showcase { max-width: 100%; padding: 0 20px; }
+}
+</style>
+</head>
+<body>
+
+<div id="bg-layer"></div>
+
+<nav>
+  <a href="index.html" class="brand">AYNIX</a>
+  <div class="nav-links">
+    <a href="smartwatch.html" class="nav-item">Smartwatches</a>
+    <a href="laptops.html" class="nav-item">Laptops</a>
+    <a href="mobiles.html" class="nav-item">Mobiles</a>
+    <a href="future.html" class="nav-item">Future Tech</a>
+    <a href="#contact" class="nav-item">Contact</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <h1>Smartwatch Series</h1>
+  <p>Time redesigned around awareness, presence, and balance.</p>
+</div>
+
+<div class="product-showcase">
+  <img src="img/smartwatch.png" alt="AYNIX Smartwatch">
+</div>
+
+<section id="vision">
+  <h2>The Wearable Philosophy</h2>
+  <p>
+    The AYNIX Smartwatch Series is crafted to do more than deliver notifications. It is engineered to bridge the gap between human intuition and raw biological metrics, offering clear insights into your daily rhythm.
+    <br><br>
+    With a seamless design and high-grade materials, it rests naturally on your wrist—acting as an elegant, quiet guardian of your physical well-being.
+  </p>
+  <div class="signature">AYNIX Crafted for Intentional Living.</div>
+</section>
+
+<section id="future">
+  <h2>Evolving the Wristwear</h2>
+  <p>
+    We view the future of wearables as an extension of identity rather than an overload of screens. Our ongoing engineering balances ultra-low-power systems with robust biometric awareness.
+    <br><br>
+    The AYNIX Smartwatch changes how you relate to your time, creating space for what truly matters.
+  </p>
+</section>
+
+<footer id="contact">
+  <p class="footer-text">© 2026 <strong>AYNIX</strong> Smartwatch Series. All Rights Reserved. CEO-ALI YAHYA</p>
+  
+  <a href="mailto:aynixofficial@gmail.com" class="footer-mail">aynixofficial@gmail.com</a>
+  
+  <a href="https://instagram.com/aynixofficial" target="_blank" class="instagram-link">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+    Instagram
+  </a>
+  <p class="copyright">AYNIX Core Engineering Framework Labs.</p>
+</footer>
+
+<script>
+// ===== Scroll Animations =====
+const observer = new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      entry.target.classList.add('fade-in');
+    }
+  });
+},{threshold:0.1});
+
+// Target elements below the fold line to prevent window animation conflicts
+document.querySelectorAll('section h2, section p, .signature').forEach(el=>{
+  observer.observe(el);
+});
+
+// Run folding intro animations cleanly on load
+window.addEventListener('DOMContentLoaded', () => {
+  document.querySelector('.hero h1').classList.add('fade-in');
+  document.querySelector('.hero p').classList.add('fade-in');
+  document.querySelector('.product-showcase').classList.add('fade-in');
+});
+</script>
+
+</body>
+</html>
