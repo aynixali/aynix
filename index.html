@@ -6,209 +6,292 @@
 <title>AYNIX</title>
 
 <link rel="icon" type="image/png" href="aynix.png">
+
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 
 <style>
-* { box-sizing: border-box; margin: 0; padding: 0; }
-html, body { height: 100%; }
 
-body {
-  font-family: 'Roboto', sans-serif;
-  background: #000;
-  color: #fff;
-  overflow-x: hidden;
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
 }
 
-/* ===== PARTICLE CANVAS ===== */
-#particle-bg {
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  background: radial-gradient(circle at center, #001 8%, #000 90%);
-  animation: bgPulse 8s ease-in-out infinite;
+html{
+  scroll-behavior:smooth;
 }
 
-@keyframes bgPulse {
-  0% { filter: brightness(1) drop-shadow(0 0 14px rgba(0,255,255,0.05)); }
-  50% { filter: brightness(1.15) drop-shadow(0 0 30px rgba(0,255,255,0.12)); }
-  100% { filter: brightness(1) drop-shadow(0 0 14px rgba(0,255,255,0.05)); }
+body{
+  font-family:'Roboto',sans-serif;
+  background:#000;
+  color:#fff;
+  overflow-x:hidden;
 }
 
-/* ===== NAV ===== */
-nav {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  padding: 18px 36px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: rgba(0,0,0,0.7);
-  backdrop-filter: blur(8px);
-  border-bottom: 1px solid rgba(0,255,255,0.06);
-  z-index: 50;
+/* ===== BACKGROUND ===== */
+
+#particle-bg{
+  position:fixed;
+  inset:0;
+  z-index:-1;
+  background:radial-gradient(circle at center,#001 8%,#000 90%);
+  animation:bgPulse 8s ease-in-out infinite;
 }
 
-nav .brand {
-  font-family: 'Orbitron', sans-serif;
-  color: #00ffff;
-  text-shadow: 0 0 10px #00ffff;
+@keyframes bgPulse{
+  0%{
+    filter:brightness(1)
+    drop-shadow(0 0 14px rgba(0,255,255,0.05));
+  }
+
+  50%{
+    filter:brightness(1.15)
+    drop-shadow(0 0 30px rgba(0,255,255,0.12));
+  }
+
+  100%{
+    filter:brightness(1)
+    drop-shadow(0 0 14px rgba(0,255,255,0.05));
+  }
 }
 
-nav a {
-  color: #fff;
-  margin-left: 18px;
-  text-decoration: none;
-  font-weight: 600;
+/* ===== NAVBAR ===== */
+
+nav{
+  position:fixed;
+  top:0;
+  width:100%;
+  padding:18px 36px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  background:rgba(0,0,0,0.7);
+  backdrop-filter:blur(8px);
+  border-bottom:1px solid rgba(0,255,255,0.06);
+  z-index:100;
 }
 
-nav a:hover {
-  color: #00ffff;
-  text-shadow: 0 0 10px #00ffff;
+.brand{
+  font-family:'Orbitron',sans-serif;
+  color:#00ffff;
+  text-decoration:none;
+  font-size:1.6rem;
+  font-weight:700;
+  text-shadow:0 0 10px #00ffff;
+  transition:.3s ease;
+}
+
+.brand:hover{
+  transform:scale(1.03);
+}
+
+.nav-links a{
+  color:#fff;
+  margin-left:22px;
+  text-decoration:none;
+  font-weight:600;
+  transition:.3s ease;
+}
+
+.nav-links a:hover{
+  color:#00ffff;
+  text-shadow:0 0 10px #00ffff;
 }
 
 /* ===== HERO ===== */
-.hero {
-  height: 100vh;
-  display: grid;
-  place-items: center;
-  position: relative;
-  text-align: center;
-  background-size: cover;
-  background-position: center;
+
+.hero{
+  height:100vh;
+  display:grid;
+  place-items:center;
+  text-align:center;
+  position:relative;
+  background-size:cover;
+  background-position:center;
 }
 
-.hero .overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(0,0,0,0.45);
+.overlay{
+  position:absolute;
+  inset:0;
+  background:rgba(0,0,0,0.45);
 }
 
-.hero .text {
-  position: relative;
-  z-index: 2;
+.text{
+  position:relative;
+  z-index:2;
 }
 
-.hero .title {
-  font-family: 'Orbitron', sans-serif;
-  font-size: 4rem;
-  color: #00ffff;
-  opacity: 0;
-  transform: translateY(20px);
-  transition: .9s ease;
+.title{
+  font-family:'Orbitron',sans-serif;
+  font-size:4rem;
+  color:#00ffff;
+  opacity:0;
+  transform:translateY(20px);
+  transition:.9s ease;
 }
 
-.hero .tag {
-  margin-top: 12px;
-  color: #cfcfcf;
-  opacity: 0;
-  transform: translateY(20px);
-  transition: .9s ease .15s;
+.tag{
+  margin-top:14px;
+  color:#d0d0d0;
+  opacity:0;
+  transform:translateY(20px);
+  transition:.9s ease .15s;
 }
 
 .hero.show .title,
-.hero.show .tag {
-  opacity: 1;
-  transform: translateY(0);
+.hero.show .tag{
+  opacity:1;
+  transform:translateY(0);
 }
 
 /* ===== SECTIONS ===== */
-.section {
-  min-height: 82vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 90px 20px;
-  text-align: center;
+
+.section{
+  min-height:82vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  padding:90px 20px;
 }
 
-.heading {
-  font-family: 'Orbitron', sans-serif;
-  color: #00ffff;
-  font-size: 2.2rem;
-  margin-bottom: 22px;
-  opacity: 0;
-  transform: translateY(20px);
-  transition: .8s ease;
+.heading{
+  font-family:'Orbitron',sans-serif;
+  color:#00ffff;
+  font-size:2.2rem;
+  margin-bottom:24px;
+  opacity:0;
+  transform:translateY(20px);
+  transition:.8s ease;
 }
 
-.body {
-  max-width: 900px;
-  color: #bfbfbf;
-  line-height: 1.8;
-  opacity: 0;
-  transform: translateY(20px);
-  transition: .8s ease .1s;
+.body{
+  max-width:900px;
+  color:#bfbfbf;
+  line-height:1.8;
+  opacity:0;
+  transform:translateY(20px);
+  transition:.8s ease .1s;
 }
 
-/* ===== PROJECT CARDS ===== */
-.projects {
-  display: flex;
-  flex-direction: column;
-  gap: 80px;
-  margin-top: 30px;
-  width: 100%;
-  align-items: center;
+/* ===== PROJECTS ===== */
+
+.projects{
+  width:100%;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:80px;
+  margin-top:30px;
 }
 
-.card {
-  width: 70%;
-  max-width: 500px;
-  background: rgba(255,255,255,0.02);
-  border: 1px solid rgba(0,255,255,0.06);
-  border-radius: 14px;
-  padding: 28px;
-  text-decoration: none;
-  color: inherit;
-  opacity: 0;
-  transform: translateY(40px);
-  transition: .8s ease;
+.card{
+  width:70%;
+  max-width:500px;
+  background:rgba(255,255,255,0.02);
+  border:1px solid rgba(0,255,255,0.06);
+  border-radius:14px;
+  padding:28px;
+  text-decoration:none;
+  color:inherit;
+  opacity:0;
+  transform:translateY(40px);
+  transition:.8s ease;
 }
 
-.card img {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-  border-radius: 8px;
-  margin-bottom: 12px;
+.card img{
+  width:100%;
+  height:200px;
+  object-fit:cover;
+  border-radius:8px;
+  margin-bottom:14px;
 }
 
-.card h4 {
-  font-family: 'Orbitron', sans-serif;
-  color: #00ffff;
-  margin-bottom: 8px;
+.card h4{
+  font-family:'Orbitron',sans-serif;
+  color:#00ffff;
+  margin-bottom:10px;
 }
 
-.card p {
-  color: #cfcfcf;
+.card p{
+  color:#cfcfcf;
+  line-height:1.7;
 }
 
-.card:hover {
-  transform: translateY(-10px) scale(1.03);
-  box-shadow: 0 18px 50px rgba(0,255,255,0.12);
+.card:hover{
+  transform:translateY(-10px) scale(1.03);
+  box-shadow:0 18px 50px rgba(0,255,255,0.12);
 }
 
 /* ===== FOOTER ===== */
-footer {
-  padding: 34px;
-  text-align: center;
-  background: rgba(0,0,0,0.85);
-  border-top: 1px solid rgba(255,255,255,0.05);
-  color: #9a9a9a;
+
+footer{
+  padding:40px 20px;
+  text-align:center;
+  background:rgba(0,0,0,0.85);
+  border-top:1px solid rgba(255,255,255,0.05);
+}
+
+.footer-text{
+  color:#9a9a9a;
+  margin-bottom:14px;
+}
+
+.footer-mail{
+  display:block;
+  margin-bottom:18px;
+  color:#00ffff;
+  text-decoration:none;
+}
+
+.footer-mail:hover{
+  text-shadow:0 0 10px #00ffff;
+}
+
+.instagram-link{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  color:#fff;
+  text-decoration:none;
+  transition:.3s ease;
+}
+
+.instagram-link:hover{
+  color:#7c3aed;
 }
 
 /* ===== REVEAL ===== */
-.visible {
-  opacity: 1 !important;
-  transform: translateY(0) !important;
+
+.visible{
+  opacity:1 !important;
+  transform:translateY(0) !important;
 }
 
 /* ===== RESPONSIVE ===== */
-@media (max-width: 720px) {
-  .hero .title { font-size: 2.6rem; }
-  .card { width: 90%; }
+
+@media(max-width:720px){
+
+  nav{
+    padding:16px 18px;
+  }
+
+  .nav-links a{
+    margin-left:12px;
+    font-size:14px;
+  }
+
+  .title{
+    font-size:2.6rem;
+  }
+
+  .card{
+    width:92%;
+  }
+
 }
+
 </style>
 </head>
 
@@ -216,184 +299,346 @@ footer {
 
 <canvas id="particle-bg"></canvas>
 
+<!-- ===== NAVBAR ===== -->
+
 <nav>
-  <div class="brand">AYNIX</div>
-  <div>
-    <a href="index.html">Home</a>
+
+  <a href="index.html" class="brand">AYNIX</a>
+
+  <div class="nav-links">
     <a href="smartwatch.html">Smartwatches</a>
     <a href="laptops.html">Laptops</a>
     <a href="mobiles.html">Mobiles</a>
     <a href="future.html">Future Tech</a>
+    <a href="#contact">Contact</a>
   </div>
+
 </nav>
 
+<!-- ===== HERO ===== -->
+
 <section class="hero" id="hero" style="background-image:url('img/a.jpg')">
+
   <div class="overlay"></div>
+
   <div class="text">
     <div class="title">AYNIX</div>
-    <div class="tag">Aynix turning ideas and vision into powerful digital reality.</div>
+
+    <div class="tag">
+      Aynix turning ideas and vision into powerful digital reality.
+    </div>
   </div>
+
 </section>
+
+<!-- ===== MAIN ===== -->
 
 <main>
 
 <section class="section">
+
   <div class="heading">Our Vision</div>
+
   <div class="body">
-    AYNIX builds with vision not noise.<br><br>
-    We turn ideas and vision into real, usable systems that actually move things forward.<br><br>
+    AYNIX builds with vision not noise.
+    <br><br>
+
+    We turn ideas and vision into real, usable systems that actually move things forward.
+    <br><br>
+
     Clean design. Smart engineering. Real impact.
   </div>
+
 </section>
 
 <section class="section">
+
   <div class="heading">Projects</div>
+
   <div class="projects">
 
     <a class="card" href="smartwatch.html">
-      <img src="aynix/img/smartwatch.png">
+      <img src="img/smartwatch.png">
+
       <h4>Smartwatches</h4>
-      <p>Designed for the future. Precision, performance, and minimalism in one seamless experience.</p>
+
+      <p>
+        Designed for the future. Precision, performance,
+        and minimalism in one seamless experience.
+      </p>
     </a>
 
     <a class="card" href="laptops.html">
       <img src="img/laptop.png">
+
       <h4>Laptops</h4>
-      <p>Designed with premium minimalism and engineered to deliver powerful performance for the future..</p>
+
+      <p>
+        Designed with premium minimalism and engineered
+        to deliver powerful performance for the future.
+      </p>
     </a>
 
     <a class="card" href="mobiles.html">
       <img src="img/mobile.png">
+
       <h4>Mobiles</h4>
-      <p>A  smartphone experience crafted with sleek design, intelligent performance, and modern innovation.</p>
+
+      <p>
+        A smartphone experience crafted with sleek design,
+        intelligent performance, and modern innovation.
+      </p>
     </a>
 
     <a class="card" href="future.html">
       <img src="img/future.png">
+
       <h4>Future Tech</h4>
-      <p>AI, robotics & mobility.Advanced AI technology and futuristic engineering combined into one powerful digital ecosystem</p>
+
+      <p>
+        Advanced AI technology and futuristic engineering
+        combined into one powerful digital ecosystem.
+      </p>
     </a>
 
   </div>
+
 </section>
 
 </main>
-<footer>
+
+<!-- ===== FOOTER ===== -->
+
+<footer id="contact">
+
   <div class="footer-text">
-    © <span id="year"></span> Aynix  Built Ceo Ali yahya
+    © <span id="year"></span> Aynix. CEO — Ali Yahya
   </div>
 
-  <a href="mailto:contact@aynixglobal.com" class="footer-mail">
-    contact@aynixglobal.com
+  <a href="mailto:aynixofficial@gmail.com" class="footer-mail">
+    aynixofficial@gmail.com
   </a>
+
+  <a href="https://instagram.com/aynixofficial"
+     target="_blank"
+     class="instagram-link">
+
+    <svg xmlns="http://www.w3.org/2000/svg"
+         width="22"
+         height="22"
+         fill="currentColor"
+         viewBox="0 0 16 16">
+
+      <path d="M8 0C5.829 0 5.556.01 4.703.048 
+      3.85.087 3.269.222 2.76.42a5.507 
+      5.507 0 0 0-1.994 1.3A5.507 5.507 
+      0 0 0 .42 3.714c-.198.509-.333 
+      1.09-.372 1.943C.01 6.51 0 6.783 
+      0 8.954c0 2.171.01 2.444.048 
+      3.297.039.853.174 1.434.372 
+      1.943.24.618.565 1.14 1.3 
+      1.994.854.735 1.376 1.06 
+      1.994 1.3.509.198 1.09.333 
+      1.943.372C5.556 15.99 5.829 
+      16 8 16c2.171 0 2.444-.01 
+      3.297-.048.853-.039 1.434-.174 
+      1.943-.372a5.507 5.507 0 0 0 
+      1.994-1.3 5.507 5.507 0 0 0 
+      1.3-1.994c.198-.509.333-1.09.372-1.943.038-.853.048-1.126.048-3.297 
+      0-2.171-.01-2.444-.048-3.297-.039-.853-.174-1.434-.372-1.943a5.507 
+      5.507 0 0 0-1.3-1.994A5.507 
+      5.507 0 0 0 13.24.42c-.509-.198-1.09-.333-1.943-.372C10.444.01 
+      10.171 0 8 0z"/>
+    </svg>
+
+    <span>@aynixofficial</span>
+
+  </a>
+
 </footer>
+
+<!-- ===== YEAR ===== -->
+
 <script>
-  document.getElementById("year").textContent = new Date().getFullYear();
+document.getElementById("year").textContent =
+new Date().getFullYear();
 </script>
 
+<!-- ===== PARTICLES ===== -->
 
 <script>
-/* ===== ENHANCED PARTICLES (SAME STYLE, MORE LIFE) ===== */
+
 const canvas = document.getElementById('particle-bg');
 const ctx = canvas.getContext('2d');
-let particles = [];
-let mouse = { x: null, y: null };
 
-function resize() {
+let particles = [];
+let mouse = { x:null, y:null };
+
+function resize(){
   canvas.width = innerWidth;
   canvas.height = innerHeight;
 }
+
 window.addEventListener('resize', resize);
 resize();
 
-document.addEventListener('mousemove', e => {
+document.addEventListener('mousemove', e=>{
   mouse.x = e.clientX;
   mouse.y = e.clientY;
 });
 
-class Particle {
-  constructor() { this.reset(); }
+class Particle{
 
-  reset() {
-    this.x = Math.random() * canvas.width;
-    this.y = Math.random() * canvas.height;
-    this.depth = Math.random();
-    this.r = 0.6 + this.depth * 2;
-    this.alpha = 0.25 + this.depth * 0.5;
-    this.vx = (Math.random() - 0.5) * (0.3 + this.depth);
-    this.vy = (Math.random() - 0.5) * (0.3 + this.depth);
+  constructor(){
+    this.reset();
   }
 
-  move() {
+  reset(){
+    this.x = Math.random()*canvas.width;
+    this.y = Math.random()*canvas.height;
+
+    this.depth = Math.random();
+
+    this.r = 0.6 + this.depth*2;
+
+    this.alpha = 0.25 + this.depth*0.5;
+
+    this.vx = (Math.random()-0.5)*(0.3+this.depth);
+    this.vy = (Math.random()-0.5)*(0.3+this.depth);
+  }
+
+  move(){
+
     this.x += this.vx;
     this.y += this.vy;
 
-    if (mouse.x) {
+    if(mouse.x){
+
       const dx = mouse.x - this.x;
       const dy = mouse.y - this.y;
+
       const d = Math.sqrt(dx*dx + dy*dy);
-      if (d < 140) {
-        this.x -= dx * 0.0015 * this.depth;
-        this.y -= dy * 0.0015 * this.depth;
+
+      if(d < 140){
+        this.x -= dx*0.0015*this.depth;
+        this.y -= dy*0.0015*this.depth;
       }
+
     }
 
-    if (this.x < -50 || this.x > canvas.width + 50 ||
-        this.y < -50 || this.y > canvas.height + 50) this.reset();
+    if(
+      this.x < -50 ||
+      this.x > canvas.width+50 ||
+      this.y < -50 ||
+      this.y > canvas.height+50
+    ){
+      this.reset();
+    }
+
   }
 
-  draw() {
+  draw(){
+
     ctx.globalAlpha = this.alpha;
+
     ctx.fillStyle = '#00ffff';
+
     ctx.beginPath();
-    ctx.arc(this.x, this.y, this.r, 0, Math.PI*2);
+    ctx.arc(this.x,this.y,this.r,0,Math.PI*2);
     ctx.fill();
+
     ctx.globalAlpha = 1;
+
   }
+
 }
 
-function init() {
+function init(){
+
   particles = [];
-  const count = Math.min(160, canvas.width * canvas.height / 8500);
-  for (let i=0;i<count;i++) particles.push(new Particle());
+
+  const count =
+  Math.min(160, canvas.width*canvas.height/8500);
+
+  for(let i=0;i<count;i++){
+    particles.push(new Particle());
+  }
+
 }
+
 init();
 
-function connect() {
-  for (let i=0;i<particles.length;i++) {
-    for (let j=i+1;j<particles.length;j++) {
-      const a = particles[i], b = particles[j];
-      const dx = a.x - b.x, dy = a.y - b.y;
+function connect(){
+
+  for(let i=0;i<particles.length;i++){
+
+    for(let j=i+1;j<particles.length;j++){
+
+      const a = particles[i];
+      const b = particles[j];
+
+      const dx = a.x - b.x;
+      const dy = a.y - b.y;
+
       const d = Math.sqrt(dx*dx + dy*dy);
-      if (d < 120) {
-        ctx.strokeStyle = `rgba(0,255,255,${0.06*(1-d/120)})`;
+
+      if(d < 120){
+
+        ctx.strokeStyle =
+        `rgba(0,255,255,${0.06*(1-d/120)})`;
+
         ctx.beginPath();
         ctx.moveTo(a.x,a.y);
         ctx.lineTo(b.x,b.y);
         ctx.stroke();
+
       }
+
     }
+
   }
+
 }
 
-function animate() {
+function animate(){
+
   ctx.clearRect(0,0,canvas.width,canvas.height);
-  particles.forEach(p=>{p.move();p.draw();});
+
+  particles.forEach(p=>{
+    p.move();
+    p.draw();
+  });
+
   connect();
+
   requestAnimationFrame(animate);
+
 }
+
 animate();
 
-/* HERO + REVEALS */
-window.onload = () => document.getElementById('hero').classList.add('show');
+/* ===== HERO REVEAL ===== */
+
+window.onload = ()=>{
+  document.getElementById('hero').classList.add('show');
+};
 
 const obs = new IntersectionObserver(entries=>{
+
   entries.forEach(e=>{
-    if(e.isIntersecting){ e.target.classList.add('visible'); }
+
+    if(e.isIntersecting){
+      e.target.classList.add('visible');
+    }
+
   });
+
 },{threshold:.15});
 
-document.querySelectorAll('.heading,.body,.card').forEach(el=>obs.observe(el));
+document
+.querySelectorAll('.heading,.body,.card')
+.forEach(el=>obs.observe(el));
+
 </script>
 
 </body>
