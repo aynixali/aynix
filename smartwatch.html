@@ -1,75 +1,237 @@
+Here is the complete, professional code for your `smartwatch.html` file. It follows the exact structure, CSS, navigation, and animation logic of your `laptops.html` page, ensuring the visual experience remains perfectly consistent across your entire site.
+
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smartwatches</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800;900&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        
-        /* Background matches your site's pulse style */
-        body { 
-            background: radial-gradient(circle at center, #1a1a1a 0%, #000000 70%);
-            background-attachment: fixed;
-            color: #ffffff; 
-            font-family: 'Roboto', sans-serif; 
-            line-height: 1.6; 
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smartwatches | AYNIX</title>
+<link rel="icon" type="image/png" href="aynix.png">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* ===== Base ===== */
+*{margin:0;padding:0;box-sizing:border-box;scroll-behavior:smooth;}
+body{
+  font-family:'Roboto',sans-serif;
+  background: radial-gradient(circle at center, #0a1626 0%, #000002 70%);
+  background-attachment: fixed;
+  color:#fff;
+  overflow-x:hidden;
+}
 
-        /* Navigation */
-        nav { display: flex; justify-content: space-between; align-items: center; padding: 30px 50px; }
-        .brand { font-family: 'Orbitron', sans-serif; font-size: 1.5rem; text-decoration: none; color: #ffffff; letter-spacing: 2px; }
-        .nav-links { display: flex; gap: 30px; }
-        .nav-links a { color: #aaaaaa; text-decoration: none; font-size: 0.9rem; transition: 0.3s; }
-        .nav-links a:hover { color: #ffffff; }
+/* ===== Simple Premium Nav ===== */
+nav{
+  position:fixed;
+  top:0;left:0;
+  width:100%;
+  padding:25px 50px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  background:rgba(0,0,0,0.4);
+  border-bottom:1px solid rgba(255, 255, 255, 0.04);
+  backdrop-filter:blur(24px);
+  -webkit-backdrop-filter:blur(24px);
+  z-index:100;
+}
+nav .brand {
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 700;
+  font-size: 1.3rem;
+  color: #fff;
+  text-decoration: none;
+  letter-spacing: 4px;
+}
+nav .nav-links {
+  display: flex;
+  gap: 25px;
+}
+nav a{
+  color:#aaa;
+  text-decoration:none;
+  font-weight:500;
+  font-size: 0.95rem;
+  transition:0.3s;
+}
+nav a:hover{color:#fff;}
 
-        /* Main Content */
-        main { max-width: 800px; margin: 80px auto; padding: 0 20px; }
-        h1 { font-family: 'Orbitron', sans-serif; font-size: 3.5rem; margin-bottom: 20px; color: #ffffff; }
-        .sub-header { font-style: italic; color: #888888; margin-bottom: 60px; font-size: 1.2rem; }
-        
-        h2 { font-family: 'Orbitron', sans-serif; font-size: 2.2rem; margin: 50px 0 20px 0; color: #ffffff; }
-        p { color: #cccccc; margin-bottom: 20px; }
-        
-        /* Footer */
-        footer { text-align: center; margin-top: 100px; padding: 40px; color: #555555; font-size: 0.9rem; border-top: 1px solid #222222; }
-        .footer-links { margin-top: 15px; display: flex; justify-content: center; gap: 20px; }
-        .footer-links a { color: #aaaaaa; text-decoration: none; transition: 0.3s; }
-        .footer-links a:hover { color: #ffffff; }
-    </style>
+/* ===== Hero ===== */
+.hero{
+  height:75vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  padding: 120px 20px 0 20px;
+}
+.hero h1{
+  font-family:'Orbitron',sans-serif;
+  font-size:4rem;
+  color:#fff;
+  opacity:0;
+  transform:translateY(40px);
+  transition:1.2s ease;
+}
+.hero p{
+  color:#ccc;
+  font-size:1.3rem;
+  margin-top:20px;
+  opacity:0;
+  transform:translateY(40px);
+  transition:1.2s ease 0.3s;
+  max-width:700px;
+}
+
+/* ===== Balanced Showcase Frame ===== */
+.product-showcase {
+  max-width: 450px;
+  margin: 0 auto 100px auto;
+  padding: 0 30px;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: 1.2s ease 0.5s;
+}
+.product-showcase img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 6px;
+}
+
+/* ===== Sections ===== */
+section{
+  min-height:60vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  padding:60px 20px;
+}
+section h2{
+  font-size:2.3rem;
+  color:#fff;
+  font-family:'Orbitron',sans-serif;
+  margin-bottom:20px;
+  opacity:0;
+  transform:translateY(40px);
+  transition:1s ease;
+}
+section p{
+  max-width:800px;
+  color:#aaa;
+  font-size:1.15rem;
+  line-height:1.8;
+  opacity:0;
+  transform:translateY(40px);
+  transition:1s ease 0.3s;
+}
+.signature{
+  font-size:1.3rem;
+  margin-top:40px;
+  color:#fff;
+  opacity:0;
+  transform:translateY(40px);
+  transition:1.5s ease 0.6s;
+}
+
+/* ===== Simple Clean Footer ===== */
+footer{
+  background:#000;
+  text-align:center;
+  padding:40px 20px;
+  color:#555;
+  font-size:0.9rem;
+  border-top:1px solid rgba(255, 255, 255, 0.03);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+footer p { color: #555; }
+.footer-mail { color: #aaa; text-decoration: none; transition: color 0.3s; }
+.footer-mail:hover { color: #fff; }
+.instagram-link { color: #aaa; text-decoration: none; font-size: 0.95rem; transition: color 0.3s; }
+.instagram-link:hover { color: #fff; }
+
+.fade-in{ opacity:1!important; transform:translateY(0)!important; }
+</style>
 </head>
 <body>
 
-    <nav>
-        <a href="index.html" class="brand">AYNIX</a>
-        <div class="nav-links">
-            <a href="smartwatch.html">Smartwatches</a>
-            <a href="laptops.html">Laptops</a>
-            <a href="mobiles.html">Mobiles</a>
-            <a href="future.html">Future Tech</a>
-            <a href="#contact">Contact</a>
-        </div>
-    </nav>
+<nav>
+  <a href="index.html" class="brand">AYNIX</a>
+  <div class="nav-links">
+    <a href="smartwatch.html">Smartwatches</a>
+    <a href="laptops.html">Laptops</a>
+    <a href="mobiles.html">Mobiles</a>
+    <a href="future.html">Future Tech</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
 
-    <main>
-        <h1>Smartwatches</h1>
-        <p class="sub-header">The wearable philosophy envisioned with precision, not haste.</p>
-        
-        <h2>Our Vision</h2>
-        <p>The AYNIX Smartwatch Series is crafted to do more than deliver notifications. It is engineered to bridge the gap between human intuition and raw biological metrics, offering clear insights into your daily rhythm.</p>
+<div class="hero">
+  <h1>Smartwatches</h1>
+  <p>The wearable philosophy envisioned with precision, not haste.</p>
+</div>
 
-        <h2>Evolving the Wristwear</h2>
-        <p>Our approach to wearables extends beyond specifications. AYNIX is building a platform where innovation meets reliability—a future where design, power, and sustainability exist in perfect balance.</p>
-    </main>
+<div class="product-showcase">
+  <img src="img/smartwatch.png" alt="AYNIX Smartwatch">
+</div>
 
-    <footer id="contact">
-        <p>© 2026 AYNIX Smartwatch Series. All Rights Reserved. CEO — ALI YAHYA</p>
-        <div class="footer-links">
-            <a href="mailto:aynixofficial@gmail.com">aynixofficial@gmail.com</a>
-            <a href="https://instagram.com/aynixofficial" target="_blank">Instagram</a>
-        </div>
-    </footer>
+<section id="vision">
+  <h2>The Wearable Philosophy</h2>
+  <p>
+    The AYNIX Smartwatch Series is crafted to do more than deliver notifications. 
+    It is engineered to bridge the gap between human intuition and raw biological metrics, 
+    offering clear insights into your daily rhythm.
+    <br><br>
+    This is a vision of intentional living, designed with discipline and crafted with purpose. 
+    With every detail, we aim to define the next era of wearables—refined, intuitive, and focused.
+  </p>
+  <div class="signature">AYNIX Crafted for Intentional Living.</div>
+</section>
+
+<section id="future">
+  <h2>Evolving the Wristwear</h2>
+  <p>
+    Our approach to wearables extends beyond specifications. 
+    We view the future of wearables as an extension of identity rather than an overload of screens.
+    <br><br>
+    AYNIX is building a system where our ongoing engineering balances ultra-low-power systems 
+    with robust biometric awareness. Every AYNIX product is a step toward that future, 
+    guided by focus, patience, and excellence.
+  </p>
+</section>
+
+<footer id="contact">
+  <p>© 2026 AYNIX Smartwatch Series. All Rights Reserved. CEO-ALI YAHYA</p>
+  <a href="mailto:aynixofficial@gmail.com" class="footer-mail">aynixofficial@gmail.com</a>
+  <a href="https://instagram.com/aynixofficial" target="_blank" class="instagram-link">Instagram</a>
+</footer>
+
+<script>
+const observer = new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){ entry.target.classList.add('fade-in'); }
+  });
+},{threshold:0.1});
+
+document.querySelectorAll('h1, h2, p, .signature, .product-showcase').forEach(el=>{
+  observer.observe(el);
+});
+
+window.addEventListener('DOMContentLoaded', () => {
+  document.querySelector('.hero h1').classList.add('fade-in');
+  document.querySelector('.hero p').classList.add('fade-in');
+  document.querySelector('.product-showcase').classList.add('fade-in');
+});
+</script>
 
 </body>
 </html>
+
+```
